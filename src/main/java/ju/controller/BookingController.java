@@ -45,16 +45,6 @@ public class BookingController {
 		return new ModelAndView("big/bookingIndex");
 	}
 
-	@RequestMapping("/rrBook.ju")
-	public ModelAndView rrBook(RefRoomDTO dto) throws ParseException {
-		Long unixTime = System.currentTimeMillis();
-		String rr_idx = "RR" + unixTime;
-
-		dto.setRr_idx(rr_idx);
-		dto.setRr_start(bigdao.getStart());
-		return new ModelAndView("big/bookMsg", "msg", bigdao.booking(dto) > 0 ? "성공" : "행복");
-	}
-
 	@RequestMapping(value = "/srBook.ju", method = RequestMethod.GET)
 	public ModelAndView srBookForm() {
 		return new ModelAndView("big/srBook");
@@ -73,11 +63,6 @@ public class BookingController {
 		dto.setSr_idx(sr_idx);
 
 		return new ModelAndView("big/bookMsg", "msg", bigdao.srBook(dto) > 0 ? "성공" : "실패");
-	}
-
-	@RequestMapping("/cal.ju")
-	public ModelAndView calendar() {
-		return new ModelAndView("big/calendar");
 	}
 
 	@RequestMapping(value = "/srCal.ju", method = RequestMethod.POST)

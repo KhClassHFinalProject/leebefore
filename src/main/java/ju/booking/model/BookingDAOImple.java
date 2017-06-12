@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import ju.dto.MemberDTO;
 import ju.dto.RefRoomDTO;
 import ju.dto.StudyRoomDTO;
 
@@ -74,4 +75,58 @@ public class BookingDAOImple implements BookingDAO {
 		m.put("sr_resdate", resdate);
 		return sql.selectOne("bigSELsrUserCheck",m);
 	}
+
+	public MemberDTO bigBarcodeLogin(String mem_idx) {
+		return sql.selectOne("bigSELbarcodeLogin", mem_idx);
+	}
+
+	public RefRoomDTO bigBarcodeCheck(String mem_idx) {
+		// TODO Auto-generated method stub
+		return sql.selectOne("bigSELloginCheck", mem_idx);
+	}
+
+	public int returnSeat(String rr_idx) {
+		// TODO Auto-generated method stub
+		return sql.update("bigUPreturnSeat",rr_idx);
+	}
+
+	public int bigAddTime(String rr_idx, String rr_add_s) {
+		int rr_add_int = Integer.parseInt(rr_add_s)+1;
+		String rr_add = rr_add_int + "~3";
+		Map m = new HashMap();
+		m.put("rr_idx", rr_idx);
+		m.put("rr_add", rr_add);
+		return sql.update("bigUPaddTime", m);
+	}
+
+	public int adminSeatDisabled(RefRoomDTO dto) {
+		// TODO Auto-generated method stub
+		return sql.insert("bigINSadminSeatDisabled", dto);
+	}
+
+	public RefRoomDTO adminSeatInfo(int seatno, int cate) {
+		// TODO Auto-generated method stub
+		Map m = new HashMap();
+		m.put("seatno", seatno);
+		m.put("cate", cate);
+		return sql.selectOne("bigSELadminSeatInfo",m);
+	}
+
+	public int adminRoomDisabled(StudyRoomDTO dto) {
+		int insert = 0;
+		for(int i=1;i<=4;i++){
+			dto.setSr_time(i);
+			insert += sql.insert("bigINSadminRoomDisbled", dto);
+		}
+		return insert;
+	}
+
+	public StudyRoomDTO adminRoomInfo(int roomno, int time, String resdate) {
+		Map m = new HashMap();
+		m.put("sr_roomno", roomno);
+		m.put("sr_time", time);
+		m.put("sr_resdate", resdate);
+		return sql.selectOne("bigSELadminRoomInfo",m);
+	}
+
 }

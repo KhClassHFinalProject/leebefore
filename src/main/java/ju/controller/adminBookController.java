@@ -28,7 +28,7 @@ public class adminBookController {
 	public LoanDAO loanDao;
 	
 	@Autowired
-	public ju.member.model.MemberDAO memberDao;
+	public ju.model.MemberDAO memberDao;
 	
 	@Autowired
 	public YeyakDAO yeyakDao;

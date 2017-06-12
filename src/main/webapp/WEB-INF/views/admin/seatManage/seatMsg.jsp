@@ -2,5 +2,5 @@
     pageEncoding="UTF-8"%>
 <script>
 	alert('${msg}');
-	location.href='/lee/bookingIndex.ju';
+	location.href='/lee/seatIndex.ju';
 </script>

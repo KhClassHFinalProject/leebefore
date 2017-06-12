@@ -49,4 +49,9 @@
 	where
 	${wh}
 </select>
-  </mapper>
+<select id="bigSELbarcodeLogin" parameterType="String" resultType="ju.dto.MemberDTO">
+	SELECT * FROM
+	member
+	WHERE mem_idx=#{mem_idx} 
+</select>
+</mapper>

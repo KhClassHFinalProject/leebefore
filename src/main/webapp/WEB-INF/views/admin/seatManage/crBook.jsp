@@ -62,7 +62,7 @@
 </style>
 </head>
 <body>
-	<form action="rrBook.ju" name="cr_form">
+	<form action="adminSeatDisabled.ju" name="cr_form">
 		<input type="hidden" name="rr_seatno" id="cr_seatno">
 		<input type="hidden" name="mem_idx" id="crmem_idx" value="${sessionScope.normalMember}">
 		<input type="hidden" name="rr_cate" value="3">
