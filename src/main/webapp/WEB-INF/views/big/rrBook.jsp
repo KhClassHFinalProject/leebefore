@@ -19,6 +19,8 @@
 				$("#rr_cate").val('1');
 				$("#rrBooking").attr("disabled", true);
 				$("#rrtd>button").removeClass("btn-primary").addClass("btn-default");
+				$(".seatInfo2").hide();
+				$(".seatInfo1").show();
 			}
 		});
 		
@@ -30,6 +32,8 @@
 				$("#rr_cate").val('2');
 				$("#rrBooking").attr("disabled", true);
 				$("#rrtd>button").removeClass("btn-primary").addClass("btn-default");
+				$(".seatInfo1").hide();
+				$(".seatInfo2").show();
 			}
 		});
 		
@@ -44,13 +48,19 @@
 			, type : "GET"
 			, dataType : "json" 
 			, success : function(rr){
-				for(var i = 0; i<rr.rlist1.length;i++){
-					$("#r1tab>tbody>tr>."+rr.rlist1[i].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
+				var using1;
+				for(using1 = 0; using1<rr.rlist1.length;using1++){
+					$("#r1tab>tbody>tr>."+rr.rlist1[using1].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
 				}
+				$(".using1Seat").text(using1);
+				$(".empty1Seat").text(20-using1);
 				
-				for(var i = 0; i<rr.rlist2.length;i++){
-					$("#r2tab>tbody>tr>."+rr.rlist2[i].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
+				var using2;
+				for(using2 = 0; using2<rr.rlist2.length;using2++){
+					$("#r2tab>tbody>tr>."+rr.rlist2[using2].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
 				}
+				$(".using2Seat").text(using2);
+				$(".empty2Seat").text(20-using2);
 			}
 		});
 		
@@ -63,7 +73,7 @@
 </script>
 <style type="text/css">
 .modal-body {
-	width: 350px;
+	width: 550px;
 	height: 400px;
 }
 
@@ -152,6 +162,26 @@
 								</table>
 							</div>
 						</div>
+							<div class="seatInfo1">
+							<fieldset>
+								<legend>열람실 현황</legend>
+									<ul>
+										<li>총 좌석 수 : 20석</li>
+										<li>사용중인 좌석 : <span class="using1Seat"></span>석</li>
+										<li>사용가능 좌석 : <span class="empty1Seat"></span>석</li>
+									</ul>
+								</fieldset>
+							</div>
+							<div class="seatInfo2" style="display:none;">
+							<fieldset>
+								<legend>열람실 현황</legend>
+									<ul>
+										<li>총 좌석 수 : 20석</li>
+										<li>사용중인 좌석 : <span class="using2Seat"></span>석</li>
+										<li>사용가능 좌석 : <span class="empty2Seat"></span>석</li>
+									</ul>
+								</fieldset>
+							</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal" onclick="javascript:location.reload();">닫기</button>

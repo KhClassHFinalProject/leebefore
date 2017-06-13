@@ -62,7 +62,7 @@
 </style>
 </head>
 <body>
-	<form action="adminSeatDisabled.ju" name="cr_form">
+	<form action="crBook.ju" name="cr_form">
 		<input type="hidden" name="rr_seatno" id="cr_seatno">
 		<input type="hidden" name="mem_idx" id="crmem_idx" value="${sessionScope.normalMember}">
 		<input type="hidden" name="rr_cate" value="3">
@@ -70,7 +70,7 @@
 			<h2>자료실 이용</h2>
 			<!-- Trigger the modal with a button -->
 			<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-				data-target="#crBook">예약하기</button>
+				data-target="#crBook">이용하기</button>
 			<!-- Modal -->
 			<div class="modal fade" id="crBook" role="dialog">
 				<div class="modal-dialog">

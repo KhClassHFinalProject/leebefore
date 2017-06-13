@@ -21,6 +21,8 @@
 				$("#rrBooking").attr("disabled", true);
 				$("#rrtd>button").removeClass("btn-primary").addClass("btn-default");
 				cate = 1;
+				$(".rdiv2_2").hide();
+				$(".rdiv2_1").show();
 			}
 		});
 		
@@ -33,6 +35,8 @@
 				$("#rrBooking").attr("disabled", true);
 				$("#rrtd>button").removeClass("btn-primary").addClass("btn-default");
 				cate = 2;
+				$(".rdiv2_1").hide();
+				$(".rdiv2_2").show();
 			}
 		});
 		
@@ -127,7 +131,7 @@
 }
 
 .rdiv2_1 {
-	float: right;
+	float: left;
 	width: 100px;
 	height: 200px;
 }
@@ -143,7 +147,7 @@
 	width: 200px;
 	height: 200px;
 }
-n
+
 .rrbtn {
 	width: 50px;
 }
@@ -196,14 +200,6 @@ n
 										</tr>
 									</c:forEach>
 								</table>
-								<div class="rdiv2_1">
-								회원번호 : 
-								<div id="rdiv2idx"></div>
-								<br> 열람실 : 
-								<div id="rdiv2cate"></div>
-								<br> 좌석번호 : 
-								<div id="rdiv2seatno"></div>
-								</div>
 							</div>
 							<div id="r2div" style="display: none;" class="rdiv">
 								<table class="tab" id="r2tab">
@@ -225,16 +221,23 @@ n
 										</tr>
 									</c:forEach>
 								</table>
-								<div class="rdiv2_2">
-								회원번호 :
-								<div id="rdiv2idx"></div>
-								<br> 열람실 :
-								<div id="rdiv2cate"></div>
-								<br> 좌석번호 :
-								<div id="rdiv2seatno"></div>
-								</div>
 							</div>
-							
+						</div>
+						<div class="rdiv2_1">
+							회원번호 : 
+							<div id="rdiv2idx"></div>
+							<br> 열람실 : 
+							<div id="rdiv2cate"></div>
+							<br> 좌석번호 : 
+							<div id="rdiv2seatno"></div>
+						</div>
+						<div class="rdiv2_2" style="display:none;">
+							회원번호 :
+							<div id="rdiv2idx"></div>
+							<br> 열람실 :
+							<div id="rdiv2cate"></div>
+							<br> 좌석번호 :
+							<div id="rdiv2seatno"></div>
 						</div>
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-danger" id="rrBooking"

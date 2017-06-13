@@ -143,7 +143,11 @@
 				<button type="button" class="btn btn-danger" onclick="javascript:location.href='${returnseat}'">반납하기</button>
 			</c:if>
 			</div>
+			<div class="container">
+				<button type="button" class="btn btn-info btn-lg" onclick="javascript:location.href='/lee/seatLogout.ju'">로그아웃</button>
+			</div>
 		</c:when>
 	</c:choose>
+	
 </body>
 </html>

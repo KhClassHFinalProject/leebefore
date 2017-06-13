@@ -29,4 +29,5 @@
 		from member, (select * from regist where sj_idx=#{sj_idx})a
 		where member.mem_idx=a.mem_idx
  	</select>
+ 	
  </mapper>

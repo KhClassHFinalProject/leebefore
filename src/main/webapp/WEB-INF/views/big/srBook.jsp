@@ -24,9 +24,9 @@
 
 		$('#calendar').fullCalendar({
 			header: {
-				left: 'today',
+				left: '',
 		        center: 'title',
-		        right: 'month'
+		        right: ''
 			},
 		    defaultDate: moment().format('YYYY-MM-DD'),
 		    selectable: true,
@@ -169,57 +169,65 @@
 .roompath{
 	background-color: black;
 }
+
+.srRoomhead{
+	margin-top: 20px;
+}
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 	<form name="sr_form" action="srBook.ju" method="post">
 	<input type="hidden" name="sr_roomno" id="sr_roomno">
 	<input type="hidden" name="resdate" id="resdate" value="">
-	<div id='calendar'></div>
-	<div>
-		<h2 id="selectedDate"></h2>
-		<table class="table" border="1" id="roomStatus" style="display:none;">
-			<thead>
-				<tr>
-					<th>&nbsp;</th>
-					<th>1번방</th>
-					<th>2번방</th>
-					<th>3번방</th>
-					<th>4번방</th>
-				</tr>
-			</thead>
-			<tbody class="rt_check">
-				<tr class="time1" id="timetr">
-					<th>09~12시</th>
-					<td class="room1">empty</td>
-					<td class="room2">empty</td>
-					<td class="room3">empty</td>
-					<td class="room4">empty</td>
-				</tr>
-				<tr class="time2" id="timetr">
-					<th>12~15시</th>
-					<td class="room1">empty</td>
-					<td class="room2">empty</td>
-					<td class="room3">empty</td>
-					<td class="room4">empty</td>
-				</tr>
-				<tr class="time3" id="timetr">
-					<th>15~18시</th>
-					<td class="room1">empty</td>
-					<td class="room2">empty</td>
-					<td class="room3">empty</td>
-					<td class="room4">empty</td>
-				</tr>
-				<tr class="time4" id="timetr">
-					<th>18~21시</th>
-					<td class="room1">empty</td>
-					<td class="room2">empty</td>
-					<td class="room3">empty</td>
-					<td class="room4">empty</td>
-				</tr>
-			</tbody>
-		</table>
+	<div class="srRoomhead">
+		<div id='calendar' style="width:50%;float:left"></div>
+		<div style="width:40%; float:right;">
+			<h2 id="selectedDate"></h2>
+			<table class="table" border="1" id="roomStatus" style="display:none;" >
+				<thead>
+					<tr>
+						<th>&nbsp;</th>
+						<th>1번방</th>
+						<th>2번방</th>
+						<th>3번방</th>
+						<th>4번방</th>
+					</tr>
+				</thead>
+				<tbody class="rt_check">
+					<tr class="time1" id="timetr">
+						<th>09~12시</th>
+						<td class="room1">empty</td>
+						<td class="room2">empty</td>
+						<td class="room3">empty</td>
+						<td class="room4">empty</td>
+					</tr>
+					<tr class="time2" id="timetr">
+						<th>12~15시</th>
+						<td class="room1">empty</td>
+						<td class="room2">empty</td>
+						<td class="room3">empty</td>
+						<td class="room4">empty</td>
+					</tr>
+					<tr class="time3" id="timetr">
+						<th>15~18시</th>
+						<td class="room1">empty</td>
+						<td class="room2">empty</td>
+						<td class="room3">empty</td>
+						<td class="room4">empty</td>
+					</tr>
+					<tr class="time4" id="timetr">
+						<th>18~21시</th>
+						<td class="room1">empty</td>
+						<td class="room2">empty</td>
+						<td class="room3">empty</td>
+						<td class="room4">empty</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
+	<hr>
 	<div id="s1div" class="sdiv" style="display:none;">
 		<table class="roomtab">
 			<tr>
@@ -301,8 +309,10 @@
 			</table>
 		</div>
 	</div>
+	<div class="buttondiv" style="float:left;">
 	<button type="submit" class="btn btn-success" id="srBooking" disabled="disabled">예약하기</button>
 	<button type="button" class="btn btn-danger" id="srCancel" style="display:none;">예약취소하기</button>
+	</div>
 	</form>
 </body>
 </html>

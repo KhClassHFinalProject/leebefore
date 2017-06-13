@@ -91,6 +91,9 @@ public class BookingDAOImple implements BookingDAO {
 	}
 
 	public int bigAddTime(String rr_idx, String rr_add_s) {
+		if(rr_add_s.equals("불가")){
+			return -1;
+		}
 		int rr_add_int = Integer.parseInt(rr_add_s)+1;
 		String rr_add = rr_add_int + "~3";
 		Map m = new HashMap();

@@ -13,7 +13,7 @@
 			#{mem_idx},
 			#{rr_start},
 			#{rr_start}+(1/12),
-			'0~3',
+			#{rr_add},
 			#{rr_start}
 		)
 	</insert>
@@ -61,5 +61,10 @@
 		WHERE rr_seatno = #{seatno}
 		AND rr_cate = #{cate}
 		AND rr_end <![CDATA[>]]> sysdate
+	</select>
+	<select id="bigSELbarcodeLogin" parameterType="String" resultType="ju.dto.MemberDTO">
+		SELECT * FROM
+		member
+		WHERE mem_idx=#{mem_idx} 
 	</select>
 </mapper>

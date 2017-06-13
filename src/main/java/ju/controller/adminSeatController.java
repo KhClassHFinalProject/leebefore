@@ -56,10 +56,11 @@ public class adminSeatController {
 		return new ModelAndView("admin/seatManage/seatIndex");
 	}
 
-	@RequestMapping("/testSeat.ju")
-	public ModelAndView testSeat(HttpSession session) {
-		session.invalidate();
-		return new ModelAndView("admin/seatManage/seatIndex");
+	@RequestMapping("/seatLogout.ju")
+	public ModelAndView seatLogout(HttpSession session) {
+		session.removeAttribute("rrdto");
+		session.removeAttribute("normalMember");
+		return new ModelAndView("admin/seatManage/seatMsg","msg","로그아웃되었습니다.");
 	}
 
 	/** login with barcode */
@@ -83,12 +84,11 @@ public class adminSeatController {
 		RefRoomDTO rrdto = bigdao.bigBarcodeCheck(mem_idx);
 		if (rrdto == null) {
 			session.setAttribute("rrdto", rrdto);
-			return new ModelAndView("admin/seatManage/seatIndex", "msg", memdto.getMem_name() + "님 환영합니다.");
+			return new ModelAndView("admin/seatManage/seatMsg", "msg", memdto.getMem_name() + "님 환영합니다.");
 		}
-
-		rrdto.setRr_add(
-				Integer.parseInt(rrdto.getRr_add().split("~")[0]) == Integer.parseInt(rrdto.getRr_add().split("~")[1])
-						? "불가" : rrdto.getRr_add().split("~")[0]);
+		if (!rrdto.getRr_add().equals("불가")){
+			rrdto.setRr_add(Integer.parseInt(rrdto.getRr_add().split("~")[0]) == Integer.parseInt(rrdto.getRr_add().split("~")[1])? "불가" : rrdto.getRr_add().split("~")[0]);
+		}
 		session.setAttribute("rrdto", rrdto);
 		return new ModelAndView("admin/seatManage/seatMsg", "msg", memdto.getMem_name() + "님 환영합니다.");
 	}
@@ -101,9 +101,24 @@ public class adminSeatController {
 
 		dto.setRr_idx(rr_idx);
 		dto.setRr_start(bigdao.getStart());
+		dto.setRr_add("0~3");
 		session.removeAttribute("normalMember");
 		session.removeAttribute("rrdto");
 
+		return new ModelAndView("admin/seatManage/seatMsg", "msg", bigdao.booking(dto) > 0 ? "성공" : "행복");
+	}
+	
+	@RequestMapping("/crBook.ju")
+	public ModelAndView crBook(RefRoomDTO dto, HttpSession session) throws ParseException {
+		Long unixTime = System.currentTimeMillis();
+		String rr_idx = "RR" + unixTime;
+		
+		dto.setRr_idx(rr_idx);
+		dto.setRr_start(bigdao.getStart());
+		dto.setRr_add("불가");
+		session.removeAttribute("normalMember");
+		session.removeAttribute("rrdto");
+		
 		return new ModelAndView("admin/seatManage/seatMsg", "msg", bigdao.booking(dto) > 0 ? "성공" : "행복");
 	}
 

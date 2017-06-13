@@ -139,14 +139,14 @@
 									</c:forEach>
 								</table>
 							</div>
-							<div class="cdiv2">
-								회원번호 :
-								<div id="cdiv2idx"></div><br>
-								열람실 : 
-								<div id="cdiv2cate"></div><br>
-								좌석번호 :
-								<div id="cdiv2seatno"></div>
-							</div>
+						</div>
+						<div class="cdiv2">
+							회원번호 :
+							<div id="cdiv2idx"></div><br>
+							열람실 : 
+							<div id="cdiv2cate"></div><br>
+							좌석번호 :
+							<div id="cdiv2seatno"></div>
 						</div>
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-danger" id="crBooking"

@@ -21,11 +21,13 @@
 			, type : "GET"
 			, dataType : "json" 
 			, success : function(rr){
-				for(var i = 0; i<rr.rlist3.length;i++){
-					$("#r3tab>tbody>tr>."+rr.rlist3[i].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
+				var using3;
+				for(using3 = 0; using3<rr.rlist3.length;using3++){
+					$("#r3tab>tbody>tr>."+rr.rlist3[using3].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
 				}
+				$(".using3Seat").text(using3);
+				$(".empty3Seat").text(20-using3);
 			}
-			
 		});
 	});
 
@@ -100,6 +102,16 @@
 										</tr>
 									</c:forEach>
 								</table>
+								<div>
+									<fieldset>
+										<legend>자료실 현황</legend>
+										<ul>
+											<li>총 좌석 수 : 20석</li>
+											<li>사용중인 좌석 : <span class="using3Seat"></span>석</li>
+											<li>사용가능 좌석 : <span class="empty3Seat"></span>석</li>
+										</ul>
+									</fieldset>
+								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
