@@ -12,6 +12,23 @@
 <script type="text/javascript" src="/lee/resources/bootstrapk/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/lee/resources/sideMenu/sideScript.js"></script>
 <link rel="stylesheet" href="/lee/resources/sideMenu/css/sideStyle.css">
+<script type="text/javascript">
+	$(document).ready(function(){
+		var mem_idx = '${sessionScope.sidx}';
+		var mem = {mem_idx:mem_idx};
+		$.ajax({
+			url : "duplicateRegist.ju"
+			, type : "POST"
+			, data : mem
+			, dataType : "json" 
+			, success : function(dr){
+				for(var i = 0; i<dr.myrgst.length;i++){
+					$("#"+dr.myrgst[i]).attr("disabled","disabled");
+				}
+			}
+		});
+	});
+</script>
 <style>
 @media ( min-width :769px) {
 	#changeForm {
@@ -60,10 +77,11 @@
 					<thead>
 						<tr>
 							<th style="width: 10%">번호</th>
-							<th style="width: 40%">강의명</th>
-							<th style="width: 15%">강사명</th>
+							<th style="width: 35%">강의명</th>
+							<th style="width: 10%">강사명</th>
 							<th style="width: 20%">강의일시</th>
-							<th style="width: 15%">모집정원(명)</th>
+							<th style="width: 15%">강의시간</th>
+							<th style="width: 10%">모집정원(명)</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -77,10 +95,11 @@
 							<c:when test="${slist ne null}">
 								<c:forEach items="${slist}" var="list">
 									<tr>
-										<td>${list.sj_idx }</td>
+										<td>${list.sj_num }</td>
 										<td>${list.sj_name }</td>
 										<td>${list.tc_name}</td>
-										<td>${list.sj_sd }~${list.sj_ed}</td>
+										<td>${list.sj_sd } ~ ${list.sj_ed}</td>
+										<td>${list.sj_st } ~ ${list.sj_et}</td>
 										<td>${list.sj_max }</td>
 									</tr>
 									<tr>
@@ -92,7 +111,14 @@
 											강사명 : ${list.tc_name }<br>
 											강의 일시 : ${list.sj_sd }~${list.sj_ed}<br>
 											강의 시간 : ${list.sj_st }~${list.sj_et}<br>
-											강의 정원 : ${list.sj_max }
+											강의 정원 : ${list.sj_max }<br>
+											현재 신청 인원 : ${list.sj_num }<br>
+											<c:if test="${list.sj_max gt list.sj_num }">
+												<c:url var="rgst" value="/rgst.ju">
+													<c:param name="sj_idx" value="${list.sj_idx }"/>
+												</c:url>
+												<button type="button" id="${list.sj_idx }" class="btn btn-info btn-lg" onclick="javascript:location.href='${rgst}'">신청하기</button>
+											</c:if>
 										</td>
 									</tr>
 								</c:forEach>
@@ -101,8 +127,6 @@
 					</tbody>
 				</table>
 			</div>
-
-
 		</div>
 	</div>
 	<div class="col-md-12">
