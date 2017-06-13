@@ -81,4 +81,36 @@
  	<delete id="feDEL" parameterType="String" >
  		DELETE FEDEX where bk_idx=#{bk_idx}
  	</delete>
+ 	
+ 	<select id="loanSELinfo" parameterType="String" resultType="ju.dto.LoanDTO">
+ 		SELECT * FROM loanbook WHERE lb_idx=#{lb_idx}
+ 	</select>
+ 	
+ 	<update id="loanUPDbookMarkUp" parameterType="String">
+ 		UPDATE loanbook SET lb_etc=#{lb_etc} WHERE lb_idx=#{lb_idx}
+ 	</update>
+ 	
+ 	<select id="loanSELmemCount" parameterType="String" resultType="int">
+	 	SELECT COUNT(*) FROM loanbook WHERE mem_idx=#{mem_idx} AND lb_end>sysdate
+ 	</select>
+ 	
+ 	<select id="loanSELebookOverlap" parameterType="String" resultType="int">
+	 	SELECT COUNT(*) FROM loanbook WHERE mem_idx=#{mem_idx} AND book_idx=#{el_idx} AND lb_end>sysdate
+ 	</select>
+ 	
+ 	<insert id="loanINSelib" parameterType="String">
+	 	INSERT INTO loanbook VALUES(#{lb_idx}, #{mem_idx}, #{bk_idx}, SYSDATE, SYSDATE+14, #{lb_etc}, 1, 0)
+ 	</insert>
+ 	
+ 	<select id="loanSELcheck">
+ 		<![CDATA[
+ 			SELECT COUNT(*) FROM loanbook 
+ 				WHERE 
+ 				book_idx=#{el_idx} 
+ 				AND mem_idx=#{mem_idx} 
+ 				AND lb_return=1 
+ 				AND (lb_sd<sysdate AND lb_ed>sysdate)
+ 		]]> 
+ 	</select>
+ 	
  </mapper>

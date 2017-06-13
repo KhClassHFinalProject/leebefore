@@ -1,10 +1,14 @@
 {
   "ecmaVersion": 5,
   "plugins": {
+<<<<<<< HEAD
+    "doc_comment": {
+=======
     "guess-types": {
       
     },
     "outline": {
+>>>>>>> Daewon
       
     },
     "bootstrap": {

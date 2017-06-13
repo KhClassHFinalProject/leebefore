@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 //import ju.dto.*;
 import ju.model.*;
+
 import ju.dto.*;
 
 @Controller
@@ -284,16 +285,28 @@ public class MemberController {
 		return "member/memberLogin";
 		
 	}
+<<<<<<< HEAD
+	@RequestMapping("/memberLoginOk.ju")
+=======
 	@RequestMapping(value="/memberLoginOk.ju")
+>>>>>>> Daewon
 	public ModelAndView loginOk(
 			@RequestParam(value="mem_id",defaultValue="")String mem_id,
 			@RequestParam(value="mem_pwd",defaultValue="")String mem_pwd,
 			HttpSession session){
+<<<<<<< HEAD
+		ModelAndView mav = new ModelAndView();
+		MemberDTO dto = memberDao.loginSubmit(mem_id, mem_pwd);
+		
+		
+		if(dto.getMem_name().equals("nolog")||dto.getMem_name().equals("black")){
+=======
 		
 		ModelAndView mav = new ModelAndView();
 		MemberDTO dto = memberDao.loginSubmit(mem_id, mem_pwd);
 		
 		if(dto==null || dto.getMem_name().equals("black")){
+>>>>>>> Daewon
 			
 			mav.setViewName("member/memberLogin");
 			return mav;
@@ -344,7 +357,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/getHolidayFC.ju")
 	public ModelAndView getHolidayFC(
-			@RequestParam(value="yr")String yr_s){
+			@RequestParam(value="yr",defaultValue="2017")String yr_s){
 		
 		ModelAndView mav = new ModelAndView();
 		int yr = Integer.parseInt(yr_s);
@@ -361,7 +374,11 @@ public class MemberController {
 		return mav; 
 	}
 	
+<<<<<<< HEAD
+	@RequestMapping("/addHoliday.ju")
+=======
 	@RequestMapping(value="/addHoliday.ju")
+>>>>>>> Daewon
 	public void addHoliday(@RequestParam(value="memo",defaultValue="")String memo,
 			@RequestParam(value="solar_date",defaultValue="")String solar_date,
 			HttpServletResponse response){
@@ -381,7 +398,11 @@ public class MemberController {
 	}
 	
 	
+<<<<<<< HEAD
+	@RequestMapping("/delHoliday.ju")
+=======
 	@RequestMapping(value="/delHoliday.ju")
+>>>>>>> Daewon
 	public void delHoliday(
 			@RequestParam(value="memo",defaultValue="")String memo,
 			@RequestParam(value="solar_date",defaultValue="")String solar_date,
@@ -401,6 +422,9 @@ public class MemberController {
 		}
 	}
 	
+<<<<<<< HEAD
+}
+=======
 	@RequestMapping(value="/moveHolidayFC.ju")
 	public void moveHoliday(
 			@RequestParam(value="memo",defaultValue="")String memo,
@@ -424,3 +448,4 @@ public class MemberController {
 	
 	
 }
+>>>>>>> Daewon

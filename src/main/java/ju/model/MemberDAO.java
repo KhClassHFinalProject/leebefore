@@ -24,6 +24,8 @@ public interface MemberDAO {
 		public MemberDTO loginSubmit(String mem_id, String mem_pwd);
 		
 		public int checkHp(String mem_hp);
+<<<<<<< HEAD
+=======
 		
 		public MemberDTO pwCheck(String mem_idx);
 		
@@ -35,6 +37,7 @@ public interface MemberDAO {
 		public List<AboutMyBookDTO> aboutAudiobook(String mem_idx);
 		
 		public List<AboutMyQnaDTO> memQna(String mem_idx);
+>>>>>>> Daewon
 	//캘린더 관련
 		public List<HolidayDTO> getHoliday(int yr, int mon);
 		
@@ -43,7 +46,12 @@ public interface MemberDAO {
 		public int addHoliday(String memo, String solarDate);
 		
 		public int delHoliday(String memo, String solarDate);
+<<<<<<< HEAD
+	//대원 추가 6월 11일 일 끝
+}
+=======
 		
 		public int moveHoliday(String memo, String beforeDate, String afterDate);
 	//대원 추가 6월 11일 일 끝
 }
+>>>>>>> Daewon

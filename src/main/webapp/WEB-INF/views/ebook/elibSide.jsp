@@ -152,9 +152,9 @@
 			   <li class='has-sub' id="emList"><a href='/lee/eMagazine.ju'>전자 잡지</a> <!--1단  -->
 			      <ul>
 			         <li><a href="#" onclick="return false" data-md="0" >경제</a></li>		         
-			         <li><a href="#" onclick="return false" data-md="1" >리빙</a></li>
-			         <li><a href="#" onclick="return false" data-md="2" >여행</a></li>
-			         <li><a href="#" onclick="return false" data-md="3" >스포츠</a></li>
+			         <li><a href="#" onclick="return false" data-md="1" >스포츠</a></li>
+			         <li><a href="#" onclick="return false" data-md="2" >리빙</a></li>
+			         <li><a href="#" onclick="return false" data-md="3" >여행</a></li>
 			         <li><a href="#" onclick="return false" data-md="4" >기타</a></li>
 			      </ul>
 			   </li>

@@ -1,9 +1,19 @@
 package ju.model;
 
+<<<<<<< HEAD
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+=======
 import java.util.*;
+>>>>>>> Daewon
 import org.mybatis.spring.SqlSessionTemplate;
 
-import ju.dto.*;
+import ju.dto.BanDTO;
+import ju.dto.HolidayDTO;
+import ju.dto.LoanDTO;
+import ju.dto.MemberDTO;
 
 public class MemberDAOImple implements MemberDAO {
 
@@ -127,9 +137,16 @@ public class MemberDAOImple implements MemberDAO {
 		map.put("mem_pwd", mem_pwd);
 		MemberDTO dto = sqlMap.selectOne("memSELlogin", map);
 		
+<<<<<<< HEAD
+		if(dto==null || dto.getMem_idx().equals("")){
+			//로그인 실패시
+			dto.setMem_name("nolog");
+			return dto;
+=======
 		if(dto==null){
 			
 			return null;
+>>>>>>> Daewon
 		}else{
 			
 			System.out.println("로그인 성공");
@@ -139,7 +156,11 @@ public class MemberDAOImple implements MemberDAO {
 			//String whe = "MEM_IDX='"+mem_idx+"' and BAN_START<=SYSDATE and BAN_END>=SYSDATE";
 			int count = sqlMap.selectOne("memSELcheckban",mem_idx);
 			System.out.println("count : "+count);
+<<<<<<< HEAD
+			
+=======
 
+>>>>>>> Daewon
 
 			if(count>0){
 				dto.setMem_name("black");
@@ -152,6 +173,9 @@ public class MemberDAOImple implements MemberDAO {
 		
 	}
 	
+<<<<<<< HEAD
+
+=======
 	public MemberDTO pwCheck(String mem_idx) {
 		MemberDTO dto = sqlMap.selectOne("memSELgetpwd", mem_idx);
 		System.out.println("디비로부터 가져온 pwd :"+ dto.getMem_pwd());
@@ -228,6 +252,7 @@ public class MemberDAOImple implements MemberDAO {
 			List<AboutMyQnaDTO> qnalist = sqlMap.selectList("memSELmyqnalist", mem_idx);
 		return qnalist;
 	}
+>>>>>>> Daewon
 	
 	public List<HolidayDTO> getHoliday(int yr, int mon) {
 		String wh = "";
@@ -275,6 +300,11 @@ public class MemberDAOImple implements MemberDAO {
 		return result;
 	}
 	
+<<<<<<< HEAD
+	
+//	대원 추가 6월 11일 일 끝
+}
+=======
 	public int moveHoliday(String memo, String beforeDate, String afterDate) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("memo", memo);
@@ -286,3 +316,4 @@ public class MemberDAOImple implements MemberDAO {
 	
 //	대원 추가 6월 11일 일 끝
 }
+>>>>>>> Daewon

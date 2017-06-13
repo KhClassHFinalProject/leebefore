@@ -45,6 +45,22 @@ public class BookCateModul {
 		return book_Lg.toString();
 	}
 	
+	public String BookLgSelectId(int start, int end, Boolean all, String num) {
+		StringBuffer book_Lg=new StringBuffer();
+		
+		book_Lg.append("<select id='cateLg_"+num+"' name='cateLg_"+num+"' class='form-control'>");
+		if(all){
+			book_Lg.append("<optgroup><option value='99'>전체</option></optgroup><optgroup>");
+		}
+		for(int i=start ; i<=end ; i++){
+			book_Lg.append("<option value=" +i + ">");
+			String optionStr=BookSwitch(i);
+			book_Lg.append(optionStr + "</option>");
+		}
+		book_Lg.append("</optgroup></select>");
+		return book_Lg.toString();
+	}
+	
 	private ArrayList<String> Md_0() {
 		eb_mdList=new ArrayList<String>();
 		eb_mdList.add("미학/예술철학");

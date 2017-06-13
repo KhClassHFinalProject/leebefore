@@ -7,6 +7,7 @@
 	body{
 		width: 90%;
 		margin: auto;
+		overflow-y: scroll; 
 	}
 	@media (max-width: 768px) {
 		body{

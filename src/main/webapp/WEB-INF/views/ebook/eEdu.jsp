@@ -142,6 +142,7 @@
 						}
 						$("#contentTbody").html(intoHTML);
 						$("#pagingNav").html(data.paging);
+						$("#pagingNav").removeClass().addClass("simple");
 						contentClick();
 						
 						$("#pagingNav>ul>li").removeClass("active");
@@ -252,6 +253,7 @@
 						}
 						$("#contentTbody").html(intoHTML);
 						$("#pagingNav").html(data.paging);
+						$("#pagingNav").removeClass().addClass("detail");
 						contentClick();
 						
 						$("#pagingNav>ul>li").removeClass("active");
@@ -387,6 +389,7 @@
 					}
 					$("#contentTbody").html(intoHTML);
 					$("#pagingNav").html(data.paging);
+					$("#pagingNav").removeClass().addClass("noSearch");
 					contentClick();
 					
 					$("#pagingNav>ul>li").removeClass("active");
@@ -436,6 +439,7 @@
 						, dataType : "json"
 						, success: function(data){
 							var arr=data.elibArr;
+							var mem_id=data.mem_id;
 							var intoHeaderHTML="";
 							intoHeaderHTML+='<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 							intoHeaderHTML+='<h4 class="modal-title" id="myModalLabel">' + arr.el_subject + '</h4>';
@@ -456,7 +460,14 @@
 							intoBodyHTML+='					</div>';
 							intoBodyHTML+='				</div>';
 							intoBodyHTML+='				<div class="text-right">';
-							intoBodyHTML+='					<button class="btn btn-default" id="recommendButton" type="button" onClick="elibRecommend(\' ' + arr.el_idx + '\' )" >추천하기</button>';
+							if(mem_id==null){
+								intoBodyHTML+='					<span data-toggle="tooltip" data-placement="bottom" title="로그인 해야 사용 할 수 있습니다.">';
+								intoBodyHTML+='						<button class="btn btn-default" id="recommendButton" type="button"  disabled="disabled" >추천하기</button> ';
+								intoBodyHTML+='					</span> ';
+							}
+							else{
+								intoBodyHTML+='					<button class="btn btn-default" id="recommendButton" type="button" onClick="elibRecommend(\' ' + arr.el_idx + '\' )" >추천하기</button>';
+							}
 							intoBodyHTML+='					<button class="btn btn-default" id="recommendButton" type="button" onClick="elibViwer(\'' + arr.el_idx + '\')" >뷰어로보기</button>';
 							intoBodyHTML+='				</div>';
 							intoBodyHTML+='			</div>';
@@ -475,6 +486,9 @@
 							intoBodyHTML+='</div>';
 							$(".modal-header").html(intoHeaderHTML);
 							$(".modal-body").html(intoBodyHTML);
+							if(mem_id==null){
+								$("#recommendButton").parent().tooltip();
+							} // null function
 						}
 					});
 					$("#myModal").modal("show");
@@ -516,11 +530,11 @@
 		
 		<!-- 컨텐츠 -->
 		<div class="col-md-8">
-			
+		
 			<!-- 검색바 -->
 			<div class="row" style="background: #3cdbde; padding: 80px 0;">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="책 검색..." name="simpleSearchText" id="simpleSearchText">
+					<input type="text" class="form-control" placeholder="e-교육" name="simpleSearchText" id="simpleSearchText">
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button" id="ebookSearch">
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>

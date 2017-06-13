@@ -58,5 +58,60 @@
 	<select id="elibSELview" parameterType="String" resultType="ju.dto.ElibDTO">
 		SELECT * FROM elib WHERE  el_idx=#{el_idx}
 	</select>
+	
+	<select id="elibSELnoList" parameterType="String" resultType="ju.dto.ElibDTO">
+		SELECT * FROM (
+								SELECT rownum rnum, pageData.* FROM (
+																							SELECT * FROM (
+																													SELECT SUBSTR(el_idx, 3) upTime, data.* FROM (
+																																														SELECT * FROM elib WHERE el_idx NOT LIKE 'AB%' )data
+																																													) ORDER BY upTime desc
+																							)pageData
+								) WHERE rnum BETWEEN ${startNum} AND ${endNum}
+	</select>
+	
+	<select id="elibSELnoListCount" resultType="int">
+		SELECT COUNT(*) FROM (	SELECT SUBSTR(el_idx, 3) upTime, data.* FROM (SELECT * FROM elib WHERE el_idx NOT LIKE 'AB%')data)
+	</select>
+	
+	<delete id="elibDEL" parameterType="String">
+		DELETE FROM elib WHERE el_idx=#{el_idx}
+	</delete>
+	
+	<update id="elibUPD" parameterType="String">
+		UPDATE elib SET el_idx=#{change_idx}, el_lg=#{el_lg}, el_md=#{el_md}, el_subject=#{el_subject}, el_writer=#{el_writer}, el_pub=#{el_pub}, el_info=#{el_info}, el_path=#{el_path} WHERE el_idx=#{el_idx}
+	</update>
+	
+	<select id="elibSELadminSearch" parameterType="String" resultType="ju.dto.ElibDTO">
+		SELECT * FROM (
+								SELECT rownum rnum, search.* FROM (
+																					SELECT * FROM (
+																											SELECT SUBSTR(el_idx, 3) upTime, data.* FROM (SELECT * FROM elib WHERE el_idx NOT LIKE 'AB%' )data
+																											) WHERE ${where} ORDER BY ${order}
+																					)search
+								) WHERE rnum BETWEEN ${startNum} AND ${endNum}
+	</select>
+	
+	<select id="elibSELadminSearchCount" parameterType="String" resultType="ju.dto.ElibDTO">
+		SELECT COUNT(*) FROM (
+											SELECT SUBSTR(el_idx, 3) upTime, data.* FROM (SELECT * FROM elib WHERE el_idx NOT LIKE 'AB%' )data
+											) WHERE ${where}
+	</select>
+	
+	<update id="elibUPDrec">
+		UPDATE elib SET el_recommend=#{el_recommend}, el_recocount=el_recommend+1 WHERE el_idx=#{el_idx}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
+	
+	
+	
 </mapper>
