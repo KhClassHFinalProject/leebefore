@@ -36,7 +36,7 @@ public class adminLoanBookController {
 	public FedexDAO fedexDao;
 	
 	@Autowired
-	public ju.member.model.MemberDAO memberDao;
+	public ju.model.MemberDAO memberDao;
 	
 	
 	// 대출관리 메인페이지로 이동

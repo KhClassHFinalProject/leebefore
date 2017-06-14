@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -40,30 +41,21 @@
 		});
 		
 		$.ajax({
-			url : "rrAjax.ju"
+			url : "rr.ju"
 			, type : "GET"
 			, dataType : "json" 
-			, success : function(rrAjax){
-				for(var i = 0; i<rrAjax.rlist1.length;i++){
-					$("#r1tab>tbody>tr>."+rrAjax.rlist1[i].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
-					$("#r1tab>tbody>tr>."+rrAjax.rlist1[i].rr_seatno+">button").attr("disabled",true);
+			, success : function(rr){
+				for(var i = 0; i<rr.rlist1.length;i++){
+					$("#r1tab>tbody>tr>."+rr.rlist1[i].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
+					$("#r1tab>tbody>tr>."+rr.rlist1[i].rr_seatno+">button").attr("disabled",true);
+				}
+				for(var i = 0; i<rr.rlist2.length;i++){
+					$("#r2tab>tbody>tr>."+rr.rlist2[i].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
+					$("#r2tab>tbody>tr>."+rr.rlist2[i].rr_seatno+">button").attr("disabled",true);
 				}
 			}
-			
 		});
 		
-		$.ajax({
-			url : "rrAjax.ju"
-			, type : "GET"
-			, dataType : "json" 
-			, success : function(rrAjax){
-				for(var i = 0; i<rrAjax.rlist2.length;i++){
-					$("#r2tab>tbody>tr>."+rrAjax.rlist2[i].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
-					$("#r2tab>tbody>tr>."+rrAjax.rlist2[i].rr_seatno+">button").attr("disabled",true);
-				}
-			}
-			
-		});
 	});
 
 	function rbookseat(btn_seatno) {
@@ -95,20 +87,19 @@
 .rrbtn {
 	width: 50px;
 }
-
 </style>
 </head>
 <body>
 	<form action="rrBook.ju" name="rr_form">
 		<input type="hidden" name="rr_seatno" id="rr_seatno">
-		<input type="hidden" name="mem_idx" id="mem_idx" value="test">
+		<input type="hidden" name="mem_idx" id="rrmem_idx" value="${sessionScope.normalMember}">
 		<input type="hidden" name="rr_start_str" id="rr_start">
 		<input type="hidden" name="rr_end_str" id="rr_end">
 		<div class="container">
-			<h2>자료실 이용</h2>
+			<h2>열람실 이용</h2>
 			<!-- Trigger the modal with a button -->
 			<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-				data-target="#rrBook">예약하기</button>
+				data-target="#rrBook">이용하기</button>
 			<!-- Modal -->
 			<div class="modal fade" id="rrBook" role="dialog">
 				<div class="modal-dialog">
@@ -119,7 +110,7 @@
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 							<input type="radio" name="rr_cate" id="r1" checked value="1">room1
 							<input type="radio" name="rr_cate" id="r2" value="2">room2
-							<h4 class="modal-title" id="modal-title">열람실 예약하기</h4>
+							<h4 class="modal-title" id="modal-title">열람실 이용하기</h4>
 						</div>
 						<div class="modal-body">
 							<div id="r1div" class="rdiv">

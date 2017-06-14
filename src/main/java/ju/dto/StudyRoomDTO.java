@@ -10,14 +10,14 @@ public class StudyRoomDTO {
 	private java.sql.Date sr_reqdate;
 	private java.sql.Date sr_resdate;
 	private int sr_time;
-	private String sr_etx;
+	private String sr_etc;
 	
 	public StudyRoomDTO() {
 		super();
 	}
 
 	public StudyRoomDTO(String sr_idx, int sr_roomno, String mem_idx, Date sr_reqdate, Date sr_resdate, int sr_time,
-			String sr_etx) {
+			String sr_etc) {
 		super();
 		this.sr_idx = sr_idx;
 		this.sr_roomno = sr_roomno;
@@ -25,7 +25,7 @@ public class StudyRoomDTO {
 		this.sr_reqdate = sr_reqdate;
 		this.sr_resdate = sr_resdate;
 		this.sr_time = sr_time;
-		this.sr_etx = sr_etx;
+		this.sr_etc = sr_etc;
 	}
 	
 	public String getSr_idx() {
@@ -64,10 +64,10 @@ public class StudyRoomDTO {
 	public void setSr_time(int sr_time) {
 		this.sr_time = sr_time;
 	}
-	public String getSr_etx() {
-		return sr_etx;
+	public String getSr_etc() {
+		return sr_etc;
 	}
-	public void setSr_etx(String sr_etx) {
-		this.sr_etx = sr_etx;
+	public void setSr_etc(String sr_etc) {
+		this.sr_etc = sr_etc;
 	}
 }

@@ -17,13 +17,13 @@
 		});
 		
 		$.ajax({
-			url : "rrAjax.ju"
+			url : "rr.ju"
 			, type : "GET"
 			, dataType : "json" 
-			, success : function(rrAjax){
-				for(var i = 0; i<rrAjax.rlist3.length;i++){
-					$("#r3tab>tbody>tr>."+rrAjax.rlist3[i].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
-					$("#r3tab>tbody>tr>."+rrAjax.rlist3[i].rr_seatno+">button").attr("disabled",true);
+			, success : function(rr){
+				for(var i = 0; i<rr.rlist3.length;i++){
+					$("#r3tab>tbody>tr>."+rr.rlist3[i].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
+					$("#r3tab>tbody>tr>."+rr.rlist3[i].rr_seatno+">button").attr("disabled",true);
 				}
 			}
 			
@@ -62,14 +62,15 @@
 </style>
 </head>
 <body>
-	<form action="rrBook.ju" name="cr_form">
+	<form action="crBook.ju" name="cr_form">
 		<input type="hidden" name="rr_seatno" id="cr_seatno">
+		<input type="hidden" name="mem_idx" id="crmem_idx" value="${sessionScope.normalMember}">
 		<input type="hidden" name="rr_cate" value="3">
 		<div class="container">
-			<h2>열람실 이용</h2>
+			<h2>자료실 이용</h2>
 			<!-- Trigger the modal with a button -->
 			<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-				data-target="#crBook">예약하기</button>
+				data-target="#crBook">이용하기</button>
 			<!-- Modal -->
 			<div class="modal fade" id="crBook" role="dialog">
 				<div class="modal-dialog">
@@ -78,7 +79,7 @@
 					<div class="modal-content" id="seat">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title" id="modal-title">열람실 예약하기</h4>
+							<h4 class="modal-title" id="modal-title">자료실 이용하기</h4>
 						</div>
 						<div class="modal-body">
 							<div id="r3div" class="rdiv">

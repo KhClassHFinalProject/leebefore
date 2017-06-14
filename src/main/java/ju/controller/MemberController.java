@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 //import ju.dto.*;
-import ju.member.model.*;
-import ju.member.model.MemberDAO;
 import ju.model.*;
+
 import ju.dto.*;
 
 @Controller
@@ -117,6 +117,7 @@ public class MemberController {
 		EmailDAO dao = new EmailDAO();
 		dao.sendEmail2(mem_id, code);
 		
+		
 		try {
 			System.out.println("code 저장 = "+code);
 			response.getWriter().print(code);
@@ -153,18 +154,26 @@ public class MemberController {
 		
 	}
 	@RequestMapping("/memberLoginOk.ju")
-	public String loginOk(
+	public ModelAndView loginOk(
 			@RequestParam(value="mem_id",defaultValue="")String mem_id,
-			@RequestParam(value="mem_pwd",defaultValue="")String mem_pwd){
+			@RequestParam(value="mem_pwd",defaultValue="")String mem_pwd,
+			HttpSession session){
+		ModelAndView mav = new ModelAndView();
+		MemberDTO dto = memberDao.loginSubmit(mem_id, mem_pwd);
 		
-		int result = memberDao.loginSubmit(mem_id, mem_pwd);
-		System.out.println("result : "+result);
-		if(result==1){
+		
+		if(dto.getMem_name().equals("nolog")||dto.getMem_name().equals("black")){
 			
-			return "index";
+			mav.setViewName("member/memberLogin");
+			return mav;
+			
 		}else{
+			session.setAttribute("sid", dto.getMem_id());
+			session.setAttribute("sname", dto.getMem_name());
+			session.setAttribute("sidx", dto.getMem_idx());
+			mav.setViewName("index");
+			return mav;
 			
-			return "member/memberLogin";
 		}
 		
 	}
@@ -192,7 +201,7 @@ public class MemberController {
 	
 	@RequestMapping("/getHolidayFC.ju")
 	public ModelAndView getHolidayFC(
-			@RequestParam(value="yr")String yr_s){
+			@RequestParam(value="yr",defaultValue="2017")String yr_s){
 		
 		ModelAndView mav = new ModelAndView();
 		int yr = Integer.parseInt(yr_s);
@@ -207,6 +216,46 @@ public class MemberController {
 		
 		
 		return mav; 
+	}
+	
+	@RequestMapping("/addHoliday.ju")
+	public void addHoliday(@RequestParam(value="memo",defaultValue="")String memo,
+			@RequestParam(value="solar_date",defaultValue="")String solar_date,
+			HttpServletResponse response){
+		
+		int result = memberDao.addHoliday(memo, solar_date);
+		
+		try{
+			
+			if(result > 0){
+				response.getWriter().print("삭제성공");
+			}else{
+				response.getWriter().print("삭제실패");
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@RequestMapping("/delHoliday.ju")
+	public void delHoliday(
+			@RequestParam(value="memo",defaultValue="")String memo,
+			@RequestParam(value="solar_date",defaultValue="")String solar_date,
+			HttpServletResponse response){
+		
+		int result = memberDao.delHoliday(memo, solar_date);
+		
+		try{
+			
+			if(result > 0){
+				response.getWriter().print("삭제성공");
+			}else{
+				response.getWriter().print("삭제실패");
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

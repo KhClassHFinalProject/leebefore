@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="/lee/resources/bootstrapk/css/bootstrap.min.css">
 <script type="text/javascript" src="/lee/resources/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="/lee/resources/bootstrapk/js/bootstrap.min.js"></script>
-<link href="/lee/resources/mj/css/fullcalendar.min.css" rel="stylesheet">
-<script src='/lee/resources/mj/js/moment.min.js'></script>
-<script src='/lee/resources/mj/js/fullcalendar.min.js'></script>
+<link href="/lee/resources/fullcalendar/fullcalendar.min.css" rel="stylesheet">
+<script src='/lee/resources/fullcalendar/lib/moment.min.js'></script>
+<script src='/lee/resources/fullcalendar/fullcalendar.min.js'></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var roomName, timeName;
@@ -24,9 +24,9 @@
 
 		$('#calendar').fullCalendar({
 			header: {
-				left: 'today',
+				left: '',
 		        center: 'title',
-		        right: 'month'
+		        right: ''
 			},
 		    defaultDate: moment().format('YYYY-MM-DD'),
 		    selectable: true,
@@ -36,6 +36,7 @@
 				var startDate = start.format("YYYY-MM-DD");
 		        $("#srCancel").hide();
             	$("#resdate").val(startDate); 
+            	$("#selectedDate").text(startDate); 
             	
 				if(startDate.substr(8,2)<=nowDate.substr(8,2)||startDate.substr(8,2)>(parseInt(nowDate.substr(8,2))+14)){
 					$("#srBooking").attr("disabled",true);
@@ -77,8 +78,6 @@
 		});
 		
 		$("#timetr>td").click(function(){
-			console.log("d");
-
 			$("#srCancel").hide();
 			$("#timetr>td").css("background-color","#0BD392");
 			$(".using").css("background-color","red");
@@ -92,6 +91,7 @@
 				roomName = event.target.className.substr(4,1);
 				timeName = $(event.target).parent().attr("class").substr(4,1);
 				var userId = "testmj"; 
+/* 				var userId = ${sessionScope.sidx};  */
 				var rt_info = {roomno:roomName,time:timeName,resdate:$("#resdate").val()};
 				
 				$.ajax({
@@ -133,7 +133,7 @@
 			location.href="/lee/srCancel.ju?sr_roomno="+roomName+"&sr_time="+timeName;
 		});
 		
-			console.log('happy58');
+			console.log('happy61');
 	});
 
 </script>
@@ -169,62 +169,71 @@
 .roompath{
 	background-color: black;
 }
+
+.srRoomhead{
+	margin-top: 20px;
+}
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 	<form name="sr_form" action="srBook.ju" method="post">
 	<input type="hidden" name="sr_roomno" id="sr_roomno">
 	<input type="hidden" name="resdate" id="resdate" value="">
-	<div id='calendar'></div>
-	<div>
-		<table class="table" border="1" id="roomStatus" style="display:none;">
-			<thead>
-				<tr>
-					<th>&nbsp;</th>
-					<th>1번방</th>
-					<th>2번방</th>
-					<th>3번방</th>
-					<th>4번방</th>
-				</tr>
-			</thead>
-			<tbody class="rt_check">
-				<tr class="time1" id="timetr">
-					<th>09~12시</th>
-					<td class="room1">empty</td>
-					<td class="room2">empty</td>
-					<td class="room3">empty</td>
-					<td class="room4">empty</td>
-				</tr>
-				<tr class="time2" id="timetr">
-					<th>12~15시</th>
-					<td class="room1">empty</td>
-					<td class="room2">empty</td>
-					<td class="room3">empty</td>
-					<td class="room4">empty</td>
-				</tr>
-				<tr class="time3" id="timetr">
-					<th>15~18시</th>
-					<td class="room1">empty</td>
-					<td class="room2">empty</td>
-					<td class="room3">empty</td>
-					<td class="room4">empty</td>
-				</tr>
-				<tr class="time4" id="timetr">
-					<th>18~21시</th>
-					<td class="room1">empty</td>
-					<td class="room2">empty</td>
-					<td class="room3">empty</td>
-					<td class="room4">empty</td>
-				</tr>
-			</tbody>
-		</table>
+	<div class="srRoomhead">
+		<div id='calendar' style="width:50%;float:left"></div>
+		<div style="width:40%; float:right;">
+			<h2 id="selectedDate"></h2>
+			<table class="table" border="1" id="roomStatus" style="display:none;" >
+				<thead>
+					<tr>
+						<th>&nbsp;</th>
+						<th>1번방</th>
+						<th>2번방</th>
+						<th>3번방</th>
+						<th>4번방</th>
+					</tr>
+				</thead>
+				<tbody class="rt_check">
+					<tr class="time1" id="timetr">
+						<th>09~12시</th>
+						<td class="room1">empty</td>
+						<td class="room2">empty</td>
+						<td class="room3">empty</td>
+						<td class="room4">empty</td>
+					</tr>
+					<tr class="time2" id="timetr">
+						<th>12~15시</th>
+						<td class="room1">empty</td>
+						<td class="room2">empty</td>
+						<td class="room3">empty</td>
+						<td class="room4">empty</td>
+					</tr>
+					<tr class="time3" id="timetr">
+						<th>15~18시</th>
+						<td class="room1">empty</td>
+						<td class="room2">empty</td>
+						<td class="room3">empty</td>
+						<td class="room4">empty</td>
+					</tr>
+					<tr class="time4" id="timetr">
+						<th>18~21시</th>
+						<td class="room1">empty</td>
+						<td class="room2">empty</td>
+						<td class="room3">empty</td>
+						<td class="room4">empty</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
+	<hr>
 	<div id="s1div" class="sdiv" style="display:none;">
 		<table class="roomtab">
 			<tr>
-				<td colspan="2" rowspan="7" class="room" id="1">행복</td>
+				<td colspan="2" rowspan="7" class="room" id="1">1번방</td>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<td colspan="4" rowspan="2" class="room" id="2">Happy</td>
+				<td colspan="4" rowspan="2" class="room" id="2">2번방</td>
 			</tr>
 			<tr>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -250,7 +259,7 @@
 			<tr>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<td colspan="2" rowspan="7" class="room"id="4">행ㅋ벜</td>
+				<td colspan="2" rowspan="7" class="room"id="4">4번방</td>
 			</tr>
 			<tr>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -274,7 +283,7 @@
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			</tr>
 			<tr>
-				<td colspan="4" rowspan="2" class="room" id="3">해피</td>
+				<td colspan="4" rowspan="2" class="room" id="3">3번방</td>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			</tr>
 			<tr>
@@ -300,8 +309,10 @@
 			</table>
 		</div>
 	</div>
+	<div class="buttondiv" style="float:left;">
 	<button type="submit" class="btn btn-success" id="srBooking" disabled="disabled">예약하기</button>
 	<button type="button" class="btn btn-danger" id="srCancel" style="display:none;">예약취소하기</button>
+	</div>
 	</form>
 </body>
 </html>
