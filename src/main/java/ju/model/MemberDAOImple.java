@@ -127,9 +127,16 @@ public class MemberDAOImple implements MemberDAO {
 		map.put("mem_pwd", mem_pwd);
 		MemberDTO dto = sqlMap.selectOne("memSELlogin", map);
 		
+<<<<<<< HEAD
 		if(dto==null){
 			
 			return null;
+=======
+		if(dto==null || dto.getMem_idx().equals("")){
+			//로그인 실패시
+			dto.setMem_name("nolog");
+			return dto;
+>>>>>>> 63a9520f888429cc1ef400ce8182daf7a2d29239
 		}else{
 			
 			System.out.println("로그인 성공");
@@ -152,6 +159,7 @@ public class MemberDAOImple implements MemberDAO {
 		
 	}
 	
+<<<<<<< HEAD
 	public MemberDTO pwCheck(String mem_idx) {
 		MemberDTO dto = sqlMap.selectOne("memSELgetpwd", mem_idx);
 		System.out.println("디비로부터 가져온 pwd :"+ dto.getMem_pwd());
@@ -178,6 +186,8 @@ public class MemberDAOImple implements MemberDAO {
 		List<AboutMyBookDTO> yylist = sqlMap.selectList("memSELaboutmybookLoan", mem_idx);
 		return yylist;
 	}
+=======
+>>>>>>> 63a9520f888429cc1ef400ce8182daf7a2d29239
 
 	
 	public List<HolidayDTO> getHoliday(int yr, int mon) {

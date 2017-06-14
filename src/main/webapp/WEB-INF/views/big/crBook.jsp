@@ -21,12 +21,13 @@
 			, type : "GET"
 			, dataType : "json" 
 			, success : function(rr){
-				for(var i = 0; i<rr.rlist3.length;i++){
-					$("#r3tab>tbody>tr>."+rr.rlist3[i].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
-					$("#r3tab>tbody>tr>."+rr.rlist3[i].rr_seatno+">button").attr("disabled",true);
+				var using3;
+				for(using3 = 0; using3<rr.rlist3.length;using3++){
+					$("#r3tab>tbody>tr>."+rr.rlist3[using3].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
 				}
+				$(".using3Seat").text(using3);
+				$(".empty3Seat").text(20-using3);
 			}
-			
 		});
 	});
 
@@ -62,14 +63,12 @@
 </style>
 </head>
 <body>
-	<form action="rrBook.ju" name="cr_form">
-		<input type="hidden" name="rr_seatno" id="cr_seatno">
-		<input type="hidden" name="rr_cate" value="3">
+	<form name="cr_form">
 		<div class="container">
 			<h2>자료실 이용</h2>
 			<!-- Trigger the modal with a button -->
 			<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-				data-target="#crBook">예약하기</button>
+				data-target="#crBook">조회하기</button>
 			<!-- Modal -->
 			<div class="modal fade" id="crBook" role="dialog">
 				<div class="modal-dialog">
@@ -78,7 +77,7 @@
 					<div class="modal-content" id="seat">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title" id="modal-title">열람실 예약하기</h4>
+							<h4 class="modal-title" id="modal-title">자료실 좌석현황</h4>
 						</div>
 						<div class="modal-body">
 							<div id="r3div" class="rdiv">
@@ -94,7 +93,7 @@
 												<c:otherwise>
 													<c:forEach var="col" begin="1" step="1" end="5">
 														<td id="crtd" class="${row }${col}">															
-															<button type="button" class="btn btn-default rrbtn"
+															<button type="button" class="btn btn-default rrbtn" disabled="disabled"
 																onclick="javascript:cbookseat('${row}${col}');">${row }-${col }</button>
 														</td>
 													</c:forEach>
@@ -103,19 +102,19 @@
 										</tr>
 									</c:forEach>
 								</table>
-							</div>
-							<div class="cdiv2">
-								이름 :
-								<div id="cdiv2name"></div><br>
-								열람실 : 
-								<div id="cdiv2cate"></div><br>
-								좌석번호 :
-								<div id="cdiv2seatno"></div>
+								<div>
+									<fieldset>
+										<legend>자료실 현황</legend>
+										<ul>
+											<li>총 좌석 수 : 20석</li>
+											<li>사용중인 좌석 : <span class="using3Seat"></span>석</li>
+											<li>사용가능 좌석 : <span class="empty3Seat"></span>석</li>
+										</ul>
+									</fieldset>
+								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-success" id="crBooking"
-								disabled="disabled">예약하기</button>
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal" onclick="javascript:location.reload();">닫기</button>
 						</div>

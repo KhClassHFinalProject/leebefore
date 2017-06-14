@@ -19,6 +19,8 @@
 				$("#rr_cate").val('1');
 				$("#rrBooking").attr("disabled", true);
 				$("#rrtd>button").removeClass("btn-primary").addClass("btn-default");
+				$(".seatInfo2").hide();
+				$(".seatInfo1").show();
 			}
 		});
 		
@@ -30,6 +32,8 @@
 				$("#rr_cate").val('2');
 				$("#rrBooking").attr("disabled", true);
 				$("#rrtd>button").removeClass("btn-primary").addClass("btn-default");
+				$(".seatInfo1").hide();
+				$(".seatInfo2").show();
 			}
 		});
 		
@@ -44,14 +48,19 @@
 			, type : "GET"
 			, dataType : "json" 
 			, success : function(rr){
-				for(var i = 0; i<rr.rlist1.length;i++){
-					$("#r1tab>tbody>tr>."+rr.rlist1[i].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
-					$("#r1tab>tbody>tr>."+rr.rlist1[i].rr_seatno+">button").attr("disabled",true);
+				var using1;
+				for(using1 = 0; using1<rr.rlist1.length;using1++){
+					$("#r1tab>tbody>tr>."+rr.rlist1[using1].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
 				}
-				for(var i = 0; i<rr.rlist2.length;i++){
-					$("#r2tab>tbody>tr>."+rr.rlist2[i].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
-					$("#r2tab>tbody>tr>."+rr.rlist2[i].rr_seatno+">button").attr("disabled",true);
+				$(".using1Seat").text(using1);
+				$(".empty1Seat").text(20-using1);
+				
+				var using2;
+				for(using2 = 0; using2<rr.rlist2.length;using2++){
+					$("#r2tab>tbody>tr>."+rr.rlist2[using2].rr_seatno+">button").removeClass("btn-default").addClass("btn-danger");
 				}
+				$(".using2Seat").text(using2);
+				$(".empty2Seat").text(20-using2);
 			}
 		});
 		
@@ -64,7 +73,7 @@
 </script>
 <style type="text/css">
 .modal-body {
-	width: 350px;
+	width: 550px;
 	height: 400px;
 }
 
@@ -89,16 +98,12 @@
 </style>
 </head>
 <body>
-	<form action="rrBook.ju" name="rr_form">
-		<input type="hidden" name="rr_seatno" id="rr_seatno">
-		<input type="hidden" name="mem_idx" id="mem_idx" value="test">
-		<input type="hidden" name="rr_start_str" id="rr_start">
-		<input type="hidden" name="rr_end_str" id="rr_end">
+	<form name="rr_form">
 		<div class="container">
 			<h2>열람실 이용</h2>
 			<!-- Trigger the modal with a button -->
 			<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-				data-target="#rrBook">예약하기</button>
+				data-target="#rrBook">조회하기</button>
 			<!-- Modal -->
 			<div class="modal fade" id="rrBook" role="dialog">
 				<div class="modal-dialog">
@@ -109,7 +114,7 @@
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 							<input type="radio" name="rr_cate" id="r1" checked value="1">room1
 							<input type="radio" name="rr_cate" id="r2" value="2">room2
-							<h4 class="modal-title" id="modal-title">열람실 예약하기</h4>
+							<h4 class="modal-title" id="modal-title">열람실 좌석현황</h4>
 						</div>
 						<div class="modal-body">
 							<div id="r1div" class="rdiv">
@@ -125,7 +130,7 @@
 												<c:otherwise>
 													<c:forEach var="col" begin="1" step="1" end="5">
 														<td id="rrtd" class="${row }${col}">															
-															<button type="button" class="btn btn-default rrbtn"
+															<button type="button" class="btn btn-default rrbtn" disabled="disabled"
 																onclick="javascript:rbookseat('${row}${col}');">${row }-${col }</button>
 														</td>
 													</c:forEach>
@@ -146,7 +151,7 @@
 													</c:when>
 													<c:otherwise>
 														<td id="rrtd" class="${row }${col}">
-															<button type="button" class="btn btn-default rrbtn"
+															<button type="button" class="btn btn-default rrbtn" disabled="disabled"
 																onclick="javascript:rbookseat('${row}${col}');">${row }-${col }</button>
 														</td>
 													</c:otherwise>
@@ -156,18 +161,28 @@
 									</c:forEach>
 								</table>
 							</div>
-							<div class="rdiv2">
-								이름 :
-								<div id="rdiv2name"></div>
-								<br> 열람실 :
-								<div id="rdiv2cate"></div>
-								<br> 좌석번호 :
-								<div id="rdiv2seatno"></div>
-							</div>
 						</div>
+							<div class="seatInfo1">
+							<fieldset>
+								<legend>열람실 현황</legend>
+									<ul>
+										<li>총 좌석 수 : 20석</li>
+										<li>사용중인 좌석 : <span class="using1Seat"></span>석</li>
+										<li>사용가능 좌석 : <span class="empty1Seat"></span>석</li>
+									</ul>
+								</fieldset>
+							</div>
+							<div class="seatInfo2" style="display:none;">
+							<fieldset>
+								<legend>열람실 현황</legend>
+									<ul>
+										<li>총 좌석 수 : 20석</li>
+										<li>사용중인 좌석 : <span class="using2Seat"></span>석</li>
+										<li>사용가능 좌석 : <span class="empty2Seat"></span>석</li>
+									</ul>
+								</fieldset>
+							</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-success" id="rrBooking"
-								disabled="disabled">예약하기</button>
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal" onclick="javascript:location.reload();">닫기</button>
 						</div>

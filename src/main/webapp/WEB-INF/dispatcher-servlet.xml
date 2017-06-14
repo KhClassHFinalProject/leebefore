@@ -32,7 +32,7 @@
 		<constructor-arg name="sqlMap" ref="sqlSessionTemplate"></constructor-arg>
 	</bean>
 	<!-- service -->
-	<bean id="memberDao" class="ju.member.model.MemberDAOImple">
+	<bean id="memberDao" class="ju.model.MemberDAOImple">
 		<constructor-arg ref="sqlSessionTemplate" />
 	</bean>
 	<bean id="bigdao" class="ju.booking.model.BookingDAOImple">
@@ -61,6 +61,9 @@
 		<constructor-arg  ref="sqlSessionTemplate" />
 	</bean>
 	<bean id="audioDao" class="ju.audiobook.model.AudioDAOImple">
+		<constructor-arg  ref="sqlSessionTemplate" />
+	</bean>
+	<bean id="ligdao" class="ju.learning.model.LearningDAOImple">
 		<constructor-arg  ref="sqlSessionTemplate" />
 	</bean>
 
