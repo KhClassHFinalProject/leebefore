@@ -82,7 +82,18 @@ public class BookingDAOImple implements BookingDAO {
 
 	public RefRoomDTO bigBarcodeCheck(String mem_idx) {
 		// TODO Auto-generated method stub
-		return sql.selectOne("bigSELloginCheck", mem_idx);
+		String startTime = sql.selectOne("bigSELcheckStartTime",mem_idx);
+		String endTime = sql.selectOne("bigSELcheckEndTime",mem_idx);
+		RefRoomDTO dto = sql.selectOne("bigSELloginCheck",mem_idx);
+		if(startTime!=null||endTime!=null){
+			try {
+				dto.setRr_start(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startTime));
+				dto.setRr_end(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endTime));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;
 	}
 
 	public int returnSeat(String rr_idx) {

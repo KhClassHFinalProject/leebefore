@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <c:set var="rrdto" value="${sessionScope.rrdto }"/>
+<c:set var="time" value="${sessionScope.checkTime }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,6 +110,8 @@
 					</c:choose>
 					</label><br>
 					<label class="seatno">이용 좌석번호 : ${rrdto.getRr_seatno() }</label><br>
+					<label class="start">이용 시작시간 : ${time.startTime }</label><br>
+					<label class="end">이용 마감시간 : ${time.endTime }</label><br>
 					<label class="addTime"> 연장가능여부 : 
 					<c:choose>
 						<c:when test="${rrdto.getRr_add() eq '0' }">

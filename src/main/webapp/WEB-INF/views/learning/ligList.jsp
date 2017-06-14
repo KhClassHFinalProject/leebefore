@@ -53,6 +53,13 @@
 		margin-bottom: 50px;
 	}
 }
+
+#changeMeForm{
+	margin-bottom: 50px;	
+}
+#report>tbody>tr>td{
+	margin-bottom: 20px;
+}
 </style>
 </head>
 <body>
@@ -72,7 +79,7 @@
 				</div>
 			</div>
 			<!-- 컨텐츠 실영역 -->
-			<div style="background-color: #1AA4AC; opacity: 0.5; height: 950px; width: 100%;">
+			<div style=" width: 100%;">
 				<table class="table table-hover" id="report">
 					<thead>
 						<tr>
@@ -103,7 +110,7 @@
 										<td>${list.sj_max }</td>
 									</tr>
 									<tr>
-										<td colspan="5">
+										<td colspan="6">
 											<hr>
 											<h4>강의정보</h4>
 											<hr>

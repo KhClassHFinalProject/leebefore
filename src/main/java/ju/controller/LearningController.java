@@ -72,10 +72,4 @@ public class LearningController {
 		dto.setMem_idx((String)session.getAttribute("sidx"));
 		return new ModelAndView("learning/ligMsg","msg",ligdao.deleteRgst(dto)>0?"삭제성공":"삭제실패");
 	}
-	
-	@RequestMapping("/ligTest.ju")
-	public ModelAndView ligTest(HttpSession session){
-		session.invalidate();
-		return new ModelAndView("index");
-	}
 }

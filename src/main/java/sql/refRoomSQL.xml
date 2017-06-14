@@ -67,4 +67,16 @@
 		member
 		WHERE mem_idx=#{mem_idx} 
 	</select>
+	<select id="bigSELcheckStartTime" resultType="String" parameterType="String">
+		SELECT TO_CHAR(rr_start,'YYYY-MM-DD HH24:MI:SS') as "rr_start"
+		FROM refroom
+		WHERE rr_end <![CDATA[>]]> sysdate
+		AND mem_idx = #{mem_idx}
+	</select>
+	<select id="bigSELcheckEndTime" resultType="String" parameterType="String">
+		SELECT TO_CHAR(rr_end,'YYYY-MM-DD HH24:MI:SS') as "rr_end"
+		FROM refroom
+		WHERE rr_end <![CDATA[>]]> sysdate
+		AND mem_idx = #{mem_idx}
+	</select>
 </mapper>

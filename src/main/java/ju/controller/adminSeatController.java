@@ -2,7 +2,10 @@ package ju.controller;
 
 import java.sql.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -60,6 +63,7 @@ public class adminSeatController {
 	public ModelAndView seatLogout(HttpSession session) {
 		session.removeAttribute("rrdto");
 		session.removeAttribute("normalMember");
+		session.removeAttribute("checkTime");
 		return new ModelAndView("admin/seatManage/seatMsg","msg","로그아웃되었습니다.");
 	}
 
@@ -89,6 +93,18 @@ public class adminSeatController {
 		if (!rrdto.getRr_add().equals("불가")){
 			rrdto.setRr_add(Integer.parseInt(rrdto.getRr_add().split("~")[0]) == Integer.parseInt(rrdto.getRr_add().split("~")[1])? "불가" : rrdto.getRr_add().split("~")[0]);
 		}
+		
+		String startTime = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(rrdto.getRr_start());
+		String endTime = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(rrdto.getRr_end());
+		startTime = startTime.substring(11, startTime.length());
+		endTime = endTime.substring(11, endTime.length());
+		
+		Map checkTimeMap = new HashMap();
+		
+		checkTimeMap.put("startTime", startTime);
+		checkTimeMap.put("endTime", endTime);
+		
+		session.setAttribute("checkTime", checkTimeMap);
 		session.setAttribute("rrdto", rrdto);
 		return new ModelAndView("admin/seatManage/seatMsg", "msg", memdto.getMem_name() + "님 환영합니다.");
 	}
