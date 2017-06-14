@@ -66,6 +66,9 @@
 	<bean id="ligdao" class="ju.learning.model.LearningDAOImple">
 		<constructor-arg  ref="sqlSessionTemplate" />
 	</bean>
+	<bean id="noticedao" class="ju.notice.model.NoticeDAOImple">
+		<constructor-arg  ref="sqlSessionTemplate" />
+	</bean>
 
 	<!-- Spring and MyBatis linkage -->
 	<!-- 1.dataSource -->
