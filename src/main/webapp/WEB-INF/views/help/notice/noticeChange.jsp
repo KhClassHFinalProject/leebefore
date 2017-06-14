@@ -37,20 +37,20 @@
 				</div>
 			</div>
 			<div class="col-md-10">
-				<form name="noticeChange" action="noticeChangeok.ju">
+				<form name="noticeChange" action="noticeChangeOk.ju">
 					<table class="table table-striped table table-hover" border="1">
 						<tr>
-							<th>제목제목제목제목제목</th>
-							<th colspan="2">2017-05-31</th>
+							<th colspan="2"><input type="text" name="nt_subject" class="form-control" value="${dto.nt_subject}"></th>
+							<td>${dto.nt_date}</td>
 						</tr>
 						<tr>
 							<td>첨부</td>
-							<td>서영주</td>
-							<td>5</td>
+							<td><input type="text" name="nt_idx" value="${dto.nt_idx}" readonly="readonly"></td>
+							<td>${dto.nt_readnum}</td>
 						</tr>
 						<tr>
 							<td colspan="3"><div class="col-md-12">
-									<textarea class="form-control col-sm-5" rows="10">adadad</textarea>
+									<textarea class="form-control col-sm-5" rows="10" name="nt_content" value="${dto.nt_content}">${dto.nt_content}</textarea>
 								</div></td>
 						</tr>
 						<tr>

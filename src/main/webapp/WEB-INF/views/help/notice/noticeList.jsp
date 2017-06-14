@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +37,7 @@
 				</div>
 				<div class="col-md-3" style="text-align: center;">
 				<a class="btn btn-default" type="submit" href="noticeWrite.ju">
-				<span class="glyphicon glyphicon-pencil" aria-hidden="true"> 공지쓰기(오른쪽)</span></a>
+				<span class="glyphicon glyphicon-pencil" aria-hidden="true"> 공지쓰기</span></a>
 				</div>
 			</div>
 				<div class="row">
@@ -45,6 +46,7 @@
 					<thead>
 						<tr>
 							<th>번호</th>
+							<th>분류</th>
 							<th>제목</th>
 							<th>작성자</th>
 							<th>작성일</th>
@@ -53,42 +55,20 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>1</td>
-							<td><a href="noticeContent.ju">김대원씨 책반납하세요wwwwwwwwwwwwwwwwws</a></td>
-							<td>관리자</td>
-							<td>2017-05-30</td>
-							<td>99999</td>
+							<c:if test="${empty list}">
+								<td colspan="6" align="left">등록된 공지사항이 없습니다.</td>
+							</c:if>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>이번달 휴관일 올립니다</td>
-							<td>관리자</td>
-							<td>2017-05-30</td>
-							<td>2</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>다음달 공사예정</td>
-							<td>관리자</td>
-							<td>2017-05-30</td>
-							<td>2</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>이번달 휴관일</td>
-							<td>관리자</td>
-							<td>2017-05-30</td>
-							<td>2</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>이번달 휴관일</td>
-							<td>관리자</td>
-							<td>2017-05-30</td>
-							<td>2</td>
-						</tr>
-						<tr>
-
+							<c:forEach var="dto" items="${list}">
+								<tr>
+									<td>${dto.nt_idx}</td>
+									<td>${dto.nt_cate}</td>
+									<td><a href="noticeContent.ju?nt_idx=${dto.nt_idx}">${dto.nt_subject}</a></td>
+									<td>${dto.mem_idx}</td>
+									<td>${dto.nt_date}</td>
+									<td>${dto.nt_readnum}</td>
+								</tr>
+							</c:forEach>
 					</tbody>
 				</table>
 					<div class="row">

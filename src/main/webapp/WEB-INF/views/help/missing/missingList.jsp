@@ -31,7 +31,7 @@
 			<div class="col-md-7"><h2>분실물 발생/발견 게시판</h2></div>
 			<div class="col-md-3" style="text-align: center;">
 					<a class="btn btn-default" type="submit" href="missingWrite.ju">
-					<span class="glyphicon glyphicon-pencil" aria-hidden="true"> 글쓰기(오른쪽)</span></a>
+					<span class="glyphicon glyphicon-pencil" aria-hidden="true"> 글쓰기</span></a>
 			</div>
 			</div>
 			<div class="row">

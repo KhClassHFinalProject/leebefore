@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="ju.help">
+
+	<select id="notiSELList" resultType="ju.dto.NoticeDTO"> <!-- 보여줄값을 resultType로 쓴다 -->
+		select * from notice
+	</select>
+
+	<insert id="notiINSWrite" parameterType="ju.dto.NoticeDTO"> <!-- 넘겨받아오는게있으면 파라미터를쓴다 -->
+		insert into notice values
+		(#{nt_idx},
+		0,
+		#{nt_subject},
+		#{nt_content},
+		sysdate,
+		'yj',
+		0,0,0,0)
+	</insert>
+  
+	<select id="notiSELContent" parameterType="String" resultType="ju.dto.NoticeDTO">
+		select * from notice
+		where nt_idx=#{nt_idx}
+	</select>
+
+	<delete id="notiDELOut" parameterType="String">
+		delete from notice 
+		where nt_idx=#{nt_idx}
+	</delete>
+	
+	<select id="notiSELChange" parameterType="String" resultType="ju.dto.NoticeDTO">
+		select * from notice
+		where nt_idx=#{nt_idx}
+	</select>
+	
+	<update id="notiUPDChange" parameterType="ju.dto.NoticeDTO"> 
+		update notice set
+		nt_subject=#{nt_subject},
+		nt_content=#{nt_content} 
+		where nt_idx=#{nt_idx}
+	</update>
+  
+</mapper>

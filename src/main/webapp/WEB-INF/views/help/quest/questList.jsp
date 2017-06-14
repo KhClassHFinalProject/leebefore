@@ -37,7 +37,7 @@
 				<div class="col-md-3" style="text-align: center;">
 					<a class="btn btn-default" type="submit" href="noticeWrite.ju">
 						<span class="glyphicon glyphicon-pencil" aria-hidden="true">
-							짊문하기</span>
+							질문하기</span>
 					</a>
 				</div>
 			</div>
