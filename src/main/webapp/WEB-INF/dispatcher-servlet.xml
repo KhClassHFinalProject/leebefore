@@ -69,6 +69,9 @@
 	<bean id="noticedao" class="ju.notice.model.NoticeDAOImple">
 		<constructor-arg  ref="sqlSessionTemplate" />
 	</bean>
+	<bean id="missingDao" class="ju.missing.model.MissingDAOImple">
+		<constructor-arg  ref="sqlSessionTemplate" />
+	</bean>
 
 	<!-- Spring and MyBatis linkage -->
 	<!-- 1.dataSource -->

@@ -1,6 +1,8 @@
 package ju.notice.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -15,9 +17,10 @@ public class NoticeDAOImple implements NoticeDAO {
 		this.sqlMap = sqlMap;
 	}
 
-	public List<NoticeDTO> noticeList() {
-		//System.out.println("aa");
-		List<NoticeDTO> list=sqlMap.selectList("notiSELList"); //sql id 를 쓴다
+	public List<NoticeDTO> noticeList(String sql) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		map.put("sql", sql);
+		List<NoticeDTO> list=sqlMap.selectList("notiSELList", map); //sql id 를 쓴다
 		return list;
 	}
 
@@ -48,6 +51,10 @@ public class NoticeDAOImple implements NoticeDAO {
 		return count;
 	}
 	
+	public int totalCount() {
+		int count = sqlMap.selectOne("totalCount");
+		return count;
+	}
 	
 }
 

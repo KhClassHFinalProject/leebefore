@@ -5,11 +5,12 @@
   
 <mapper namespace="ju.help">
 
-	<select id="notiSELList" resultType="ju.dto.NoticeDTO"> <!-- 보여줄값을 resultType로 쓴다 -->
-		select * from notice
-	</select>
+<!-- notice -->
+	<select id="notiSELList" parameterType="java.util.Map" resultType="ju.dto.NoticeDTO">
+  		${sql}
+  	</select>
 
-	<insert id="notiINSWrite" parameterType="ju.dto.NoticeDTO"> <!-- 넘겨받아오는게있으면 파라미터를쓴다 -->
+	<insert id="notiINSWrite" parameterType="ju.dto.NoticeDTO"> 
 		insert into notice values
 		(#{nt_idx},
 		0,
@@ -41,5 +42,78 @@
 		nt_content=#{nt_content} 
 		where nt_idx=#{nt_idx}
 	</update>
-  
+	
+	
+<!-- 	totalCount -->
+	<select id="totalCount" resultType="Integer">
+		select count(*) from notice
+	</select>
+	
+<!-- 	missing -->
+	<select id="missingList" parameterType="java.util.Map" resultType="ju.dto.MissingDTO">
+  		${sql}
+  	</select>
+  	
+	<insert id="missingWrite" parameterType="ju.dto.MissingDTO"> 
+		insert into missing values
+		(#{missing_idx},
+		0,
+		#{missing_subject},
+		#{missing_content},
+		sysdate,
+		#{mem_idx},
+		0,0,0,0)
+	</insert>
+
+	<select id="missingContent" parameterType="String" resultType="ju.dto.MissingDTO">
+		select * from missing
+		where missing_idx=#{missing_idx}
+	</select>
+	
+	<select id="preInfo" parameterType="String" resultType="ju.dto.MissingDTO">
+		<![CDATA[
+		select * from missing where missing_idx=(select max(missing_idx)as missing_idx from missing where missing_idx < #{missing_idx})
+		]]>
+	</select>
+	
+	<select id="nextInfo" parameterType="String" resultType="ju.dto.MissingDTO">
+		<![CDATA[
+		select * from missing where missing_idx=(select min(missing_idx)as missing_idx from missing where missing_idx > #{missing_idx})
+		]]>
+	</select>
+	
+	<delete id="missingDelete" parameterType="String">
+		delete from missing where missing_idx=#{missing_idx}
+	</delete>
+	
+	<select id="missingChange" parameterType="String" resultType="ju.dto.MissingDTO">
+		select * from missing where missing_idx=#{missing_idx}
+	</select>
+	
+	<update id="missingChangeOk" parameterType="ju.dto.MissingDTO"> 
+		update missing set
+		missing_subject=#{missing_subject},
+		missing_content=#{missing_content} 
+		where missing_idx=#{missing_idx}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>
