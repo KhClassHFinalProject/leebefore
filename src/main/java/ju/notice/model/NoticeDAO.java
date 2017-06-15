@@ -12,5 +12,5 @@ public interface NoticeDAO {
 	public int noticeDelete(String nt_idx);
 	public NoticeDTO noticeChange(String nt_idx);
 	public int noticeChangeOk(NoticeDTO dto);
-	public int totalCount();
+	public int noticeTotalCount();
 }

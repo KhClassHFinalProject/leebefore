@@ -109,7 +109,7 @@
 												<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a>
 											</c:when>
 											<c:otherwise>
-												<li><a href="noticeList.ju?page=${page+1}"><span class="glyphicon glyphicon-chevron-right"></span></a>
+												<li><a href="missingList.ju?page=${page+1}"><span class="glyphicon glyphicon-chevron-right"></span></a>
 											</c:otherwise>
 									</c:choose>
 								</ul>

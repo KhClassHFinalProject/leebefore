@@ -72,6 +72,9 @@
 	<bean id="missingDao" class="ju.missing.model.MissingDAOImple">
 		<constructor-arg  ref="sqlSessionTemplate" />
 	</bean>
+	<bean id="qnaDao" class="ju.quest.model.QnaDAOImple">
+		<constructor-arg  ref="sqlSessionTemplate" />
+	</bean>
 
 	<!-- Spring and MyBatis linkage -->
 	<!-- 1.dataSource -->

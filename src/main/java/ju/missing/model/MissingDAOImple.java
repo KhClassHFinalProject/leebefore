@@ -45,14 +45,10 @@ public class MissingDAOImple implements MissingDAO{
 		int count = sqlMap.update("missingChangeOk", dto);
 		return count;
 	}
-
-	
-	
-	public int totalCount() {
-		int count = sqlMap.selectOne("totalCount");
+	public int missingTotalCount() {
+		int count = sqlMap.selectOne("missingTotalCount");
 		return count;
 	}
-	
 	public String makeIdx(String tableName) {
 		// TODO Auto-generated method stub
 		Long unixTime=System.currentTimeMillis();

@@ -51,8 +51,8 @@ public class NoticeDAOImple implements NoticeDAO {
 		return count;
 	}
 	
-	public int totalCount() {
-		int count = sqlMap.selectOne("totalCount");
+	public int noticeTotalCount() {
+		int count = sqlMap.selectOne("noticeTotalCount");
 		return count;
 	}
 	

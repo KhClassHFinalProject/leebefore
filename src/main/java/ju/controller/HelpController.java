@@ -4,15 +4,16 @@ import java.util.*;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ju.notice.model.NoticeDAO;
+import ju.quest.model.QnaDAO;
 import ju.dto.MissingDTO;
 import ju.dto.NoticeDTO;
+import ju.dto.QnaDTO;
 import ju.missing.model.MissingDAO;
 
 
@@ -28,6 +29,8 @@ public class HelpController {
 	private NoticeDAO noticeDao;
 	@Autowired
 	private MissingDAO missingDao;
+	@Autowired
+	private QnaDAO qnaDao;
 
 	
 	
@@ -37,7 +40,7 @@ public class HelpController {
 				@RequestParam(value="query", defaultValue="")String query,
 				@RequestParam(value="page", defaultValue="1")int page){
 		
-		int totalCount = noticeDao.totalCount(); // 총 게시물
+		int totalCount = noticeDao.noticeTotalCount(); // 총 게시물
 		int totalPage = totalCount/COUNTLIST; // 전체 페이지 수
 		if(totalCount % COUNTLIST > 0){ // 정확한 페이지 수 계산
 			totalPage++;
@@ -121,13 +124,13 @@ public class HelpController {
 		return mav;
 	}
 	
-	//분실물 게시판 관련 메소드
+	/* 분실물 게시판 관련 메소드 */
 	@RequestMapping("/missingList.ju")
 	public ModelAndView missingList(@RequestParam(value="type", defaultValue="missing_subject")String type,
 			@RequestParam(value="query", defaultValue="")String query,
 			@RequestParam(value="page", defaultValue="1")int page){
 	
-	int totalCount = noticeDao.totalCount(); // 총 게시물
+	int totalCount = missingDao.missingTotalCount(); // 총 게시물
 	int totalPage = totalCount/COUNTLIST; // 전체 페이지 수
 	if(totalCount % COUNTLIST > 0){ // 정확한 페이지 수 계산
 		totalPage++;
@@ -214,13 +217,94 @@ public class HelpController {
 	}
 	
 	
-	//QnA 게시판 관련 메소드
+	/* Qna 게시판 관련 메소드 */
 	@RequestMapping("/questList.ju")
-	public ModelAndView questList(){
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("help/quest/questList");
+	public ModelAndView questList(@RequestParam(value="type", defaultValue="qu_subject")String type,
+			@RequestParam(value="query", defaultValue="")String query,
+			@RequestParam(value="page", defaultValue="1")int page){
+	
+		int totalCount = qnaDao.qnaTotalCount(); // 총 게시물
+		int totalPage = totalCount/COUNTLIST; // 전체 페이지 수
+		if(totalCount % COUNTLIST > 0){ // 정확한 페이지 수 계산
+			totalPage++;
+		}
+		
+		if(page>totalPage && totalPage!=0){ // 페이지가 총 페이지를 넘어가면 마지막 페이지로 돌림 
+			page = totalPage;
+		}else if(page < 1){  // 페이지가 1보다 작으면 1로 유지
+			page = 1;
+		}
+		
+		int startPage = ((page-1)/COUNTPAGE)*COUNTPAGE+1;	// 시작 페이지
+		int endPage = startPage + COUNTPAGE -1; // 끝 페이지
+		if(endPage > totalPage){  // 끝 페이지가 총페이지보다 크면 마지막으로 초기화
+			endPage = totalPage;
+		}			
+		String sql = "select b.* from (select rownum as rnum, a.* from(select qu_idx, qu_cate, qu_subject, mem_idx, qu_date, qu_readnum from quest where "+ type +" like '%" + query + "%' order by qu_date desc)a)b WHERE b.rnum >= "+((page-1)*COUNTLIST+1)+" and b.rnum <= "+(page*COUNTLIST);
+		System.out.println(sql);
+		List<QnaDTO> list=qnaDao.qnaList(sql); //DTO 그릇에 DAO에있는 리스트를 담아서
+		ModelAndView mav=new ModelAndView("help/quest/questList","list",list); //이 페이지로 보낸다 리스트를같이
+		mav.addObject("page", page);
+		mav.addObject("startPage", startPage);
+		mav.addObject("endPage", endPage);
+		
 		return mav;
 	}
+	
+	
+	@RequestMapping("/questWrite.ju")
+	public ModelAndView questWrite(HttpSession session){
+		String sid = (String)session.getAttribute("sid");
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("help/quest/questWrite");
+		mav.addObject("sid", sid);
+		return mav;
+	}
+	
+	@RequestMapping("/questWriteOk.ju")
+	public ModelAndView questWriteOk(QnaDTO dto, HttpSession session){
+		String mem_idx = (String)session.getAttribute("sidx");
+		mem_idx = "aa"; // 임시
+		dto.setMem_idx(mem_idx);
+		dto.setQu_idx(qnaDao.makeIdx("QU"));
+		dto.setQu_qidx("bb");//임시
+		int result = qnaDao.qnaWrite(dto);
+		String msg=result>0?"게시물등록성공":"게시물등록실패";		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg", msg);
+		mav.setViewName("help/quest/questWriteOk");
+		return mav;
+	}
+	
+	
+	
+	@RequestMapping(value="/questContent.ju")
+	public ModelAndView questContent(String qu_idx){
+		QnaDTO dto=qnaDao.qnaContent(qu_idx);
+		QnaDTO preInfo = qnaDao.qnaPreInfo(qu_idx);
+		QnaDTO nextInfo = qnaDao.qnaNextInfo(qu_idx);
+		ModelAndView mav=new ModelAndView("help/quest/questContent","dto",dto);
+		mav.addObject("pre", preInfo);
+		mav.addObject("next", nextInfo);
+		return mav;
+		
+	}
+	
+	@RequestMapping("/questDelete.ju")
+	public ModelAndView questDelete(@RequestParam(value="qu_idx") String qu_idx ){
+		int result=qnaDao.qnaDelete(qu_idx);
+		String msg=result>0?"게시물 삭제 성공":"게시물 삭제 실패";
+		ModelAndView mav=new ModelAndView("help/quest/deleteMsg","msg",msg);
+		return mav;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//FaQ 게시판 관련 메소드
