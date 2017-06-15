@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,111 +87,64 @@
 				</div>
 				<!-- 컨텐츠 실영역 -->
 				<h3>대출</h3>
-				<!-- 대출 -->
-				<div class="row" id="loanbook">
-					  <div class="col-sm-6 col-md-4">
+<!-- 대출 -->
+<c:set var="loanlist" value="${loanlist}"/>
+<div class="row" id="loanbook">
+<c:choose>
+    <c:when test="${empty loanlist}">
+        대출하신 책이 없습니다.    
+    </c:when>
+    <c:when test="${loanlist ne null}">
+            <c:forEach items="${loanlist}" var="list">
+           			 <div class="col-sm-6 col-md-4">
 					     <div class="thumbnail ">
 					     <div class="text-center" style="margin:auto; width:100%;height:200px;" id="imgpannel">
-					      <img src="/lee/resources/member/img/bookimg.png" style="width:200px;height:200px;">
+					      <img src="${list.bk_url}" style="width:200px;height:200px;">
 					     
 					      </div>
 					      <div class="caption ">
-					        <h3>책제목 대출1</h3>
+					        <h3>${list.bk_subject}</h3>
 					        <p>
-					        대출일<br>
-					        반납예정일<br>
-					        기타사항<br>
-					        연장횟수<br>
+					        대출일 : ${list.lb_sd}<br>
+					        반납예정일 : ${list.lb_ed}<br>
+					        기타사항 : ${list.lb_etc }<br>
+					        연장횟수 : ${list.lb_delay}<br>
 					        </p>
 					        <p><a href="#" class="btn btn-primary" role="button">대출연장</a></p>
 					      </div>
 					    </div>
 					  </div>
-					
-					
-					  <div class="col-sm-6 col-md-4">
-					    <div class="thumbnail">
-					     <div class="text-center" style="margin:auto; width:100%;height:200px; position:relative;" id="imgpannel">
-					      <img src="/lee/resources/member/img/bookimg.png" style="width:200px;height:200px; ">
+        	</c:forEach>
+    </c:when>
+    
+</c:choose>
+</div>
+
+
+<!-- 택배대출 -->
+		<h3>택배대출</h3>
+<c:set var="fedexlist" value="${fedexlist}"/>
+<div class="row" id="fedexbook">
+<c:choose>
+   <c:when test="${empty fedexlist}">
+        대출하신 책이 없습니다.    
+   </c:when>
+    <c:when test="${fedexlist ne null}">
+            <c:forEach items="${fedexlist}" var="list">
+           			 <div class="col-sm-6 col-md-4">
+					     <div class="thumbnail ">
+					     <div class="text-center" style="margin:auto; width:100%;height:200px;" id="imgpannel">
+					      <img src="${list.bk_url}" style="width:200px;height:200px;">
 					     
-					      </div>
+					     </div>
 					      <div class="caption">
 					        <h3>책제목 대출2</h3>
 					        <p>
-					        대출일<br>
-					        반납예정일<br>
-					        기타사항<br>
-					        연장횟수<br>
-					        </p>
-					        <p><a href="#" class="btn btn-primary" role="button">대출연장</a></p>
-					      </div>
-					    </div>
-					  </div>
-					
-					
-					
-				</div>
-					
-				<hr>			
-				<!-- 예약 -->
-				<h3>예약</h3>	
-				<div class="row" id="yeyakbook">
-					  <div class="col-sm-6 col-md-4">
-					    <div class="thumbnail ">
-					      <div class="text-center" style="margin:auto; width:100%;height:200px; position:relative;" id="imgpannel">
-					      <img src="/lee/resources/member/img/bookimg.png" style="width:200px;height:200px; z-index:0; position:absolute;">
-					     <img src="/lee/resources/member/img/loaning.png" alt="..." style="opacity:0.5; width:200px;height:200px; z-index:1; ">
-					      </div>
-					    
-					      <div class="caption">
-					        <h3>책제목 예약2</h3>
-					        <p>
-					        예약순번<br>
-					        
-					        </p>
-					        <p><a href="#" class="btn btn-primary" role="button">예약취소하기</a></p>
-					      </div>
-					    </div>
-					  </div>
-					  
-					   <div class="col-sm-6 col-md-4">
-					    <div class="thumbnail ">
-					      <div class="text-center" style="margin:auto; width:100%;height:200px; position:relative;" id="imgpannel">
-					      <img src="/lee/resources/member/img/bookimg.png" style="width:200px;height:200px; z-index:0; position:absolute;">
-					     <img src="/lee/resources/member/img/canloan.png" alt="..." style="opacity:0.5; width:200px;height:200px; z-index:1; ">
-					      </div>
-					    
-					      <div class="caption">
-					        <h3>책제목 예약1</h3>
-					        <p>
-					        예약순번<br>
-					        
-					        </p>
-					        <p><a href="#" class="btn btn-primary" role="button">예약취소하기</a></p>
-					      </div>
-					    </div>
-					  </div>
-					  
-				</div>
-				
-				<hr>
-				<!-- 택배대출 -->
-				<h3>택배대출</h3>
-				<div class="row">
-				 <div class="col-sm-6 col-md-4">
-					    <div class="thumbnail">
-					     <div class="text-center" style="margin:auto; width:100%;height:200px; position:relative;" id="imgpannel">
-					      <img src="/lee/resources/member/img/bookimg.png" style="width:200px;height:200px; ">
-					     
-					      </div>
-					      <div class="caption">
-					        <h3>책제목 대출2</h3>
-					        <p>
-					       대출일<br>
-					        반납예정일<br>
-					        기타사항<br>
-					        연장횟수<br>
-					        운송장번호<br>
+					       	대출일 : ${list.lb_sd}<br>
+					        반납예정일 : ${list.lb_ed}<br>
+					        기타사항 : ${list.lb_etc }<br>
+					        연장횟수 : ${list.lb_delay}<br>
+					        운송장번호 : ${list.fedex_num}<br>
 					        </p>
 					        <p>
 					       		<a href="#" class="btn btn-primary" role="button">택배취소</a>
@@ -200,11 +154,69 @@
 					        </div>
 					    </div>
 					  </div>
-					  
-					 
-					
-					 
-				</div>
+        	</c:forEach>
+    </c:when>
+    
+</c:choose>
+</div>
+			
+<hr>			
+<!-- 예약 -->
+<h3>예약</h3>	
+<c:set var="yylist" value="${yeyaklist}"/>
+
+<div class="row" id="yeyakbook">
+<c:choose>
+   <c:when test="${empty yylist}">
+        대출하신 책이 없습니다.    
+   </c:when>
+   <c:when test="${yylist ne null}">
+	   <c:forEach items="${yylist}" var="list">
+			   	<div class="col-sm-6 col-md-4">
+				    <div class="thumbnail ">
+				      <div class="text-center" style="margin:auto; width:100%;height:200px; position:relative " id="imgpannel">
+				      <img src="${list.bk_url}" style="width:200px;height:200px; position:absolute; z-index:0; ">
+					      <c:if test="${list.ye_sunbun == 1}">
+				      		<c:choose>
+					      		<c:when test="${list.bk_take==0}">
+					      		 	<img src="/lee/resources/member/img/canloan.png" alt="..." style="opacity:0.5; width:200px;height:200px; z-index:1; ">
+					      	 	</c:when>
+					      	 	<c:when test="${list.bk_take==1}">
+					      	 		<img src="/lee/resources/member/img/loaning.png" alt="..." style="opacity:0.5; width:200px;height:200px; z-index:1; ">
+					      	 	</c:when>
+				      	 	</c:choose>
+					      </c:if>
+					      <c:if test="${list.ye_sunbun > 1}">
+				      		
+					      	 		<img src="/lee/resources/member/img/loaning.png" alt="..." style="opacity:0.5; width:200px;height:200px; z-index:1; ">
+					      	
+					      </c:if>
+					      
+				      </div>
+				      
+				      <div class="caption">
+				        <h3>${list.bk_subject}</h3>
+				        <p>
+				        예약순번 : ${list.ye_sunbun}<br>
+				        
+				        </p>
+				        <p><a href="#" class="btn btn-primary" role="button">예약취소하기</a></p>
+				      </div>
+				    </div>
+				  </div>
+	   </c:forEach>
+   </c:when>
+</c:choose>
+
+
+	  
+	  
+</div>
+				
+				<hr>
+				
+				
+	
 		</div>
 	</div>
 	<div class="col-md-12">

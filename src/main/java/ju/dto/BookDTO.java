@@ -1,7 +1,5 @@
 package ju.dto;
 
-import java.util.*;
-
 public class BookDTO {
 
 	private String bk_idx;

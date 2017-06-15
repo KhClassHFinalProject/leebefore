@@ -10,22 +10,6 @@
 <script type="text/javascript" src="/lee/resources/bootstrapk/js/bootstrap.min.js"></script>
 <!-- 내가 추가한 js 및 css 부분 -->
 <style type="text/css">
-.padding1{
-	padding: 10px;
-}
-.padding2{
-	padding: 20px;
-}
-.padding3{
-	padding: 30px;
-}
-.padding4{
-	padding: 40px;
-}
-.padding5{
-	padding: 50px;
-}
-
 .pagination>li>a, 
 .pagination>li>span{
 	cursor: pointer;

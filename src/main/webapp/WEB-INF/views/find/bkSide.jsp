@@ -15,7 +15,6 @@
 		<div id='cssmenu'>
 			<ul>
 			   <li><a href='#/lee/ebook.ju' class="mainGo">일반도서 검색</a></li>
-			   
 			   <li class="has-sub" id="ebList"><a href='#'>철학</a><!-- 1단 -->
 			   	  <ul>
 			   	  	<li class='sub'><a onclick="cateMove(0,0)">미학/예술철학</a> <!-- 2단 --></li>

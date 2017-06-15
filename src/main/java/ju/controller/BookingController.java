@@ -2,11 +2,7 @@ package ju.controller;
 
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -95,5 +91,22 @@ public class BookingController {
 		}
 		
 		return new ModelAndView("big/bookMsg","msg",bigdao.srCancel(sr_roomno, sr_time)>0?"성공":"실패");
+	}
+	
+	//대원 0613화 추가
+	
+	@RequestMapping("/learningIndex.ju")
+	public ModelAndView libList(){
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("learning/ligList");
+		return mav;
+	}
+	@RequestMapping("/rgstList.ju")
+	public ModelAndView rgstList(){
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("learning/rgstList");
+		return mav;
 	}
 }

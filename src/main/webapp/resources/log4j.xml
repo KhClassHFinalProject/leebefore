@@ -42,45 +42,33 @@
         <param name="Append" value="true"/>
         <!-- param name="MaxFileSize" value="100MB"/ -->
         <!-- param name="MaxBackupIndex" value="2"></param -->
-        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="DatePattern" value="'.'yyyy-MM"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%m" />
         </layout>  
     </appender>
     
-    <!-- 회원가입시 나이, 성별, 관심분야 -->
+    <!-- 회원 관련 로그 -->
     <appender name="memberInfo" class="org.apache.log4j.DailyRollingFileAppender">
         <param name="File" value="/LOG/member/memberInfo.log"/>
         <param name="Append" value="true"/>
         <!-- param name="MaxFileSize" value="100MB"/ -->
         <!-- param name="MaxBackupIndex" value="2"></param -->
-        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="DatePattern" value="'.'yyyy-MM"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d %m" />
+            <param name="ConversionPattern" value="%d %m %n" />
         </layout>  
     </appender>
     
-    <!-- 일일 이용자수  Daily Active User-->
-    <appender name="dau" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="/LOG/member/DAU.log"/>
+    <!-- 음성인식 관련 로그 -->
+    <appender name="disableInfo" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/LOG/disable/disableInfo.log"/>
         <param name="Append" value="true"/>
         <!-- param name="MaxFileSize" value="100MB"/ -->
         <!-- param name="MaxBackupIndex" value="2"></param -->
-        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="DatePattern" value="'.'yyyy-MM"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d %m" />
-        </layout>  
-    </appender>
-    
-    <!-- 페이지별 방문빈도 Frequency of pages -->
-    <appender name="fop" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="/LOG/member/FOP.log"/>
-        <param name="Append" value="true"/>
-        <!-- param name="MaxFileSize" value="100MB"/ -->
-        <!-- param name="MaxBackupIndex" value="2"></param -->
-        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d %m" />
+            <param name="ConversionPattern" value="%m" />
         </layout>  
     </appender>
      
@@ -113,21 +101,19 @@
         <level value="DEBUG"/>
         <appender-ref ref="searchBook" />
     </logger>
-<!--     회원가입시 나이, 성별, 관심분야   ex) age : 10, sex : 1, like : aa-->
+<!--     회원관련-->
     <logger name="ju.controller.MemberController">
-        <level value="DEBUG"/>
+        <level value="INFO"/>
         <appender-ref ref="memberInfo" />
+        <level value="INFO"/>
+        <appender-ref ref="loginInfo" />
     </logger>
-<!--     일일 방문객    언제 카운팅할 것인가  로그인할때? 아니면 index에 방문할 때-->
-    <logger name="ju.controller.MemberController">
-        <level value="DEBUG"/>
-        <appender-ref ref="dau" />
+<!--    disable -->
+    <logger name="ju.controller.IndexController">
+        <level value="INFO"/>
+        <appender-ref ref="disableInfo" />
     </logger>
-<!--     페이지별 방문빈도  로그를 가져올 때 언제 가져올 것인가   최초 이동할 때? 하위 기능을 이용할 때도?  -->
-    <logger name="ju.controller.MemberController">
-        <level value="DEBUG"/>
-        <appender-ref ref="fop" />
-    </logger>
+
  
     <!-- 기본 출력 설정 -->
     <root>

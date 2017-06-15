@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
+<c:choose>
+	<c:when test="${empty sidx}">
+		<script>
+		alert('로그인이 필요한 서비스 입니다.');
+		window.location.href="index.ju";
+		</script>
+		
+	</c:when>
+</c:choose>
+
 <div class="col-md-3 sidenav" id='cssmenu'>
 			<ul>
 				<li>
@@ -34,6 +45,13 @@
 					<a href='myQna.ju'>
 					<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
 					나의 문의
+					</a>
+				</li>
+				<li class="" id="myQna">
+					
+					<a href='loginLog.ju'>
+					<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+					로그인정보
 					</a>
 				</li>
 				<li class="" id="memberOut">

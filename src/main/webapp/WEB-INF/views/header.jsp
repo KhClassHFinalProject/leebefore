@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript" src="/lee/resources/mainMenu/jquery.smartmenus.min.js"></script>
 <link rel="stylesheet" href="/lee/resources/mainMenu/css/sm-core-css.css">
 <link rel="stylesheet" href="/lee/resources/mainMenu/css/sm-clean/sm-clean.css">
@@ -15,7 +16,7 @@
 	}
 	#mainImg{
 		height: 100px;
-		background: yellow;
+		/* background: yellow; */
 	}
 	
 	.main-menu-btn {
@@ -127,11 +128,22 @@
 <header>
 	
 	<div class="row">
-		<div id="mainImg" class="col-md-3">3</div>
-		<div class="col-md-2 col-md-offset-7 loginClass">
-			<a href="/lee/login.ju"><span class="glyphicon glyphicon-log-in loginColor" aria-hidden="true">로그인</span></a>
-			<a href="/lee/logout.ju"><span class="glyphicon glyphicon-log-out loginColor" aria-hidden="true">로그아웃</span></a>
-			<a href="/lee/memberJoin.ju"><span class="glyphicon glyphicon-user loginColor" aria-hidden="true">회원가입</span></a>
+		<div id="mainImg" class="col-md-3">
+			<img src="/lee/resources/index/logo2.png" style="width:130%;height:100%;">
+		</div>
+		<div class="col-md-2 col-md-offset-7 loginClass">		
+				<c:set var="sid" value="${sessionScope.sid}"/>
+				<c:choose>
+					<c:when test="${empty sid}">
+						<a href="/lee/login.ju"><span class="glyphicon glyphicon-log-in loginColor" aria-hidden="true">로그인</span></a>
+						<a href="/lee/memberJoin.ju"><span class="glyphicon glyphicon-user loginColor" aria-hidden="true">회원가입</span></a>
+					</c:when>
+					<c:otherwise>
+						${sessionScope.sname}님 환영합니다
+						<a href="/lee/logout.ju?sid=${sid}"><span class="glyphicon glyphicon-log-out loginColor" aria-hidden="true">로그아웃</span></a>
+					</c:otherwise>
+				</c:choose>
+				
 		</div>
 	</div>
 	
@@ -151,6 +163,7 @@
 						<li><a href="/lee/libMap.ju">오시는길</a></li>
 						<li><a href="/lee/libStatus.ju">장서정보(소장도서정보)</a></li>
 						<li><a href="/lee/libGuide.ju">이용안내</a></li>
+						<li><a href="/lee/analSearch.ju">도서관 통계</a></li>
 					</ul>
 				</li>
 				<li><a href="/lee/bkList.ju">일반도서 검색</a></li>
