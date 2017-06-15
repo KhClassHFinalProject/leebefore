@@ -43,10 +43,94 @@
 	banlist
 	where MEM_IDX=#{mem_idx} and BAN_START <![CDATA[<=]]> SYSDATE and BAN_END <![CDATA[>=]]> SYSDATE
 </select>
+<select id="memSELgetpwd" resultType="ju.dto.MemberDTO" parameterType="String">
+	select * from
+	member
+	where mem_idx=#{mem_idx}
+</select>
+<update id="memUPDchangeme" parameterType="ju.dto.MemberDTO">
+	update member
+	set
+	mem_pwd=#{mem_pwd},
+	mem_hp=#{mem_hp},
+	mem_addr=#{mem_addr},
+	mem_hint=#{mem_hint},
+	mem_answer=#{mem_answer}
+	where
+	mem_idx = #{mem_idx}
+</update>
+<select id="memSELaboutmybookLoan" parameterType="String" resultType="ju.dto.AboutMyBookDTO">
+select a.*, b.*
+from
+book a, (select * from loanbook where mem_idx=#{mem_idx} and lb_return=1)b
+where
+b.book_idx = a.bk_idx
+</select>
+<select id="memSELaboutmyboofedex" parameterType="String" resultType="ju.dto.AboutMyBookDTO">
+select a.*,b.*, c.fedex_idx, c.fedex_num from book a, (select * from loanbook where mem_idx=#{mem_idx} and lb_return=2)b, fedex c
+where b.book_idx = a.bk_idx
+and b.book_idx = c.bk_idx
+</select>
+
+<select id="memSELaboutebookLoan" parameterType="String" resultType="ju.dto.AboutMyBookDTO">
+select a.*, b.*
+from
+elib a, (select * from loanbook where mem_idx=#{mem_idx} and lb_return=1)b
+where
+b.book_idx = a.el_idx
+</select>
+
+<select id="memSELaboutmebookyeyaklist" parameterType="String" resultType="ju.dto.YeyakDTO">
+select * from yeyakbook where mem_idx=#{mem_idx} order by ye_idx
+</select>
+<select id="memSELaboutmybook" parameterType="String" resultType="ju.dto.BookDTO">
+select * from book where bk_isbn=#{bk_isbn}
+</select>
+
+<select id="memSELmyqnalist" parameterType="String" resultType="ju.dto.AboutMyQnaDTO">
+select rownum as rnum, a.*, b.qu_content as qu_qcontent
+from
+(select * from quest where mem_idx=#{mem_idx})a , quest b
+where
+a.qu_idx = b.qu_qidx
+</select>
+
 
 <select id="holidaySELget" parameterType="String" resultType="ju.dto.HolidayDTO">
 	select * from (select * from holiday order by solar_date)a
 	where
 	${wh}
 </select>
-</mapper>
+
+<insert id="holidayINSadd" parameterType="map">
+	insert into holiday
+	values(
+	0,
+	SYSDATE,
+	 to_date(#{solarDate},'YYYY-MM-DD'),
+	0,
+	'',
+	#{memo}
+	)
+</insert>
+<delete id="holidayDELdel" parameterType="map">
+	delete from holiday
+	where
+	solar_date = to_date(#{solarDate},'YYYY-MM-DD')
+	and
+	memo = #{memo}
+</delete>
+<update id="holidayUPDmove" parameterType="map">
+update holiday
+set
+solar_date = to_date(#{afterDate},'YYYY-MM-DD')
+where
+solar_date = to_date(#{beforeDate},'YYYY-MM-DD')
+and
+memo = #{memo}
+</update>
+
+
+
+  </mapper>
+

@@ -16,7 +16,8 @@ public class adminFedexController {
 	public FedexDAO fedexDao;
 	
 	@Autowired
-	public ju.model.MemberDAO memberDao;
+	public MemberDAO memberDao;
+
 	
 	@Autowired
 	public BookDAO bookDao;

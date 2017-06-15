@@ -12,9 +12,6 @@ import ju.model.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpSession;
-
 import java.io.*;
 import java.net.*;
 
@@ -28,7 +25,9 @@ public class adminBookController {
 	public LoanDAO loanDao;
 	
 	@Autowired
-	public ju.model.MemberDAO memberDao;
+
+	public MemberDAO memberDao;
+
 	
 	@Autowired
 	public YeyakDAO yeyakDao;

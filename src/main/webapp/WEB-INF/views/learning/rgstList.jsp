@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+=======
+>>>>>>> Daewon
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +14,12 @@
    <link rel="stylesheet" href="/lee/resources/bootstrapk/css/bootstrap.min.css">
    <link rel="stylesheet" href="/lee/resources/bootstrapk/css/bootstrap-theme.min.css">
    <script type="text/javascript" src="/lee/resources/bootstrapk/js/bootstrap.min.js"></script>
+<<<<<<< HEAD
    <script type="text/javascript" src="/lee/resources/sideMenu/sideScript.js"></script>
+=======
+   <script type="text/javascript"
+	src="/lee/resources/sideMenu/sideScript.js"></script>
+>>>>>>> Daewon
 	
 <link rel="stylesheet" href="/lee/resources/sideMenu/css/sideStyle.css">
 <style>
@@ -48,7 +56,11 @@
 </style>
 </head>
 <body>
+<<<<<<< HEAD
 <%@include file="/WEB-INF/views/header.jsp"%>
+=======
+<%@include file="../header.jsp"%>
+>>>>>>> Daewon
 	<div class="row">
 		<%@include file="sideMenu.jsp"%>
 
@@ -63,6 +75,7 @@
 				<!-- 컨텐츠 실영역 -->
 				<h3></h3>
 				<div style="background-color: #1AA4AC; opacity:0.5; height:950px;width:100%;">
+<<<<<<< HEAD
 				<c:choose>
 					<c:when test="${empty mylist }">
 						신청한 강의가 없습니다.
@@ -101,6 +114,11 @@
 					</c:when>
 				</c:choose>
 				</div>
+=======
+				
+				</div>
+				
+>>>>>>> Daewon
 		</div>
 	</div>
 <div class="col-md-12">

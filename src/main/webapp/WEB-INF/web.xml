@@ -39,4 +39,5 @@
 		<param-name>log4jConfigLocation</param-name>
 		<param-value>/resources/log4j.xml</param-value>
 	</context-param>
+	
 </web-app>

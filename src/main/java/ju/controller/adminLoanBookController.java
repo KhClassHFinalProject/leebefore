@@ -2,19 +2,14 @@ package ju.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import ju.dto.*;
@@ -36,7 +31,9 @@ public class adminLoanBookController {
 	public FedexDAO fedexDao;
 	
 	@Autowired
-	public ju.model.MemberDAO memberDao;
+
+	public MemberDAO memberDao;
+
 	
 	
 	// 대출관리 메인페이지로 이동
