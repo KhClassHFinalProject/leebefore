@@ -2,7 +2,7 @@ package ju.controller;
 
 import java.sql.Date;
 import java.text.ParseException;
-<<<<<<< HEAD
+
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -10,8 +10,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-=======
->>>>>>> Daewon
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,13 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
+
 import ju.model.BookingDAO;
 import ju.model.MemberDAO;
 import ju.dto.BanDTO;
 import ju.dto.MemberDTO;
-=======
->>>>>>> Daewon
+
 import ju.dto.RefRoomDTO;
 import ju.dto.StudyRoomDTO;
 

@@ -28,15 +28,7 @@ import ju.dto.HolidayDTO;
 import ju.dto.LoanDTO;
 import ju.dto.MemberDTO;
 //import ju.dto.*;
-<<<<<<< HEAD
-import ju.model.*;
 
-import ju.dto.*;
-=======
-import ju.model.EmailDAO;
-import ju.model.LoanDAO;
-import ju.model.MemberDAO;
->>>>>>> Daewon
 
 @Controller
 public class MemberController {
