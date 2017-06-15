@@ -8,18 +8,51 @@
   		INSERT INTO elib VALUES(#{el_idx},#{el_lg},#{el_md},#{el_subject},#{el_writer},#{el_pub},#{el_info},#{el_path},#{el_recommend},#{el_recocount})
   	</insert>
   	
-  	<select id="abSELaudio" resultType="ju.dto.ElibDTO">
+  	<update id="abUPupdate" parameterType="ju.dto.ElibDTO">
+  		UPDATE elib SET el_lg=#{el_lg}, el_md=#{el_md}, el_subject=#{el_subject}, el_writer=#{el_writer}, el_pub=#{el_pub}, el_info=#{el_info} where el_idx=#{el_idx}
+  	</update>
+  	
+  	<select id="abSELlist" parameterType="String" resultType="ju.dto.ElibDTO">
   		SELECT * FROM elib WHERE el_idx like 'AB%'
   	</select>
+  	
+  	<select id="abSELaudio" resultType="ju.dto.ElibDTO">
+  		<![CDATA[
+			select * from 
+			(select rownum as rnum, a.* from 
+			(select * from elib where el_idx like 'AB%' order by el_idx desc)a)b 
+			where rnum>=(#{cp} -1) * #{ls} +1 and rnum <= #{cp} * #{ls}
+		]]>	
+  	</select>
+  	
   	<select id="abSELcon" parameterType="String" resultType="ju.dto.ElibDTO">
-  		SELECT * FROM elib WHERE el_idx = #{el_idx}
+  		SELECT * FROM elib WHERE el_idx = #{el_idx} order by el_idx desc
   	</select>
 	
-	<select id="abSELlgmd" resultType="ju.dto.ElibDTO">
-  		SELECT * FROM elib WHERE el_lg = #{el_lg} and el_md = #{el_md}
+	<select id="abSELdetail" resultType="ju.dto.ElibDTO">
+  		<![CDATA[
+  			select * from 
+			(select rownum as rnum, a.* from 
+			(select * from elib where el_idx like 'AB%' ${where} order by ${orderName} )a)b 
+			where rnum>=(#{cp} -1) * #{ls} +1 and rnum <= #{cp} * #{ls}
+		]]>	
   	</select>
 	
 	<select id="abSELmp" parameterType="String" resultType="ju.dto.ElibDTO">
   		SELECT el_idx FROM elib WHERE el_idx = #{el_idx}
   	</select>
+  	
+  	<select id="abSELsimple" parameterType="String" resultType="ju.dto.ElibDTO">
+	  	<![CDATA[
+  			select * from 
+			(select rownum as rnum, a.* from 
+			(select * from elib where el_idx like 'AB%' AND LOWER(el_subject) LIKE LOWER('%${simpleSerchText}%') ORDER BY ${orderName} )a)b 
+			where rnum>=(#{cp} -1) * #{ls} +1 and rnum <= #{cp} * #{ls}
+		]]>	
+  	</select>
+  	
+  	<select id="abSELcnt" resultType="Integer">
+  		select count(*) from elib where el_idx like 'AB%'
+  	</select>
+  	
 </mapper>

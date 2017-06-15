@@ -27,7 +27,10 @@ import ju.dto.AboutMyQnaDTO;
 import ju.dto.HolidayDTO;
 import ju.dto.LoanDTO;
 import ju.dto.MemberDTO;
+
 //import ju.dto.*;
+
+
 
 
 @Controller
@@ -311,14 +314,19 @@ public class MemberController {
 		
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@RequestMapping("/memberLoginOk.ju")
 =======
+=======
+
+>>>>>>> master-merge
 	@RequestMapping(value="/memberLoginOk.ju")
 >>>>>>> Daewon
 	public ModelAndView loginOk(
 			@RequestParam(value="mem_id",defaultValue="")String mem_id,
 			@RequestParam(value="mem_pwd",defaultValue="")String mem_pwd,
 			HttpSession session){
+<<<<<<< HEAD
 <<<<<<< HEAD
 		ModelAndView mav = new ModelAndView();
 		MemberDTO dto = memberDao.loginSubmit(mem_id, mem_pwd);
@@ -331,6 +339,9 @@ public class MemberController {
 			
 		}else{
 =======
+=======
+
+>>>>>>> master-merge
 		//get client ip
 		HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
         String ip = req.getHeader("X-FORWARDED-FOR");
@@ -342,13 +353,16 @@ public class MemberController {
 		MemberDTO dto = memberDao.loginSubmit(mem_id, mem_pwd);
 		
 		if(dto==null || dto.getMem_name().equals("black")){
-			
 			mav.setViewName("member/memberLogin");
 			return mav;
 		}else{
 			String s = "login{ip:"+ip+",id:"+dto.getMem_id()+"}";
 			log.info(s);
+<<<<<<< HEAD
 >>>>>>> Daewon
+=======
+
+>>>>>>> master-merge
 			session.setAttribute("sid", dto.getMem_id());
 			session.setAttribute("sname", dto.getMem_name());
 			session.setAttribute("sidx", dto.getMem_idx());
@@ -412,10 +426,16 @@ public class MemberController {
 	}
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@RequestMapping("/addHoliday.ju")
 =======
 	@RequestMapping(value="/addHoliday.ju")
 >>>>>>> Daewon
+=======
+
+	@RequestMapping(value="/addHoliday.ju")
+
+>>>>>>> master-merge
 	public void addHoliday(@RequestParam(value="memo",defaultValue="")String memo,
 			@RequestParam(value="solar_date",defaultValue="")String solar_date,
 			HttpServletResponse response){
@@ -436,8 +456,12 @@ public class MemberController {
 	
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@RequestMapping("/delHoliday.ju")
 =======
+=======
+
+>>>>>>> master-merge
 	@RequestMapping(value="/delHoliday.ju")
 >>>>>>> Daewon
 	public void delHoliday(
@@ -459,9 +483,13 @@ public class MemberController {
 		}
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 }
 =======
+=======
+
+>>>>>>> master-merge
 	@RequestMapping(value="/loginLog.ju")
  	public ModelAndView loginLog(HttpSession session){
 		List<String> totalIp = new ArrayList<String>();
@@ -565,4 +593,8 @@ public class MemberController {
 	}// end method
 	
 }
+<<<<<<< HEAD
 >>>>>>> Daewon
+=======
+
+>>>>>>> master-merge

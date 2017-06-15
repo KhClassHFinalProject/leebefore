@@ -142,6 +142,7 @@
 						}
 						$("#contentTbody").html(intoHTML);
 						$("#pagingNav").html(data.paging);
+						$("#pagingNav").removeClass().addClass("simple");
 						contentClick();
 						
 						$("#pagingNav>ul>li").removeClass("active");
@@ -252,6 +253,7 @@
 						}
 						$("#contentTbody").html(intoHTML);
 						$("#pagingNav").html(data.paging);
+						$("#pagingNav").removeClass().addClass("detail");
 						contentClick();
 						
 						$("#pagingNav>ul>li").removeClass("active");
@@ -387,6 +389,7 @@
 					}
 					$("#contentTbody").html(intoHTML);
 					$("#pagingNav").html(data.paging);
+					$("#pagingNav").removeClass().addClass("noSearch");
 					contentClick();
 					
 					$("#pagingNav>ul>li").removeClass("active");
@@ -436,6 +439,7 @@
 						, dataType : "json"
 						, success: function(data){
 							var arr=data.elibArr;
+							var mem=data.mem;
 							var intoHeaderHTML="";
 							intoHeaderHTML+='<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 							intoHeaderHTML+='<h4 class="modal-title" id="myModalLabel">' + arr.el_subject + '</h4>';
@@ -452,11 +456,18 @@
 							intoBodyHTML+='					<div class="text-left">';
 							intoBodyHTML+='						<div class="col-md-2">저자</div><div class="col-md-10">' + arr.el_writer + '</div>';
 							intoBodyHTML+='						<div class="col-md-2">출판사</div><div class="col-md-10">' + arr.el_pub + '</div>';
-							intoBodyHTML+='						<div class="col-md-2">추천 수</div><div class="col-md-10">' + arr.el_recocount + '</div>';
+							intoBodyHTML+='						<div class="col-md-2">추천 수</div><div class="col-md-10" id="reco">' + arr.el_recocount + '</div>';
 							intoBodyHTML+='					</div>';
 							intoBodyHTML+='				</div>';
 							intoBodyHTML+='				<div class="text-right">';
-							intoBodyHTML+='					<button class="btn btn-default" id="recommendButton" type="button" onClick="elibRecommend(\' ' + arr.el_idx + '\' )" >추천하기</button>';
+							if(mem==0){
+								intoBodyHTML+='					<span data-toggle="tooltip" data-placement="bottom" title="로그인 해야 사용 할 수 있습니다.">';
+								intoBodyHTML+='						<button class="btn btn-default" id="recommendButton" type="button"  disabled="disabled" >추천하기</button> ';
+								intoBodyHTML+='					</span> ';
+							}
+							else{
+								intoBodyHTML+='					<button class="btn btn-default" id="recommendButton" type="button" onClick="elibRecommend(\'' + arr.el_idx + '\' )" >추천하기</button>';
+							}
 							intoBodyHTML+='					<button class="btn btn-default" id="recommendButton" type="button" onClick="elibViwer(\'' + arr.el_idx + '\')" >뷰어로보기</button>';
 							intoBodyHTML+='				</div>';
 							intoBodyHTML+='			</div>';
@@ -475,6 +486,9 @@
 							intoBodyHTML+='</div>';
 							$(".modal-header").html(intoHeaderHTML);
 							$(".modal-body").html(intoBodyHTML);
+							if(mem==0){
+								$("#recommendButton").parent().tooltip();
+							} // null function
 						}
 					});
 					$("#myModal").modal("show");
@@ -490,9 +504,23 @@
 				, data : {el_idx : el_idx}
 				, dataType : "json"
 				, success: function(data){
-					alert("추천 : " + data.recommend);
+					var resultCount=data.resultCount;
+					var recommend=data.recommend;
+					if(resultCount>=1){
+						$("#reco").text(recommend);
+						alert("추천 되었습니다.");
+						var num=$("#contentTbody>tr").length;
+						for(var i=0 ; i<num ; i++){
+							if($("#contentTbody>tr").eq(i).data("idx")==el_idx){
+								$("#contentTbody>tr:eq(" + i + ")>td>.media>.media-body>.row>div").eq(3).text(recommend);
+							}
+						}
+					}
+					else{
+						alert("이미 추천 했습니다.");
+					}
 				}
-			})
+			}); // success: function
 		}
 		
 		function elibViwer(el_idx) {
@@ -516,11 +544,11 @@
 		
 		<!-- 컨텐츠 -->
 		<div class="col-md-8">
-			
+		
 			<!-- 검색바 -->
-			<div class="row" style="background: #3cdbde; padding: 80px 0;">
+			<div class="row" style="background: url('/lee/resources/elib/EEback.jpg'); background-size : cover; padding: 80px 0;">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="책 검색..." name="simpleSearchText" id="simpleSearchText">
+					<input type="text" class="form-control" placeholder="e-교육" name="simpleSearchText" id="simpleSearchText">
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button" id="ebookSearch">
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -611,15 +639,6 @@
 						<tr>
 							<td>
 								<nav id="pagingNav" class="noSearch">
-									<!-- <ul class="pagination">
-										<li data-page="before"><a href="#" onclick="return false" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-										<li data-page="1"><a href="#" onclick="return false">1</a></li>
-										<li data-page="2"><a href="#" onclick="return false">2</a></li>
-										<li data-page="3"><a href="#" onclick="return false">3</a></li>
-										<li data-page="4" class="disabled"><a href="#" onclick="return false">4</a></li>
-										<li data-page="5"><a href="#" onclick="return false">5</a></li>
-										<li data-page="after"><a href="#" onclick="return false" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>	</li>
-									</ul> -->
 								</nav>
 							</td>
 						</tr>

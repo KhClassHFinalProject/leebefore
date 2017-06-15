@@ -46,7 +46,10 @@ public interface MemberDAO {
 		
 		public int delHoliday(String memo, String solarDate);
 
+<<<<<<< HEAD
 		
+=======
+>>>>>>> master-merge
 		public int moveHoliday(String memo, String beforeDate, String afterDate);
 	//대원 추가 6월 11일 일 끝
 }

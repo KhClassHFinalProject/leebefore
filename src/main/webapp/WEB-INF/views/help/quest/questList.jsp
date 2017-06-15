@@ -33,8 +33,14 @@
 					<h2>QnA 게시판</h2>
 				</div>
 				<div class="col-md-3" style="text-align: center;">
+<<<<<<< HEAD
 					<a class="btn btn-default" type="submit" href="questWrite.ju">
 						<span class="glyphicon glyphicon-pencil" aria-hidden="true">질문하기</span>
+=======
+					<a class="btn btn-default" type="submit" href="noticeWrite.ju">
+						<span class="glyphicon glyphicon-pencil" aria-hidden="true">
+							질문하기</span>
+>>>>>>> master-merge
 					</a>
 				</div>
 			</div>

@@ -78,20 +78,5 @@ public class BookingController {
 		return new ModelAndView("big/bookMsg","msg",bigdao.srCancel(sr_roomno, sr_time)>0?"성공":"실패");
 	}
 	
-	//대원 0613화 추가
-	
-	@RequestMapping("/learningIndex.ju")
-	public ModelAndView libList(){
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("learning/ligList");
-		return mav;
-	}
-	@RequestMapping("/rgstList.ju")
-	public ModelAndView rgstList(){
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("learning/rgstList");
-		return mav;
-	}
+
 }

@@ -1,9 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 =======
 >>>>>>> Daewon
+=======
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+>>>>>>> master-merge
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,11 +21,17 @@
    <link rel="stylesheet" href="/lee/resources/bootstrapk/css/bootstrap-theme.min.css">
    <script type="text/javascript" src="/lee/resources/bootstrapk/js/bootstrap.min.js"></script>
 <<<<<<< HEAD
+<<<<<<< HEAD
    <script type="text/javascript" src="/lee/resources/sideMenu/sideScript.js"></script>
 =======
    <script type="text/javascript"
 	src="/lee/resources/sideMenu/sideScript.js"></script>
 >>>>>>> Daewon
+=======
+
+   <script type="text/javascript" src="/lee/resources/sideMenu/sideScript.js"></script>
+
+>>>>>>> master-merge
 	
 <link rel="stylesheet" href="/lee/resources/sideMenu/css/sideStyle.css">
 <style>
@@ -57,10 +69,16 @@
 </head>
 <body>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <%@include file="/WEB-INF/views/header.jsp"%>
 =======
 <%@include file="../header.jsp"%>
 >>>>>>> Daewon
+=======
+
+<%@include file="../header.jsp"%>
+
+>>>>>>> master-merge
 	<div class="row">
 		<%@include file="sideMenu.jsp"%>
 
@@ -76,6 +94,10 @@
 				<h3></h3>
 				<div style="background-color: #1AA4AC; opacity:0.5; height:950px;width:100%;">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> master-merge
 				<c:choose>
 					<c:when test="${empty mylist }">
 						신청한 강의가 없습니다.
@@ -113,12 +135,17 @@
 						</c:forEach>
 					</c:when>
 				</c:choose>
+<<<<<<< HEAD
 				</div>
 =======
 				
 				</div>
 				
 >>>>>>> Daewon
+=======
+				</div>
+
+>>>>>>> master-merge
 		</div>
 	</div>
 <div class="col-md-12">

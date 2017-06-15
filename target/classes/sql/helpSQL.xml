@@ -43,6 +43,7 @@
 		where nt_idx=#{nt_idx}
 	</update>
 	
+<<<<<<< HEAD
 	<select id="noticeTotalCount" resultType="Integer">
 		select count(*) from notice
 	</select>
@@ -50,15 +51,26 @@
 
 	
 	
+=======
+	
+<!-- 	totalCount -->
+	<select id="totalCount" resultType="Integer">
+		select count(*) from notice
+	</select>
+	
+>>>>>>> master-merge
 <!-- 	missing -->
 	<select id="missingList" parameterType="java.util.Map" resultType="ju.dto.MissingDTO">
   		${sql}
   	</select>
   	
+<<<<<<< HEAD
 	<select id="missingTotalCount" resultType="Integer">
 		select count(*) from missing
 	</select>
   	
+=======
+>>>>>>> master-merge
 	<insert id="missingWrite" parameterType="ju.dto.MissingDTO"> 
 		insert into missing values
 		(#{missing_idx},
@@ -75,13 +87,21 @@
 		where missing_idx=#{missing_idx}
 	</select>
 	
+<<<<<<< HEAD
 	<select id="missingPreInfo" parameterType="String" resultType="ju.dto.MissingDTO">
+=======
+	<select id="preInfo" parameterType="String" resultType="ju.dto.MissingDTO">
+>>>>>>> master-merge
 		<![CDATA[
 		select * from missing where missing_idx=(select max(missing_idx)as missing_idx from missing where missing_idx < #{missing_idx})
 		]]>
 	</select>
 	
+<<<<<<< HEAD
 	<select id="missingNextInfo" parameterType="String" resultType="ju.dto.MissingDTO">
+=======
+	<select id="nextInfo" parameterType="String" resultType="ju.dto.MissingDTO">
+>>>>>>> master-merge
 		<![CDATA[
 		select * from missing where missing_idx=(select min(missing_idx)as missing_idx from missing where missing_idx > #{missing_idx})
 		]]>
@@ -102,6 +122,7 @@
 		where missing_idx=#{missing_idx}
 	</update>
 	
+<<<<<<< HEAD
 <!-- 	qna -->
 	<select id="qnaList" parameterType="java.util.Map" resultType="ju.dto.QnaDTO">
   		${sql}
@@ -156,6 +177,8 @@
 		]]>
 	</select>
 	
+=======
+>>>>>>> master-merge
 	
 	
 	
