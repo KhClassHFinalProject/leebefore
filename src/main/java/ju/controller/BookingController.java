@@ -78,5 +78,10 @@ public class BookingController {
 		return new ModelAndView("big/bookMsg","msg",bigdao.srCancel(sr_roomno, sr_time)>0?"성공":"실패");
 	}
 	
+<<<<<<< HEAD
 
+=======
+	//대원 0613화 추가
+	
+>>>>>>> origin/youngju
 }

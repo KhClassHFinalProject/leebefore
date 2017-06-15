@@ -7,6 +7,7 @@ import ju.dto.MissingDTO;
 public interface MissingDAO {
 	
 	public List<MissingDTO> missingList(String sql);
+<<<<<<< HEAD
 	   public int missingWrite(MissingDTO dto);
 	   public MissingDTO missingContent(String missing_idx);
 	   public int missingDelete(String missing_idx);
@@ -16,5 +17,16 @@ public interface MissingDAO {
 	   public String makeIdx(String tableName);
 	   public MissingDTO missingPreInfo(String missing_idx);
 	   public MissingDTO missingNextInfo(String missing_idx);
+=======
+	public int missingWrite(MissingDTO dto);
+	public MissingDTO missingContent(String missing_idx);
+	public int missingDelete(String missing_idx);
+	public MissingDTO missingChange(String missing_idx);
+	public int missingChangeOk(MissingDTO dto);
+	public int missingTotalCount();
+	public String makeIdx(String tableName);
+	public MissingDTO missingPreInfo(String missing_idx);
+	public MissingDTO missingNextInfo(String missing_idx);
+>>>>>>> origin/youngju
 	
 }
