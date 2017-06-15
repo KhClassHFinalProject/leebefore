@@ -9,16 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
-import ju.notice.model.NoticeDAO;
-import ju.quest.model.QnaDAO;
-=======
->>>>>>> 8662f44b641c09744135108e2262e03c7edae4a7
 import ju.dto.MissingDTO;
 import ju.dto.NoticeDTO;
 import ju.dto.QnaDTO;
 import ju.missing.model.MissingDAO;
 import ju.notice.model.NoticeDAO;
+import ju.quest.model.QnaDAO;
 
 
 
@@ -152,7 +148,6 @@ public class HelpController {
 		endPage = totalPage;
 	}
 	String sql = "select b.* from (select rownum as rnum, a.* from(select missing_idx, missing_cate, missing_subject, mem_idx, missing_date, missing_readnum from missing where "+ type +" like '%" + query + "%' order by missing_date desc)a)b WHERE b.rnum >= "+((page-1)*COUNTLIST+1)+" and b.rnum <= "+(page*COUNTLIST);
-	System.out.println(sql);
 	List<MissingDTO> list=missingDao.missingList(sql); //DTO 그릇에 DAO에있는 리스트를 담아서
 	ModelAndView mav=new ModelAndView("help/missing/missingList","list",list); //이 페이지로 보낸다 리스트를같이
 	mav.addObject("page", page);
@@ -188,8 +183,8 @@ public class HelpController {
 	@RequestMapping(value="/missingContent.ju")
 	public ModelAndView missingContent(String missing_idx){
 		MissingDTO dto=missingDao.missingContent(missing_idx);
-		MissingDTO preInfo = missingDao.preInfo(missing_idx);
-		MissingDTO nextInfo = missingDao.nextInfo(missing_idx);
+		MissingDTO preInfo = missingDao.missingPreInfo(missing_idx);
+		MissingDTO nextInfo = missingDao.missingNextInfo(missing_idx);
 		ModelAndView mav=new ModelAndView("help/missing/missingContent","dto",dto);
 		mav.addObject("pre", preInfo);
 		mav.addObject("next", nextInfo);

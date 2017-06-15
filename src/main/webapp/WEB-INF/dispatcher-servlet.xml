@@ -56,7 +56,6 @@
 	<bean id="yeyakdao" class="ju.model.YeyakDAOImple">
 		<constructor-arg ref="sqlSessionTemplate" />
 	</bean>
-	
 	<bean id="elibDAO" class="ju.elib.model.ElibDAOImple" >
 		<constructor-arg  ref="sqlSessionTemplate" />
 	</bean>

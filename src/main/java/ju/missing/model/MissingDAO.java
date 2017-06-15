@@ -14,7 +14,7 @@ public interface MissingDAO {
 	public int missingChangeOk(MissingDTO dto);
 	public int missingTotalCount();
 	public String makeIdx(String tableName);
-	public MissingDTO preInfo(String missing_idx);
-	public MissingDTO nextInfo(String missing_idx);
+	public MissingDTO missingPreInfo(String missing_idx);
+	public MissingDTO missingNextInfo(String missing_idx);
 	
 }

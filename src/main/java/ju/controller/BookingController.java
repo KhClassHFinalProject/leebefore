@@ -80,18 +80,4 @@ public class BookingController {
 	
 	//대원 0613화 추가
 	
-	@RequestMapping("/learningIndex.ju")
-	public ModelAndView libList(){
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("learning/ligList");
-		return mav;
-	}
-	@RequestMapping("/rgstList.ju")
-	public ModelAndView rgstList(){
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("learning/rgstList");
-		return mav;
-	}
 }

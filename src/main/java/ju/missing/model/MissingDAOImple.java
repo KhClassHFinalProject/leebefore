@@ -56,13 +56,13 @@ public class MissingDAOImple implements MissingDAO{
 		return idx;
 	}
 	
-	public MissingDTO preInfo(String missing_idx) {
-		MissingDTO dto = sqlMap.selectOne("preInfo", missing_idx);
+	public MissingDTO missingPreInfo(String missing_idx) {
+		MissingDTO dto = sqlMap.selectOne("missingPreInfo", missing_idx);
 		return dto;
 	}
 	
-	public MissingDTO nextInfo(String missing_idx) {
-		MissingDTO dto = sqlMap.selectOne("nextInfo", missing_idx);
+	public MissingDTO missingNextInfo(String missing_idx) {
+		MissingDTO dto = sqlMap.selectOne("missingNextInfo", missing_idx);
 		return dto;
 	}
 	
