@@ -146,3 +146,14 @@ function getAudioTimeBefore(){
 	var test = document.getElementById("audio1");
 	test.currentTime-=10;
 }
+
+function getAudioPlay(){
+	var test = document.getElementById("audio1");
+	test.play();
+}
+
+function getAudioPause(){
+	var test = document.getElementById("audio1");
+	test.pause();
+}
+

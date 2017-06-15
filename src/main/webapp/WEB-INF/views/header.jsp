@@ -7,6 +7,7 @@
 	body{
 		width: 90%;
 		margin: auto;
+		overflow-y: scroll; 
 	}
 	@media (max-width: 768px) {
 		body{
@@ -14,11 +15,7 @@
 			margin: 0 10%;
 		}
 	}
-	#mainImg{
-		height: 100px;
-		/* background: yellow; */
-	}
-	
+
 	.main-menu-btn {
 		position: relative;
 		display: inline-block;
@@ -128,8 +125,10 @@
 <header>
 	
 	<div class="row">
+
 		<div id="mainImg" class="col-md-3"> 
 			<img src="/lee/resources/index/logo2.png" style=" width:250px;">
+
 		</div>
 		<div class="col-md-2 col-md-offset-7 loginClass">		
 				<c:set var="sid" value="${sessionScope.sid}"/>

@@ -6,114 +6,173 @@
 <mapper namespace="ju.help">
 
 <!-- notice -->
-	<select id="notiSELList" parameterType="java.util.Map" resultType="ju.dto.NoticeDTO">
-  		${sql}
-  	</select>
+   <select id="notiSELList" parameterType="java.util.Map" resultType="ju.dto.NoticeDTO">
+        ${sql}
+     </select>
 
-	<insert id="notiINSWrite" parameterType="ju.dto.NoticeDTO"> 
-		insert into notice values
-		(#{nt_idx},
-		0,
-		#{nt_subject},
-		#{nt_content},
-		sysdate,
-		'yj',
-		0,0,0,0)
-	</insert>
+   <insert id="notiINSWrite" parameterType="ju.dto.NoticeDTO"> 
+      insert into notice values
+      (#{nt_idx},
+      0,
+      #{nt_subject},
+      #{nt_content},
+      sysdate,
+      'yj',
+      0,0,0,0)
+   </insert>
   
-	<select id="notiSELContent" parameterType="String" resultType="ju.dto.NoticeDTO">
-		select * from notice
-		where nt_idx=#{nt_idx}
-	</select>
+   <select id="notiSELContent" parameterType="String" resultType="ju.dto.NoticeDTO">
+      select * from notice
+      where nt_idx=#{nt_idx}
+   </select>
 
-	<delete id="notiDELOut" parameterType="String">
-		delete from notice 
-		where nt_idx=#{nt_idx}
-	</delete>
-	
-	<select id="notiSELChange" parameterType="String" resultType="ju.dto.NoticeDTO">
-		select * from notice
-		where nt_idx=#{nt_idx}
-	</select>
-	
-	<update id="notiUPDChange" parameterType="ju.dto.NoticeDTO"> 
-		update notice set
-		nt_subject=#{nt_subject},
-		nt_content=#{nt_content} 
-		where nt_idx=#{nt_idx}
-	</update>
-	
-	
-<!-- 	totalCount -->
-	<select id="totalCount" resultType="Integer">
-		select count(*) from notice
-	</select>
-	
-<!-- 	missing -->
-	<select id="missingList" parameterType="java.util.Map" resultType="ju.dto.MissingDTO">
-  		${sql}
-  	</select>
-  	
-	<insert id="missingWrite" parameterType="ju.dto.MissingDTO"> 
-		insert into missing values
-		(#{missing_idx},
-		0,
-		#{missing_subject},
-		#{missing_content},
-		sysdate,
-		#{mem_idx},
-		0,0,0,0)
-	</insert>
+   <delete id="notiDELOut" parameterType="String">
+      delete from notice 
+      where nt_idx=#{nt_idx}
+   </delete>
+   
+   <select id="notiSELChange" parameterType="String" resultType="ju.dto.NoticeDTO">
+      select * from notice
+      where nt_idx=#{nt_idx}
+   </select>
+   
+   <update id="notiUPDChange" parameterType="ju.dto.NoticeDTO"> 
+      update notice set
+      nt_subject=#{nt_subject},
+      nt_content=#{nt_content} 
+      where nt_idx=#{nt_idx}
+   </update>
+   
+   <select id="noticeTotalCount" resultType="Integer">
+      select count(*) from notice
+   </select>
+   
 
-	<select id="missingContent" parameterType="String" resultType="ju.dto.MissingDTO">
-		select * from missing
-		where missing_idx=#{missing_idx}
-	</select>
-	
-	<select id="preInfo" parameterType="String" resultType="ju.dto.MissingDTO">
-		<![CDATA[
-		select * from missing where missing_idx=(select max(missing_idx)as missing_idx from missing where missing_idx < #{missing_idx})
-		]]>
-	</select>
-	
-	<select id="nextInfo" parameterType="String" resultType="ju.dto.MissingDTO">
-		<![CDATA[
-		select * from missing where missing_idx=(select min(missing_idx)as missing_idx from missing where missing_idx > #{missing_idx})
-		]]>
-	</select>
-	
-	<delete id="missingDelete" parameterType="String">
-		delete from missing where missing_idx=#{missing_idx}
-	</delete>
-	
-	<select id="missingChange" parameterType="String" resultType="ju.dto.MissingDTO">
-		select * from missing where missing_idx=#{missing_idx}
-	</select>
-	
-	<update id="missingChangeOk" parameterType="ju.dto.MissingDTO"> 
-		update missing set
-		missing_subject=#{missing_subject},
-		missing_content=#{missing_content} 
-		where missing_idx=#{missing_idx}
-	</update>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+   
+   
+<!--    missing -->
+   <select id="missingList" parameterType="java.util.Map" resultType="ju.dto.MissingDTO">
+        ${sql}
+     </select>
+     
+   <select id="missingTotalCount" resultType="Integer">
+      select count(*) from missing
+   </select>
+     
+   <insert id="missingWrite" parameterType="ju.dto.MissingDTO"> 
+      insert into missing values
+      (#{missing_idx},
+      0,
+      #{missing_subject},
+      #{missing_content},
+      sysdate,
+      #{mem_idx},
+      0,0,0,0)
+   </insert>
+
+   <select id="missingContent" parameterType="String" resultType="ju.dto.MissingDTO">
+      select * from missing
+      where missing_idx=#{missing_idx}
+   </select>
+   
+   <select id="missingPreInfo" parameterType="String" resultType="ju.dto.MissingDTO">
+      <![CDATA[
+      select * from missing where missing_idx=(select max(missing_idx)as missing_idx from missing where missing_idx < #{missing_idx})
+      ]]>
+   </select>
+   
+   <select id="missingNextInfo" parameterType="String" resultType="ju.dto.MissingDTO">
+      <![CDATA[
+      select * from missing where missing_idx=(select min(missing_idx)as missing_idx from missing where missing_idx > #{missing_idx})
+      ]]>
+   </select>
+   
+   <delete id="missingDelete" parameterType="String">
+      delete from missing where missing_idx=#{missing_idx}
+   </delete>
+   
+   <select id="missingChange" parameterType="String" resultType="ju.dto.MissingDTO">
+      select * from missing where missing_idx=#{missing_idx}
+   </select>
+   
+   <update id="missingChangeOk" parameterType="ju.dto.MissingDTO"> 
+      update missing set
+      missing_subject=#{missing_subject},
+      missing_content=#{missing_content} 
+      where missing_idx=#{missing_idx}
+   </update>
+   
+<!--    qna -->
+   <select id="qnaList" parameterType="java.util.Map" resultType="ju.dto.QnaDTO">
+        ${sql}
+     </select>
+     
+   <select id="qnaTotalCount" resultType="Integer">
+      select count(*) from quest
+   </select>
+     
+   <insert id="qnaWrite" parameterType="ju.dto.QnaDTO"> 
+      insert into quest values
+      (#{qu_idx},
+      #{qu_qidx},
+      #{qu_cate},
+      #{qu_subject},
+      #{qu_content},
+      #{mem_idx},
+      sysdate,
+      0,0,0)
+   </insert>
+
+   <select id="qnaContent" parameterType="String" resultType="ju.dto.QnaDTO">
+      select * from quest
+      where qu_idx=#{qu_idx}
+   </select>
+
+   
+   <delete id="qnaDelete" parameterType="String">
+      delete from quest where qu_idx=#{qu_idx}
+   </delete>
+   
+   <select id="qnaChange" parameterType="String" resultType="ju.dto.QnaDTO">
+      select * from quest where qu_idx=#{qu_idx}
+   </select>
+   
+   <update id="qnaChangeOk" parameterType="ju.dto.QnaDTO"> 
+      update quest set
+      qu_subject=#{qu_subject},
+      qu_content=#{qu_content} 
+      where qu_idx=#{qn_idx}
+   </update>
+      
+   <select id="qnaPreInfo" parameterType="String" resultType="ju.dto.QnaDTO">
+      <![CDATA[
+      select * from quest where qu_idx=(select max(qu_idx)as qu_idx from quest where qu_idx < #{qu_idx})
+      ]]>
+   </select>
+   
+   <select id="qnaNextInfo" parameterType="String" resultType="ju.dto.QnaDTO">
+      <![CDATA[
+      select * from quest where qu_idx=(select min(qu_idx)as qu_idx from quest where qu_idx > #{qu_idx})
+      ]]>
+   </select>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 </mapper>

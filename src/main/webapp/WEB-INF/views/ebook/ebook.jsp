@@ -54,11 +54,12 @@
 					detailWrite="";
 					detailPub="";
 					cateLg=$(event.target).eq(0).data("lg");
-					cateMd="";
-					
-					$(".order>span").eq(1).click();
-					elibDetailAjax(detailSubject, detailWrite, detailPub, cateLg, cateMd, 1, orderName);
-				}
+					cateMd="99";
+					if(!$(this).parent().hasClass("open")){ // 닫기는 작동안함
+						$(".order>span").eq(1).click();
+						elibDetailAjax(detailSubject, detailWrite, detailPub, cateLg, cateMd, 1, orderName);
+					}
+				} // click function
 			);
 			$("#ebList>ul>li>ul>li>a").click(
 				function(event) {
@@ -125,20 +126,22 @@
 							intoHTML+='	<td>';
 							intoHTML+='		<div class="media">';
 							intoHTML+='			<div class="media-left media-middle text-center">';
-							intoHTML+='				<img class="media-object" src="/lee/resources/ebook/book.jpg" style="width: 97px; height: 110px;"><br>';
+							intoHTML+='				<img class="media-object" src=" ' + arr[i].el_path + ' " style="width: 97px; height: 110px;"><br>';
 							intoHTML+='			</div>';
 							intoHTML+='			<div class="media-body">';
-							intoHTML+='				<h4 class="media-heading">진짜 진짜 생생한 동물 낱말 카드 TEST Count : ' + arr[i].el_subject + '</h4>';
+							intoHTML+='				<h4 class="media-heading"> ' + arr[i].el_subject + ' </h4>';
 							intoHTML+='				<div class="row">';
 							intoHTML+='					<div class="col-md-2">저자</div>';
-							intoHTML+='						<div class="col-md-8">편집부 저</div>';
+							intoHTML+='					<div class="col-md-10"> ' + arr[i].el_writer + ' </div>';
+							intoHTML+='					<div class="col-md-2">추천 수</div>';
+							intoHTML+='					<div class="col-md-10"> ' + arr[i].el_recocount + ' </div>';
 							intoHTML+='				</div>';
 							intoHTML+='				<div class="row info">';
 							intoHTML+='					<div class="col-md-12">';
 							intoHTML+='						<dl>';
 							intoHTML+='							<dt>간략소개</dt>';
 							intoHTML+='							<dd>';
-							intoHTML+=' 사람의 일생에서 가장 폭발적인 언어 습득 능력을 구사하는 나이는 생후 18개월. 이 시기의 아이들은 스펀지가 물을 빨아들이듯, 빠른 속도로 언어를 배우기 시작합니다. 사물카드는 주변에서 쉽게 볼 수 있는 사물들을 이름과 함께 보여 주어, 어린이의 어휘력과 함께 사고력의 발달을 도와줍니다.';
+							intoHTML+= arr[i].el_info;
 							intoHTML+='							</dd>';
 							intoHTML+='						</dl>';
 							intoHTML+='					</div>';
@@ -150,6 +153,7 @@
 						}
 						$("#contentTbody").html(intoHTML);
 						$("#pagingNav").html(data.paging);
+						$("#pagingNav").removeClass().addClass("simple");
 						contentClick();
 						
 						$("#pagingNav>ul>li").removeClass("active");
@@ -197,6 +201,9 @@
 				function() {
 					simpleSearchText=$("#simpleSearchText").val();
 					elibSearchAjax(simpleSearchText, 1, orderName);
+					$("#pagingNav").removeClass().addClass("simple");
+					$("#pagingNav>ul>li").removeClass("active");
+					$("#pagingNav>ul>li").eq(1).addClass("active");
 				}
 			);
 			
@@ -227,20 +234,22 @@
 							intoHTML+='	<td>';
 							intoHTML+='		<div class="media">';
 							intoHTML+='			<div class="media-left media-middle text-center">';
-							intoHTML+='				<img class="media-object" src="/lee/resources/ebook/book.jpg" style="width: 97px; height: 110px;"><br>';
+							intoHTML+='				<img class="media-object" src=" ' + arr[i].el_path + ' " style="width: 97px; height: 110px;"><br>';
 							intoHTML+='			</div>';
 							intoHTML+='			<div class="media-body">';
-							intoHTML+='				<h4 class="media-heading">진짜 진짜 생생한 동물 낱말 카드 TEST Count : ' + arr[i].el_subject + '</h4>';
+							intoHTML+='				<h4 class="media-heading">' + arr[i].el_subject + '</h4>';
 							intoHTML+='				<div class="row">';
 							intoHTML+='					<div class="col-md-2">저자</div>';
-							intoHTML+='					<div class="col-md-8">편집부 저</div>';
+							intoHTML+='					<div class="col-md-10">' + arr[i].el_writer + '</div>';
+							intoHTML+='					<div class="col-md-2">추천 수</div>';
+							intoHTML+='					<div class="col-md-10">' + arr[i].el_recocount + '</div>';
 							intoHTML+='				</div>';
 							intoHTML+='				<div class="row info">';
 							intoHTML+='					<div class="col-md-12">';
 							intoHTML+='						<dl>';
 							intoHTML+='							<dt>간략소개</dt>';
 							intoHTML+='							<dd>';
-							intoHTML+='사람의 일생에서 가장 폭발적인 언어 습득 능력을 구사하는 나이는 생후 18개월. 이 시기의 아이들은 스펀지가 물을 빨아들이듯, 빠른 속도로 언어를 배우기 시작합니다. 사물카드는 주변에서 쉽게 볼 수 있는 사물들을 이름과 함께 보여 주어, 어린이의 어휘력과 함께 사고력의 발달을 도와줍니다.';
+							intoHTML+=arr[i].el_info;
 							intoHTML+='							</dd>';
 							intoHTML+='						</dl>';
 							intoHTML+='					</div>';
@@ -252,6 +261,7 @@
 						}
 						$("#contentTbody").html(intoHTML);
 						$("#pagingNav").html(data.paging);
+						$("#pagingNav").removeClass().addClass("detail");
 						contentClick();
 						
 						$("#pagingNav>ul>li").removeClass("active");
@@ -360,20 +370,22 @@
 						intoHTML+='	<td>';
 						intoHTML+='		<div class="media">';
 						intoHTML+='			<div class="media-left media-middle text-center">';
-						intoHTML+='				<img class="media-object" src="/lee/resources/ebook/book.jpg" style="width: 97px; height: 110px;"><br>';
+						intoHTML+='				<img class="media-object" src=" ' + arr[i].el_path + ' " style="width: 97px; height: 110px;"><br>';
 						intoHTML+='			</div>';
 						intoHTML+='			<div class="media-body">';
-						intoHTML+='				<h4 class="media-heading">진짜 진짜 생생한 동물 낱말 카드 TEST Count : ' + arr[i].el_subject + '</h4>';
+						intoHTML+='				<h4 class="media-heading">' + arr[i].el_subject + '</h4>';
 						intoHTML+='				<div class="row">';
 						intoHTML+='					<div class="col-md-2">저자</div>';
-						intoHTML+='					<div class="col-md-8">편집부 저</div>';
+						intoHTML+='					<div class="col-md-10">' + arr[i].el_writer + '</div>';
+						intoHTML+='					<div class="col-md-2">추천 수</div>';
+						intoHTML+='					<div class="col-md-10">' + arr[i].el_recocount + '</div>';
 						intoHTML+='				</div>';
 						intoHTML+='				<div class="row info">';
 						intoHTML+='					<div class="col-md-12">';
 						intoHTML+='						<dl>';
 						intoHTML+='							<dt>간략소개</dt>';
 						intoHTML+='							<dd>';
-						intoHTML+=' 사람의 일생에서 가장 폭발적인 언어 습득 능력을 구사하는 나이는 생후 18개월. 이 시기의 아이들은 스펀지가 물을 빨아들이듯, 빠른 속도로 언어를 배우기 시작합니다. 사물카드는 주변에서 쉽게 볼 수 있는 사물들을 이름과 함께 보여 주어, 어린이의 어휘력과 함께 사고력의 발달을 도와줍니다.';
+						intoHTML+=arr[i].el_info;
 						intoHTML+='							</dd>';
 						intoHTML+='						</dl>';
 						intoHTML+='					</div>';
@@ -385,6 +397,7 @@
 					}
 					$("#contentTbody").html(intoHTML);
 					$("#pagingNav").html(data.paging);
+					$("#pagingNav").removeClass().addClass("noSearch");
 					contentClick();
 					
 					$("#pagingNav>ul>li").removeClass("active");
@@ -434,6 +447,7 @@
 						, dataType : "json"
 						, success: function(data){
 							var arr=data.elibArr;
+							var mem=data.mem;
 							var intoHeaderHTML="";
 							intoHeaderHTML+='<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 							intoHeaderHTML+='<h4 class="modal-title" id="myModalLabel">' + arr.el_subject + '</h4>';
@@ -450,16 +464,26 @@
 							intoBodyHTML+='					<div class="text-left">';
 							intoBodyHTML+='						<div class="col-md-2">저자</div><div class="col-md-10">' + arr.el_writer + '</div>';
 							intoBodyHTML+='						<div class="col-md-2">출판사</div><div class="col-md-10">' + arr.el_pub + '</div>';
-							intoBodyHTML+='						<div class="col-md-2">추천 수</div><div class="col-md-10">' + arr.el_recocount + '</div>';
-							intoBodyHTML+='						<div class="col-md-2">대출</div><div class="col-md-10">0/5</div>';
+							intoBodyHTML+='						<div class="col-md-2">추천 수</div><div class="col-md-10" id="reco">' + arr.el_recocount + '</div>';
+							intoBodyHTML+='						<div class="col-md-2">대출</div><div class="col-md-10" id="loan">0/5</div>';
 							intoBodyHTML+='					</div>';
 							intoBodyHTML+='				</div>';
 							intoBodyHTML+='				<div class="text-right">';
-							intoBodyHTML+='					<button class="btn btn-default" onClick="ebookRefresh(1)">';
-							intoBodyHTML+='						<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><span id="refreshSpan">가능</span>';
+							if(mem==0){
+								intoBodyHTML+='					<span data-toggle="tooltip" data-placement="bottom" title="로그인 해야 사용 할 수 있습니다.">';
+								intoBodyHTML+='						<button class="btn btn-default" id="loanButton" type="button" disabled="disabled" >대출하기 </button>';
+								intoBodyHTML+='					</span> ';
+								intoBodyHTML+='					<span data-toggle="tooltip" data-placement="bottom" title="로그인 해야 사용 할 수 있습니다.">';
+								intoBodyHTML+='						<button class="btn btn-default" id="recommendButton" type="button"  disabled="disabled" >추천하기</button> ';
+								intoBodyHTML+='					</span> ';
+							}
+							else{
+								intoBodyHTML+='					<button class="btn btn-default" id="loanButton" type="button" onClick="ebookLoan(\'' + arr.el_idx + '\')" >대출하기 </button>';
+								intoBodyHTML+='					<button class="btn btn-default" id="recommendButton" type="button" onClick="elibRecommend(\'' + arr.el_idx + '\' )" >추천하기</button>';
+							}
+							intoBodyHTML+='					<button class="btn btn-default" onClick="ebookRefresh(\'' + arr.el_idx + '\')">';
+							intoBodyHTML+='						<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><span id="refreshSpan">대여 가능</span>';
 							intoBodyHTML+='					</button>';
-							intoBodyHTML+='					<button class="btn btn-default" id="loanButton" type="button" onClick="ebookLoan(1)" >대출하기 </button>';
-							intoBodyHTML+='					<button class="btn btn-default" id="recommendButton" type="button" onClick="elibRecommend(\' ' + arr.el_idx + '\' )" >추천하기</button>';
 							intoBodyHTML+='				</div>';
 							intoBodyHTML+='			</div>';
 							intoBodyHTML+='		</div>';
@@ -470,16 +494,21 @@
 							intoBodyHTML+='		<tr>';
 							intoBodyHTML+='			<td>';
 							intoBodyHTML+='				<h4>작품소개</h4>';
-							intoBodyHTML+='				(강추!) 『나의 고독한 두리안 나무』 『라구나 이야기 외전』 『영우한테 잘해줘』의 박영란 작가의 신작 열 살 소년이 그곳에서 당신을 기다립니다 위험이 닥칠 땐 개다리춤을 추는 소년과 귀차니 아줌마의 인생 이야기! 『나의 고독한 두리안 나무』『라구나 이야기 외전』『영우한테 잘해줘』에서 자신만의 확실한 작품세계와 문장으로 청소년을 만났던 박영란 작가가 들려주는 또다른 삶의 이야기이다. 세상에서 어슬렁거리는 사람을 내쫓지 않는 것은 광장뿐. 그곳에서 사는 사람들과 어울리면서 열 살 소년이 알아버린 삶의 무서운 진실, 인생 이야기. 절대 무너지지 마! 우리가 삶을 함부로 대하지 않으면 그 무엇도 우리를 함부로 대할 수 없다!';
+							intoBodyHTML+=arr.el_info;
 							intoBodyHTML+='			</td>';
 							intoBodyHTML+='		</tr>';
 							intoBodyHTML+='	</table>';
 							intoBodyHTML+='</div>';
 							$(".modal-header").html(intoHeaderHTML);
 							$(".modal-body").html(intoBodyHTML);
-						}
+							if(mem==0){
+								$("#loanButton").parent().tooltip();
+								$("#recommendButton").parent().tooltip();
+							} // null function
+						$("#myModal").modal("show");
+						$("#refreshSpan").parent().click();
+						} // success
 					});
-					$("#myModal").modal("show");
 				}
 			);
 		}
@@ -492,9 +521,16 @@
 				, data : {el_idx : el_idx}
 				, dataType : "json"
 				, success: function(data){
-					$("#refreshSpan").text(data.msg);
-				}
-			})
+					var resultCount=data.resultCount;
+					if(resultCount==5){
+						$("#refreshSpan").text("대여 불가능");
+					}
+					else{
+						$("#refreshSpan").text("대여 가능");
+					}
+					$("#loan").text(resultCount + "/5");
+				} // success: function
+			}) // ajax
 		}
 		/*대출*/
 		function ebookLoan(el_idx) {
@@ -504,9 +540,16 @@
 				, data : {el_idx : el_idx}
 				, dataType : "json"
 				, success: function(data){
-					alert(data.loan);
-				}
-			})
+					var resultCount=data.resultCount;
+					if(resultCount==0){
+						alert("대출이 불가능 합니다."+data.msg);
+					}
+					else if(resultCount>0){
+						ebookRefresh(el_idx);
+						alert("대여기간은 " + data.endDate + "까지 입니다.");
+					}
+				} // success: function
+			});
 		}
 		/*추천*/
 		function elibRecommend(el_idx) {
@@ -516,9 +559,23 @@
 				, data : {el_idx : el_idx}
 				, dataType : "json"
 				, success: function(data){
-					alert(data.recommend);
+					var resultCount=data.resultCount;
+					var recommend=data.recommend;
+					if(resultCount>=1){
+						$("#reco").text(recommend);
+						alert("추천 되었습니다.");
+						var num=$("#contentTbody>tr").length;
+						for(var i=0 ; i<num ; i++){
+							if($("#contentTbody>tr").eq(i).data("idx")==el_idx){
+								$("#contentTbody>tr:eq(" + i + ")>td>.media>.media-body>.row>div").eq(3).text(recommend);
+							}
+						}
+					}
+					else{
+						alert("이미 추천 했습니다.");
+					}
 				}
-			})
+			}); // success: function
 		}
 		
 	</script>
@@ -537,9 +594,9 @@
 		<div class="col-md-8">
 			
 			<!-- 검색바 -->
-			<div class="row" style="background: #3cdbde; padding: 80px 0;">
+			<div class="row" style="background: url('/lee/resources/elib/EBback.jpg'); background-size : cover; padding: 80px 0;">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="책 검색..." name="simpleSearchText" id="simpleSearchText">
+					<input type="text" class="form-control" placeholder="전자도서" name="simpleSearchText" id="simpleSearchText">
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button" id="ebookSearch">
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>

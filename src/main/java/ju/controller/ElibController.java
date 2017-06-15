@@ -1,7 +1,11 @@
 package ju.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ju.dto.ElibDTO;
+import ju.dto.OriginalLoanDTO;
 import ju.elib.model.ElibDAO;
+import ju.model.LoanDAO;
 import ju.modul.BookCateModul;
 import ju.modul.ElibPaging;
 
@@ -19,6 +25,8 @@ public class ElibController {
 	
 	@Autowired
 	private ElibDAO elibDAO;
+	@Autowired
+	private LoanDAO loandao;
 	
 	/** 전자도서관 메인 */
 	@RequestMapping(value="ebookMain.ju")
@@ -33,7 +41,6 @@ public class ElibController {
 	public ModelAndView ebook() {
 		BookCateModul bcm=new BookCateModul();
 		String bookLgSelect=bcm.BookLgSelect(0, 7, true);
-		
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("bookLgSelect", bookLgSelect);
 		mav.setViewName("ebook/ebook");
@@ -84,7 +91,6 @@ public class ElibController {
 		, @RequestParam(value="idxParam", defaultValue="EB" )String idxParam
 		) {
 		orderName="new".equals(orderName)?"el_idx DESC":"el_recocount DESC, el_idx DESC";
-		
 		int startNum=(page-1)*ElibPaging.CONTENTSIZE+1;
 		int endNum=startNum+ElibPaging.CONTENTSIZE-1;
 		
@@ -184,71 +190,107 @@ public class ElibController {
 	
 	/**전자도서 컨텐츠 선택*/
 	@RequestMapping(value="elibContent.ju")
-	public ModelAndView elibContent(@RequestParam(value="el_idx", defaultValue="0")String el_idx) {
+	public ModelAndView elibContent(@RequestParam(value="el_idx", defaultValue="0")String el_idx, HttpServletRequest request) {
+		HttpSession session=request.getSession();
+		String mem_idx=(String) session.getAttribute("sidx");
+		String mem="1";
+		if(mem_idx==null || "".equals(mem_idx)){
+			mem="0";
+		}
+		
 		List<ElibDTO> elibArr=elibDAO.elibContent(el_idx);
 		ModelAndView mav=new ModelAndView();
 		
 		mav.addObject("elibArr", elibArr.get(0));
+		mav.addObject("mem", mem);
 		mav.setViewName("juJson");
 		return mav;
 	}
 	
 	/**추천 기능 Ajax*/
 	@RequestMapping(value="elibRecommend.ju")
-	public ModelAndView elibRecommend(@RequestParam(value="el_idx", defaultValue="0")String el_idx) {
-		/*
-		 * 1. 세션에서 ID받기
-		 * 	1-1 세션이 없으면 미 로그인 로그인 하라고 리턴 
-		 * 	1-2 세션이 있으면 2번으로
-		 * 2. 해당 ID로 IDX 찾기
-		 * 3. 해당 책 el_recocount가 0인지 아닌지 판단
-		 *  3-1 0이면 el_recommend를 삭제하고 해당 mem_idx~를 넣는다(=)
-		 *  3-2 0이 아니면 el_recommend에 +mem_idx~를 추가 한다(+=)
-		 * 4. el_recocount를 1 증가 시킨다
-		 */
-		System.out.println("추천 : " + el_idx);
+	public ModelAndView elibRecommend(
+		@RequestParam(value="el_idx", defaultValue="0")String el_idx
+		, HttpServletRequest request
+		) {
+		HttpSession session=request.getSession();
+		String mem_idx=(String) session.getAttribute("sidx");
+		List<ElibDTO> elibArr=elibDAO.elibContent(el_idx);
+		int resultCount=-1;
+		int recommend=elibArr.get(0).getEl_recocount();
+		if(mem_idx==null || "".equals(mem_idx)){
+			// 미 로그인
+		}
+		else{
+			String el_recommend=null;
+			if(recommend==0){
+				el_recommend=mem_idx;
+			}
+			else{
+				String[] recoMem=elibArr.get(0).getEl_recommend().split("~");
+				boolean before=true;
+				for(int i=0 ; i<recoMem.length ; i++){
+					if(recoMem[i].equals(mem_idx)){ before=false; break;}
+				}
+				if(before){
+					el_recommend="~" + mem_idx;
+					el_recommend=elibArr.get(0).getEl_recommend()+el_recommend;
+				}
+			}
+			if(el_recommend!=null){
+				resultCount=elibDAO.elibRecommend(el_idx, el_recommend); // 업데이트 확인
+			}
+			recommend=elibDAO.elibContent(el_idx).get(0).getEl_recocount(); // 업뎃 후 다시 가져옴
+		}
+		
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("recommend", el_idx);
+		mav.addObject("recommend", recommend);
+		mav.addObject("resultCount", resultCount);
 		mav.setViewName("juJson");
 		return mav;
 	}
 	
 	/**전자도서 새로고침 기능 Ajax*/
 	@RequestMapping(value="ebookRefresh.ju")
-	public ModelAndView ebookRefresh(@RequestParam(value="el_idx", defaultValue="0")int el_idx) {
-		/*
-		 * 1. el_idx를 가지고 loan DB를 가서 현재 대여수를 받아온다
-		 * 2. 5권 까지이므로 계산 후 돌린다
-		 */
-		int randomNum=(int)(Math.random()*10)+1;
+	public ModelAndView ebookRefresh(@RequestParam(value="el_idx", defaultValue="0")String el_idx) {
+		int resultCount=loandao.loanOne(el_idx);
 		ModelAndView mav=new ModelAndView();
-		if(randomNum>7){
-			mav.addObject("msg", "불가?");
-		}
-		else{
-			mav.addObject("msg", "가능!");
-		}
+		mav.addObject("resultCount", resultCount);
 		mav.setViewName("juJson");
 		return mav;
 	}
 	
 	/**전자도서 대출신청 기능 Ajax*/
 	@RequestMapping(value="ebookLoan.ju")
-	public ModelAndView ebookLoan(@RequestParam(value="el_idx", defaultValue="0")int el_idx) {
-		/*
-		 * 1. 세션에서 ID받기
-		 * 	1-1 세션이 없으면 미 로그인 로그인 하라고 리턴 
-		 * 	1-2 세션이 있으면 2번으로
-		 * 2. 해당 ID로 IDX 찾기
-		 * 3. loan DB에서 빌릴수 있는지 확인한다 (해당 회원 최대치, 해당 권 최대치 2가지 경우)
-		 *  3-1 빌릴 수 없다면 리턴
-		 *  3-2 빌릴 수 있다면 4번으로
-		 * 4. loan DB에 등록
-		 * 5. 기간
-		 */
-		System.out.println("대출 신청 : " + el_idx);
+	public ModelAndView ebookLoan(@RequestParam(value="el_idx", defaultValue="0")String el_idx, HttpServletRequest request) {
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("loan", "대출 신청 : " + el_idx);
+		
+		HttpSession session=request.getSession();
+		String mem_idx=(String) session.getAttribute("sidx");
+		int resultCount=0;
+		String endDate=null;
+		if(mem_idx==null || "".equals(mem_idx)){ /*미로그인*/ }
+		else{
+			int memCount=loandao.memCount(mem_idx); // 회원 최대치
+			int ebookCount=loandao.loanOne(el_idx); // 책 최대치
+			int ebookOverlap=loandao.ebookOverlap(mem_idx, el_idx); // 중복 대여 (0이면 미대여, 1이면 대여)
+			if(memCount<5 && ebookCount<5 && ebookOverlap==0){
+				String lb_idx="LB"+System.currentTimeMillis();
+				resultCount=loandao.elibLoan(lb_idx, mem_idx, el_idx, "#/page/1");
+				List<OriginalLoanDTO> loanArr=loandao.loanInfo(lb_idx);
+				endDate=new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(loanArr.get(0).getLb_ed());
+				
+				mav.addObject("endDate", endDate);
+			}
+			else{
+				String msg="\n";
+				if(memCount>=5){ msg+="\n - 회원 최대 대여수를 초과하였습니다."; }
+				if(ebookCount>=5){ msg+="\n - 모두 대여되어 더이상 대여 할 수 없습니다."; }
+				if(ebookOverlap==1){ msg+="\n - 중복 도서를 대출 신청 하였습니다."; }
+				mav.addObject("msg", msg);
+			}
+		}
+		mav.addObject("resultCount", resultCount);
 		mav.setViewName("juJson");
 		return mav;
 	}

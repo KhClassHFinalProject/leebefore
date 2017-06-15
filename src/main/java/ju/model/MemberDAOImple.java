@@ -1,9 +1,20 @@
 package ju.model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
-import ju.dto.*;
+import ju.dto.AboutMyBookDTO;
+import ju.dto.AboutMyQnaDTO;
+import ju.dto.BanDTO;
+import ju.dto.BookDTO;
+import ju.dto.HolidayDTO;
+import ju.dto.LoanDTO;
+import ju.dto.MemberDTO;
+import ju.dto.YeyakDTO;
 
 public class MemberDAOImple implements MemberDAO {
 
@@ -141,7 +152,6 @@ public class MemberDAOImple implements MemberDAO {
 			//String whe = "MEM_IDX='"+mem_idx+"' and BAN_START<=SYSDATE and BAN_END>=SYSDATE";
 			int count = sqlMap.selectOne("memSELcheckban",mem_idx);
 			System.out.println("count : "+count);
-
 
 			if(count>0){
 				dto.setMem_name("black");

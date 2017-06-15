@@ -81,4 +81,51 @@
  	<delete id="feDEL" parameterType="String" >
  		DELETE FEDEX where bk_idx=#{bk_idx}
  	</delete>
+ 	
+ 	<select id="loanSELinfo" parameterType="String" resultType="ju.dto.OriginalLoanDTO">
+ 		SELECT * FROM loanbook WHERE lb_idx=#{lb_idx}
+ 	</select>
+ 	
+ 	<select id="loanSELed" parameterType="String" resultType="String">
+ 		SELECT TO_CHAR(lb_ed, 'YYYY-MM-DD HH24:MI:SS') FROM loanbook WHERE lb_idx=#{lb_idx}
+ 	</select>
+ 	
+ 	<update id="loanUPDbookMarkUp" parameterType="String">
+ 		UPDATE loanbook SET lb_etc=#{lb_etc} WHERE lb_idx=#{lb_idx}
+ 	</update>
+ 	
+ 	<select id="loanSELmemCount" parameterType="String" resultType="int">
+	 	SELECT COUNT(*) FROM loanbook WHERE mem_idx=#{mem_idx} AND lb_ed>SYSDATE
+ 	</select>
+ 	
+ 	<select id="loanSELebookOverlap" parameterType="String" resultType="int">
+	 	SELECT COUNT(*) FROM loanbook WHERE mem_idx=#{mem_idx} AND book_idx=#{el_idx} AND lb_ed>SYSDATE
+ 	</select>
+ 	
+ 	<insert id="loanINSelib" parameterType="String">
+	 	INSERT INTO loanbook VALUES(#{lb_idx}, #{mem_idx}, #{book_idx}, SYSDATE, SYSDATE+14, #{lb_etc}, 1, 0)
+ 	</insert>
+ 	
+ 	<select id="loanSELcheck" parameterType="String" resultType="int">
+ 		<![CDATA[
+ 			SELECT COUNT(*) FROM loanbook 
+ 				WHERE 
+ 				book_idx=#{el_idx} 
+ 				AND mem_idx=#{mem_idx} 
+ 				AND lb_return=1 
+ 				AND (lb_sd<sysdate AND lb_ed>sysdate)
+ 		]]> 
+ 	</select>
+ 	
+ 	<select id="elibLoanInfo" parameterType="String" resultType="ju.dto.OriginalLoanDTO">
+ 		<![CDATA[
+ 			SELECT * FROM loanbook 
+ 				WHERE 
+ 				book_idx=#{el_idx} 
+ 				AND mem_idx=#{mem_idx} 
+ 				AND lb_return=1 
+ 				AND (lb_sd<sysdate AND lb_ed>sysdate)
+ 		]]> 
+ 	</select>
+ 	
  </mapper>

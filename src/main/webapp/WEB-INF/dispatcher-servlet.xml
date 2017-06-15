@@ -31,7 +31,6 @@
 	<bean id="findDAO" class="ju.find.model.FindDAOImple">
 		<constructor-arg name="sqlMap" ref="sqlSessionTemplate"></constructor-arg>
 	</bean>
-	<!-- service -->
 	<bean id="memberDao" class="ju.model.MemberDAOImple">
 		<constructor-arg ref="sqlSessionTemplate" />
 	</bean>
@@ -56,7 +55,6 @@
 	<bean id="yeyakdao" class="ju.model.YeyakDAOImple">
 		<constructor-arg ref="sqlSessionTemplate" />
 	</bean>
-	
 	<bean id="elibDAO" class="ju.elib.model.ElibDAOImple" >
 		<constructor-arg  ref="sqlSessionTemplate" />
 	</bean>
@@ -72,6 +70,11 @@
 	<bean id="missingDao" class="ju.missing.model.MissingDAOImple">
 		<constructor-arg  ref="sqlSessionTemplate" />
 	</bean>
+
+	<bean id="qnaDao" class="ju.quest.model.QnaDAOImple">
+		<constructor-arg  ref="sqlSessionTemplate" />
+	</bean>
+
 
 	<!-- Spring and MyBatis linkage -->
 	<!-- 1.dataSource -->

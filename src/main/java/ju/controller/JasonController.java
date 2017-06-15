@@ -23,22 +23,23 @@ public class JasonController {
 	private AudioDAO audioDao;
 
 	
-	public String pathTest(HttpServletRequest req) {
+	public String audioPath(HttpServletRequest req) {
 		String path = req.getSession().getServletContext().getRealPath("/resources/elib/eAudio/");
+		System.out.println(path);
 		return path;
 	}
-
+	//오디오 리스트 및 mp3 경로
 	@RequestMapping("/audioList.ju")
 	public ModelAndView audiojson(@RequestParam(value="elIdx")String elIdx,String path, HttpServletRequest req) {
 		// mp3 파일 경로 불러오기
 		ModelAndView mav = new ModelAndView();
-		System.out.println("test : "+elIdx);
-		path = pathTest(req);
+//		System.out.println("test : "+elIdx);
+		path = audioPath(req);
 		mav.addObject("elIdx",elIdx);
 		ElibDTO dto = audioDao.selMplist(elIdx);
 		
 		File f = new File(path+"\\"+dto.getEl_idx());
-		System.out.println(path+"\\"+dto.getEl_idx());
+//		System.out.println(path+"\\"+dto.getEl_idx());
 		
 		File files[] = f.listFiles(new FilenameFilter() {
 			public boolean accept(File dir, String name) {
@@ -54,11 +55,11 @@ public class JasonController {
 			// 오디오 트랙번호, 파일이름, 파일 이름, 재생시간 가져오기
 			int trackNum = i + 1;
 			String name = files[i].getName();
-			System.out.println(name);
+//			System.out.println(name);
 
 			String[] fileName = name.split("\\."); // split 할떄에는 자료형에 배열을 주어준다.
 
-			System.out.println(fileName[1]);
+//			System.out.println(fileName[1]);
 			String duration = " ";
 			AudioListDTO aList = new AudioListDTO(trackNum, fileName[0], fileName[0], duration);
 
