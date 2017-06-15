@@ -70,12 +70,11 @@
 	<bean id="missingDao" class="ju.missing.model.MissingDAOImple">
 		<constructor-arg  ref="sqlSessionTemplate" />
 	</bean>
-<<<<<<< HEAD
+
 	<bean id="qnaDao" class="ju.quest.model.QnaDAOImple">
 		<constructor-arg  ref="sqlSessionTemplate" />
 	</bean>
-=======
->>>>>>> master-merge
+
 
 	<!-- Spring and MyBatis linkage -->
 	<!-- 1.dataSource -->
