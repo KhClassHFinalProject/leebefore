@@ -126,10 +126,17 @@ public class MemberDAOImple implements MemberDAO {
 		map.put("mem_id", mem_id);
 		map.put("mem_pwd", mem_pwd);
 		MemberDTO dto = sqlMap.selectOne("memSELlogin", map);
+<<<<<<< HEAD
 		if(dto==null || dto.getMem_idx().equals("")){
 			//로그인 실패시
 			dto.setMem_name("nolog");
 			return dto;
+=======
+		
+		if(dto==null){
+			
+			return null;
+>>>>>>> Daewon
 		}else{
 			
 			System.out.println("로그인 성공");
@@ -139,7 +146,11 @@ public class MemberDAOImple implements MemberDAO {
 			//String whe = "MEM_IDX='"+mem_idx+"' and BAN_START<=SYSDATE and BAN_END>=SYSDATE";
 			int count = sqlMap.selectOne("memSELcheckban",mem_idx);
 			System.out.println("count : "+count);
+<<<<<<< HEAD
 			
+=======
+
+>>>>>>> Daewon
 
 			if(count>0){
 				dto.setMem_name("black");
@@ -152,6 +163,82 @@ public class MemberDAOImple implements MemberDAO {
 		
 	}
 	
+<<<<<<< HEAD
+=======
+	public MemberDTO pwCheck(String mem_idx) {
+		MemberDTO dto = sqlMap.selectOne("memSELgetpwd", mem_idx);
+		System.out.println("디비로부터 가져온 pwd :"+ dto.getMem_pwd());
+		return dto;
+	}
+	
+	public int changeMeSubmit(MemberDTO dto){
+		int result = sqlMap.update("memUPDchangeme", dto);
+		System.out.println("개인정보 수정 결과 : "+ result);
+		return result;
+	}
+	
+//일반책 대출/예약 관련 	
+	public List<AboutMyBookDTO> aboutMybookLoan(String mem_idx) {
+		List<AboutMyBookDTO> lblist = sqlMap.selectList("memSELaboutmybookLoan", mem_idx);
+		return lblist;
+	}
+	public List<AboutMyBookDTO> aboutMybookfedex(String mem_idx){
+		List<AboutMyBookDTO> fdlist = sqlMap.selectList("memSELaboutmyboofedex", mem_idx);
+		return fdlist;
+	}
+	
+	public List<AboutMyBookDTO> aboutMybookYeyak(String mem_idx) {
+		List<YeyakDTO> yylist = sqlMap.selectList("memSELaboutmebookyeyaklist", mem_idx);
+		
+		if(yylist==null || yylist.size()==0){
+			return null;
+		}else{
+			
+			List<AboutMyBookDTO> resultlist = new ArrayList<AboutMyBookDTO>();
+			for(int i=0; i< yylist.size() ; i++){
+				
+				AboutMyBookDTO ambdto = new AboutMyBookDTO();
+				
+				List<BookDTO> bdto = sqlMap.selectList("memSELaboutmybook",yylist.get(i).getBk_isbn());
+				
+					for(int j=0 ; j< bdto.size() ; j++){
+						if(bdto.get(j).getBk_take()==0){
+							ambdto.setBk_idx(bdto.get(j).getBk_idx());
+							ambdto.setBk_subject(bdto.get(j).getBk_subject());
+							ambdto.setBk_url(bdto.get(j).getBk_url());
+							ambdto.setYe_sunbun(yylist.get(i).getYe_sunbun());
+							
+							break;
+						}else{
+							
+							ambdto.setBk_idx(bdto.get(j).getBk_idx());
+							ambdto.setBk_subject(bdto.get(j).getBk_subject());
+							ambdto.setBk_url(bdto.get(j).getBk_url());
+							ambdto.setYe_sunbun(yylist.get(i).getYe_sunbun());
+						}
+						
+					}
+					System.out.println("저장하기전 : "+ambdto.getBk_idx());
+					resultlist.add(ambdto);
+			}
+			
+			return resultlist;
+		}
+		
+		
+	}
+//전재책 오디오북 대출관련
+	public List<AboutMyBookDTO> aboutEbookLoan(String mem_idx) {
+		List<AboutMyBookDTO> eblist = sqlMap.selectList("memSELaboutebookLoan", mem_idx);
+		return eblist;
+	}
+
+	public List<AboutMyQnaDTO> memQna(String mem_idx) {
+			List<AboutMyQnaDTO> qnalist = sqlMap.selectList("memSELmyqnalist", mem_idx);
+		return qnalist;
+	}
+	
+>>>>>>> Daewon
 	public List<HolidayDTO> getHoliday(int yr, int mon) {
 		String wh = "";
 		if(mon==12){
@@ -198,6 +285,17 @@ public class MemberDAOImple implements MemberDAO {
 		return result;
 	}
 	
+<<<<<<< HEAD
+=======
+	public int moveHoliday(String memo, String beforeDate, String afterDate) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("memo", memo);
+		map.put("beforeDate", beforeDate);
+		map.put("afterDate", afterDate);
+		int result = sqlMap.update("holidayUPDmove", map);
+		return result;
+	}
+>>>>>>> Daewon
 	
 //	대원 추가 6월 11일 일 끝
 }

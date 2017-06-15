@@ -1,13 +1,8 @@
 package ju.controller;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -129,7 +124,6 @@ public class FindController {
 	
 	@RequestMapping(value="/bkRefresh.ju")
 	public ModelAndView bkRefresh(@RequestParam(value="bk_subject")String bk_subject){
-		List<String> chkBook = FindDao.chkBook(bk_subject);
 		int sumBktake = FindDao.sumBktake(bk_subject);
 		int countBkSubject = FindDao.countBkSubject(bk_subject);
 		sumBktake = countBkSubject-sumBktake;
@@ -238,67 +232,67 @@ public class FindController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/test.ju")
-	public ModelAndView test(){
-		File f = new File("../LOG/book/searchList.log");
-		
-		System.out.println("경로 :" + f.getAbsoluteFile().getPath());
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		ValueComparator bvc =  new ValueComparator(map);
-        TreeMap<String,Integer> sorted_map = new TreeMap<String,Integer>(bvc);
-        
-		if(f.exists()){
-			try {
-				System.out.println("파일있음");
-				
-				////////////////////////////////////////////////////////////////
-				BufferedReader in = new BufferedReader(new FileReader(f));
-				String s;
-				
-				while ((s = in.readLine()) != null) {
-					System.out.println("s : "+s);
-					String arr[] = s.split("/");
-					
-					for (int i = 0; i < arr.length; i++) {
-						if(map.get(arr[i])==null){
-							map.put(arr[i], 1);
-						}else{
-							int count = map.get(arr[i])+1;
-							map.put(arr[i], count);
-							
-						}
-					}
-				}
-				in.close();
-			} catch (Exception e) {
-			}
-		}else{
-			System.out.println("파일없음");
-		}
-		
-		sorted_map.putAll(map);
-        
-		String json = "[";
-		int count = 0;
-        for (Map.Entry<String,Integer> entry : sorted_map.entrySet()) {
-            //정렬한 리스트에서 순번을 배열번호로 변경하여 원본 리스트에서 추출
-        	count++;
-        	if(count>7){
-        		break;
-    		}else{
-    			json += "{text:'" + entry.getKey() + "', count:'" + map.get(entry.getKey()) + "'},";
-    		}
-        }
-        json = json.substring(0, json.length()-1);
-        json += "]";
-		
-		
-		
-		ModelAndView mav = new ModelAndView("/find/test");
-		System.out.println(json);
-		mav.addObject("list", json);
-		return mav;
-	}
+//	@RequestMapping(value="/test.ju")
+//	public ModelAndView test(){
+//		File f = new File("../LOG/book/searchList.log");
+//		
+//		System.out.println("경로 :" + f.getAbsoluteFile().getPath());
+//		Map<String, Integer> map = new HashMap<String, Integer>();
+//		ValueComparator bvc =  new ValueComparator(map);
+//        TreeMap<String,Integer> sorted_map = new TreeMap<String,Integer>(bvc);
+//        
+//		if(f.exists()){
+//			try {
+//				System.out.println("파일있음");
+//				
+//				////////////////////////////////////////////////////////////////
+//				BufferedReader in = new BufferedReader(new FileReader(f));
+//				String s;
+//				
+//				while ((s = in.readLine()) != null) {
+//					System.out.println("s : "+s);
+//					String arr[] = s.split("/");
+//					
+//					for (int i = 0; i < arr.length; i++) {
+//						if(map.get(arr[i])==null){
+//							map.put(arr[i], 1);
+//						}else{
+//							int count = map.get(arr[i])+1;
+//							map.put(arr[i], count);
+//							
+//						}
+//					}
+//				}
+//				in.close();
+//			} catch (Exception e) {
+//			}
+//		}else{
+//			System.out.println("파일없음");
+//		}
+//		
+//		sorted_map.putAll(map);
+//        
+//		String json = "[";
+//		int count = 0;
+//        for (Map.Entry<String,Integer> entry : sorted_map.entrySet()) {
+//            //정렬한 리스트에서 순번을 배열번호로 변경하여 원본 리스트에서 추출
+//        	count++;
+//        	if(count>7){
+//        		break;
+//    		}else{
+//    			json += "{text:'" + entry.getKey() + "', count:'" + map.get(entry.getKey()) + "'},";
+//    		}
+//        }
+//        json = json.substring(0, json.length()-1);
+//        json += "]";
+//		
+//		
+//		
+//		ModelAndView mav = new ModelAndView("/find/test");
+//		System.out.println(json);
+//		mav.addObject("list", json);
+//		return mav;
+//	}
 	
 	@RequestMapping(value="/dash.ju")
 	public ModelAndView dash(){

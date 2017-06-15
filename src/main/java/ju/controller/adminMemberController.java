@@ -17,7 +17,11 @@ import javax.servlet.http.HttpSession;
 public class adminMemberController {
 
 	@Autowired
+<<<<<<< HEAD
 	public ju.model.MemberDAO memberDao;
+=======
+	public MemberDAO memberDao;
+>>>>>>> Daewon
 	
 	@Autowired
 	public LoanDAO loanDao;	

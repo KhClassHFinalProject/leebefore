@@ -1,5 +1,4 @@
 package ju.dto;
-import java.util.*;
 
 public class SubjectDTO {
 

@@ -1,5 +1,6 @@
 package ju.notice.model;
 
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import ju.dto.NoticeDTO;
 
+=======
+>>>>>>> Daewon
 public class NoticeDAOImple implements NoticeDAO {
 	
 	private SqlSessionTemplate sqlMap;

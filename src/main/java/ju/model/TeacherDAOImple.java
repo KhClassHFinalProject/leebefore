@@ -1,7 +1,6 @@
 package ju.model;
 
 import java.util.*;
-import ju.model.*;
 import ju.dto.*;
 
 import org.mybatis.spring.SqlSessionTemplate;

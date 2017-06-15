@@ -84,80 +84,43 @@
 					</div>
 				</div>		
 				<!-- 컨텐츠 실영역 -->
-				<h3>전자책</h3>
+				<h3>E-book</h3>
 				<!-- 전자책 -->
 				<div class="row" id="loanbook">
-					  <div class="col-sm-6 col-md-4">
-					     <div class="thumbnail ">
-					     <div class="text-center" style="margin:auto; width:100%;height:200px;" id="imgpannel">
-					      <img src="/lee/resources/member/img/bookimg.png" style="width:200px;height:200px;">
-						    
-					      </div>
-					      <div class="caption ">
-					        <h3>책제목 대출1</h3>
-					        <p>
-					        대출일<br>
-					        반납예정일<br>
-					        기타사항<br>
-					        연장횟수<br>
-					        </p>\
-					        <p>
-					        <a href="#" class="btn btn-primary" role="button">대출연장</a>
-					         <button type="button" class="btn btn-default">
- 								<span class="glyphicon glyphicon-bookmark" aria-hidden="true">북마크</span>
-							</button>	
-					        </p>
-					      </div>
-					    </div>
-					  </div>
-					
-				</div>
+<c:set var="eblist" value="${eblist}"/>					  
+						     <c:choose>
+							    <c:when test="${empty eblist}">
+							        대출하신 e-book이 없습니다.    
+							    </c:when>
+							    <c:when test="${eblist ne null}">
+							            <c:forEach items="${eblist}" var="list">
+							           			 <div class="col-sm-6 col-md-4">
+												     <div class="thumbnail ">
+												     <div class="text-center" style="margin:auto; width:100%;height:200px;" id="imgpannel">
+												      <img src="${list.el_path}" style="width:200px;height:200px;">
+												     
+												      </div>
+												      <div class="caption ">
+												        <h3>${list.el_subject}</h3>
+												        <p>
+												        대출일 : ${list.lb_sd}<br>
+												        반납예정일 : ${list.lb_ed}<br>
+												        기타사항 : ${list.lb_etc }<br>
+												        연장횟수 : ${list.lb_delay}<br>
+												        </p>
+												        <p><a href="#" class="btn btn-primary" role="button">대출연장</a></p>
+												      </div>
+												    </div>
+												  </div>
+							        	</c:forEach>
+							    </c:when>
+							    
+							</c:choose>
 				
-				<div class="row" id="loanbook">
-					  <div class="col-sm-6 col-md-4">
-					     <div class="thumbnail ">
-					     <div class="text-center" style="margin:auto; width:100%;height:200px;" id="imgpannel">
-					      <img src="/lee/resources/member/img/bookimg.png" style="width:200px;height:200px;">
-					     
-					      </div>
-					      <div class="caption ">
-					        <h3>책제목 대출1</h3>
-					        <p>
-					        대출일<br>
-					        반납예정일<br>
-					        기타사항<br>
-					        연장횟수<br>
-					        </p>
-					        <p><a href="#" class="btn btn-primary" role="button">대출연장</a></p>
-					      </div>
-					    </div>
-					  </div>
 					
 				</div>
-				
-				<div class="row" id="loanbook">
-					  <div class="col-sm-6 col-md-4">
-					     <div class="thumbnail ">
-					     <div class="text-center" style="margin:auto; width:100%;height:200px;" id="imgpannel">
-					      <img src="/lee/resources/member/img/bookimg.png" style="width:200px;height:200px;">
-					      
-					      
-					      </div>
-					      <div class="caption ">
-					        <h3>책제목 대출1</h3>
-					        <p>
-					        대출일<br>
-					        반납예정일<br>
-					        기타사항<br>
-					        연장횟수<br>
-					        </p>
-					        <p><a href="#" class="btn btn-primary" role="button">대출연장</a></p>
-					      </div>
-					    </div>
-					  </div>
-					
-				</div>
-				<!-- 오디오북 -->	
+
+				<hr>
 
 		</div>
 	</div>
