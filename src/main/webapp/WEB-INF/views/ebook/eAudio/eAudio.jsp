@@ -55,6 +55,8 @@ function aPlayer(el_idx){//오디오플레이어 팝업
 }
 		$(function() {
 			
+			$("#ttip").tooltip();
+			
 			/*사이드바*/
 			$("#emList").removeClass("has-sub");
 			$("#emList>ul").remove();
@@ -478,15 +480,15 @@ function aPlayer(el_idx){//오디오플레이어 팝업
 						, data : {el_idx : el_idx}
 						, dataType : "json"
 						, success: function(data){
-							
 							var idx = data.ebArr.el_idx;
-							//var memIdx=data.
+							
 							var intoHeaderHTML="";
 							intoHeaderHTML+='<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 							intoHeaderHTML+='<h4 class="modal-title" id="myModalLabel">' + data.ebArr.el_idx + '</h4>';
 							
 							var intoBodyHTML="";
-							intoBodyHTML+='<div class="panel panel-default" >';
+							if(data.mem_idx==null){
+							intoBodyHTML+='<div class="panel panel-default">';
 							intoBodyHTML+='	<div class="row">';
 							intoBodyHTML+='		<div class="col-md-12">';
 							intoBodyHTML+='			<div class="media">';
@@ -501,8 +503,12 @@ function aPlayer(el_idx){//오디오플레이어 팝업
 							intoBodyHTML+='					</div>';
 							intoBodyHTML+='				</div>';
 							intoBodyHTML+='				<div class="col-md-12 text-right">';
-							intoBodyHTML+='					<input class="btn btn-default" type="button" onClick="aPlayer(\''+idx+'\')" value="재생하기">';
-							intoBodyHTML+='					<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="로그인 필수">추천하기</button>';
+							intoBodyHTML+='				<span id="ttip" data-toggle="tooltip" data-placement="top" title="로그인 하셔야 합니다.">';
+							intoBodyHTML+='					<button type="button" id="ttip" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on top" disabled="disabled">추천하기</button>';
+							intoBodyHTML+='				</span>';
+							intoBodyHTML+='				<span  data-toggle="tooltip" data-placement="top" title="로그인 하셔야 합니다.">';
+							intoBodyHTML+='					<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on top" disabled="disabled">재생하기</button>';
+							intoBodyHTML+='				</span>';
 							intoBodyHTML+='				</div>';
 							intoBodyHTML+='			</div>';
 							intoBodyHTML+='		</div>';
@@ -518,8 +524,44 @@ function aPlayer(el_idx){//오디오플레이어 팝업
 							intoBodyHTML+='		</tr>';
 							intoBodyHTML+='	</table>';
 							intoBodyHTML+='</div>';
-							$(".modal-header").html(intoHeaderHTML);
 							$(".modal-body").html(intoBodyHTML);
+						}else if(data.mem_idx){
+							intoBodyHTML+='<div class="panel panel-default" >';
+							intoBodyHTML+='	<div class="row">';
+							intoBodyHTML+='		<div class="col-md-12">';
+							intoBodyHTML+='			<div class="media">';
+							intoBodyHTML+='				<div class="media-left media">';
+							intoBodyHTML+='					<img class="media-object" src="'+data.ebArr.el_path+'" style="width: 100px; height: 150px;"  alt="..." >';
+							intoBodyHTML+='				</div>';
+							intoBodyHTML+='				<div class="media-body">';
+							intoBodyHTML+='					<div class="row">';
+							intoBodyHTML+='						<div class="col-md-2">저자</div><div class="col-md-10">'+data.ebArr.el_writer+'</div>';
+							intoBodyHTML+='						<div class="col-md-2">출판사</div><div class="col-md-10">'+data.ebArr.el_pub+'</div>';
+							intoBodyHTML+='						<div class="col-md-2">추천수</div><div class="col-md-10">'+data.ebArr.el_recocount+'</div>';
+							intoBodyHTML+='					</div>';
+							intoBodyHTML+='				</div>';
+							intoBodyHTML+='				<div class="col-md-12 text-right">';
+							intoBodyHTML+='					<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on top" onClick="eAudioRecommend(\''+idx+'\')">추천하기</button>';
+							intoBodyHTML+='					<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on top" onClick="aPlayer(\''+idx+'\')">재생하기</button>';
+							intoBodyHTML+='				</div>';
+							intoBodyHTML+='			</div>';
+							intoBodyHTML+='		</div>';
+							intoBodyHTML+='	</div>';
+							intoBodyHTML+=' </div>';
+							intoBodyHTML+='<div class="row">';
+							intoBodyHTML+='	<table class="table">';
+							intoBodyHTML+='		<tr>';
+							intoBodyHTML+='			<td>';
+							intoBodyHTML+='				<h4>작품소개</h4>';
+							intoBodyHTML+=				data.ebArr.el_info;
+							intoBodyHTML+='			</td>';
+							intoBodyHTML+='		</tr>';
+							intoBodyHTML+='	</table>';
+							intoBodyHTML+='</div>';
+							$(".modal-body").html(intoBodyHTML);
+						}
+							
+							$(".modal-header").html(intoHeaderHTML);
 						}
 					});
 					$("#myModal").modal("show");
@@ -528,7 +570,7 @@ function aPlayer(el_idx){//오디오플레이어 팝업
 		}
 
 		/*추천*/
-		function ebookRecommend(el_idx) {
+		function eAudioRecommend(el_idx) {
 			$.ajax({
 				type : "GET"
 				, url : "eAudioRecommend.ju"
@@ -539,6 +581,7 @@ function aPlayer(el_idx){//오디오플레이어 팝업
 				}
 			})
 		}
+		
 /* 		function audioPaging(page){
 			$.ajax({
 				type: "GET"

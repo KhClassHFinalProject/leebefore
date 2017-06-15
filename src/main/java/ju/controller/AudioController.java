@@ -78,12 +78,11 @@ public class AudioController {
 	@RequestMapping(value="audioContent.ju")
 	public ModelAndView ebookContent(@RequestParam(value="el_idx", defaultValue="0")String el_idx
 		, HttpServletRequest request) {
-		
 		ModelAndView mav=new ModelAndView();
 		HttpSession session=request.getSession();
 		String mem_idx=(String) session.getAttribute("sidx");
-		
 		ElibDTO dto = audioDao.selContent(el_idx);
+		mav.addObject("mem_idx",mem_idx);
 		mav.addObject("ebArr", dto);
 		mav.setViewName("juJson");
 		return mav;
@@ -200,7 +199,6 @@ public class AudioController {
 		
 		HttpSession session=request.getSession();
 		String mem_idx=(String) session.getAttribute("sidx");
-		
 		
 		//세션 idx 넘어오는지 확인
 		System.out.println("memidx:"+mem_idx);
