@@ -14,5 +14,6 @@
 		<mapper resource="sql/studyRoomSQL.xml"/>
 		<mapper resource="sql/elib.xml"/>
 		<mapper resource="sql/audiobook.xml"/>
+		<mapper resource="sql/helpSQL.xml"/>
 	</mappers>
 </configuration>

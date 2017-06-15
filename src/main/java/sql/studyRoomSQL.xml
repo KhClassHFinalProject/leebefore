@@ -33,4 +33,24 @@
 		AND sr_time = ${sr_time}
 		AND sr_resdate = '${sr_resdate}'
 	</select>
+	<insert id="bigINSadminRoomDisbled" parameterType="ju.dto.StudyRoomDTO">
+		INSERT INTO
+			studyroom
+		VALUES(
+			#{sr_idx},
+			#{sr_roomno},
+			'admin',
+			sysdate,
+			#{sr_resdate},
+			#{sr_time},
+			''
+		)
+	</insert>
+	<select id="bigSELadminRoomInfo" parameterType="java.util.Map" resultType="ju.dto.StudyRoomDTO">
+		SELECT *
+		FROM studyroom
+		WHERE sr_roomno = ${sr_roomno}
+		AND sr_time = ${sr_time}
+		AND sr_resdate = '${sr_resdate}'
+	</select>
 </mapper>

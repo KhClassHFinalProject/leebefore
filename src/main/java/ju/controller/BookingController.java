@@ -2,11 +2,7 @@ package ju.controller;
 
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,16 +41,6 @@ public class BookingController {
 		return new ModelAndView("big/bookingIndex");
 	}
 
-	@RequestMapping("/rrBook.ju")
-	public ModelAndView rrBook(RefRoomDTO dto) throws ParseException {
-		Long unixTime = System.currentTimeMillis();
-		String rr_idx = "RR" + unixTime;
-
-		dto.setRr_idx(rr_idx);
-		dto.setRr_start(bigdao.getStart());
-		return new ModelAndView("big/bookMsg", "msg", bigdao.booking(dto) > 0 ? "성공" : "행복");
-	}
-
 	@RequestMapping(value = "/srBook.ju", method = RequestMethod.GET)
 	public ModelAndView srBookForm() {
 		return new ModelAndView("big/srBook");
@@ -75,11 +61,6 @@ public class BookingController {
 		return new ModelAndView("big/bookMsg", "msg", bigdao.srBook(dto) > 0 ? "성공" : "실패");
 	}
 
-	@RequestMapping("/cal.ju")
-	public ModelAndView calendar() {
-		return new ModelAndView("big/calendar");
-	}
-
 	@RequestMapping(value = "/srCal.ju", method = RequestMethod.POST)
 	public ModelAndView srCal(String start) {
 		return new ModelAndView("juJson","srarr",bigdao.srCheck(start));
@@ -96,4 +77,11 @@ public class BookingController {
 		
 		return new ModelAndView("big/bookMsg","msg",bigdao.srCancel(sr_roomno, sr_time)>0?"성공":"실패");
 	}
+	
+<<<<<<< HEAD
+
+=======
+	//대원 0613화 추가
+	
+>>>>>>> origin/youngju
 }

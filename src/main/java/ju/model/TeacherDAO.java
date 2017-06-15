@@ -2,7 +2,6 @@ package ju.model;
 import java.util.*;
 
 import ju.dto.*;
-import ju.model.*;
 
 public interface TeacherDAO {
 

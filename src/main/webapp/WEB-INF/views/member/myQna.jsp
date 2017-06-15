@@ -123,12 +123,49 @@
 						</tr>
 					</thead>
 					<tbody>
-					 <tr>
-					 	<td>1</td>
-					 	<td>제목입니다</td>
-					 	<td>비공개</td>
-					 	<td>2017/06/03</td>
-					 	<td>미답변</td>
+<c:set var="qnalist" value="${qnalist}"/>
+<c:choose>
+	<c:when test="${empty qnalist}">
+		 			<tr>
+					 	<td colspan="5">작성된 글이 없습니다.</td>
+					 	
+					 </tr>
+	</c:when>
+	<c:when test="${qnalist ne null}">
+		<c:forEach items="${qnalist}" var="list">
+				<c:choose>
+					<c:when test="${empty list.qu_qcontent}">
+						<tr>	
+					</c:when>
+					<c:otherwise>
+						<tr class="success">
+					</c:otherwise>
+				</c:choose>
+					
+					 	<td>${list.rnum }</td>
+					 	<td>${list.qu_subject }</td>
+					 	
+				<c:choose>
+					<c:when test="${list.qu_screct eq 1}">
+						<td>미공개</td>	
+					</c:when>
+					<c:otherwise>
+						<td>공개</td>
+					</c:otherwise>
+				</c:choose>	 	
+					 	
+					 	
+					 	
+					 	<td>${list.qu_date }</td>
+				<c:choose>	
+	           		<c:when test="${empty list.qu_qcontent}">
+	           			<td>미답변</td>	
+	           		</c:when>
+	           		<c:when test="${list.qu_qcontent ne null}">
+       					<td>답변</td>    
+	           		</c:when>
+	           	</c:choose>		 	
+					 	
 					 </tr>
 					 <tr>
 			            <td colspan="5">
@@ -136,95 +173,32 @@
 			            <hr>
 	           			    <h4>내용</h4>
            			    <hr>
-			                <p>내용입니당~~~<br>
-			                하하하<br>
-			                호혽뎌</p>
+			                ${list.qu_content}
 			            <hr>
 	           			    <h4>답변</h4>
 	           			<hr>
 	           			    <p>
-	           			    답변이 없습니다.
-	           			    </p>
+	           	<c:choose>	
+	           		<c:when test="${empty list.qu_qcontent}">
+	           				답변내용이 없습니다.
+	           		</c:when>
+	           		<c:when test="${list.qu_qcontent ne null}">
+       					    ${list.qu_qcontent}
+	           		</c:when>
+	           	</c:choose>		  
+	           		
+	           			   
            			    </td>
         			</tr>
-					 <tr class="success">
-					 	<td>2</td>
-					 	<td>제목입니다2</td>
-					 	<td>공개</td>
-					 	<td>2017/06/03</td>
-					 	<td>답변</td>
-					 </tr>
-					 <tr>
-			            <td colspan="5">
-			              
-			            <hr>
-	           			    <h4>내용</h4>
-           			    <hr>
-			                <p>내용입니당~~~<br>
-			                하하하<br>
-			                호혽뎌</p>
-			            <hr>
-	           			    <h4>답변</h4>
-	           			<hr>
-	           			    <p>
-	           			    죄송합니당...
-	           			    </p>
-           			    </td>
-        			</tr>
-        			 <tr class="success">
-					 	<td>2</td>
-					 	<td>제목입니다2</td>
-					 	<td>공개</td>
-					 	<td>2017/06/03</td>
-					 	<td>답변</td>
-					 </tr>
-					 <tr>
-			            <td colspan="5">
-			              
-			            <hr>
-	           			    <h4>내용</h4>
-           			    <hr>
-			                <p>내용입니당~~~<br>
-			                하하하<br>
-			                호혽뎌</p>
-			            <hr>
-	           			    <h4>답변</h4>
-	           			<hr>
-	           			    <p>
-	           			    죄송합니당...
-	           			    </p>
-           			    </td>
-        			</tr>
-        			 <tr>
-					 	<td>2</td>
-					 	<td>제목입니다2</td>
-					 	<td>공개</td>
-					 	<td>2017/06/03</td>
-					 	<td>미답변</td>
-					 </tr>
-					 <tr>
-			            <td colspan="5">
-			              
-			            <hr>
-	           			    <h4>내용</h4>
-           			    <hr>
-			                <p>내용입니당~~~<br>
-			                하하하<br>
-			                호혽뎌</p>
-			            <hr>
-	           			    <h4>답변</h4>
-	           			<hr>
-	           			    <p>
-	           			    답변이 없습니다.
-	           			    </p>
-           			    </td>
-        			</tr>
+		</c:forEach>
+	</c:when>
+</c:choose>	
 					 </tbody>
 				</table>
 				
 				
 				</div>
-						
+<hr>						
 
 		</div>
 	</div>

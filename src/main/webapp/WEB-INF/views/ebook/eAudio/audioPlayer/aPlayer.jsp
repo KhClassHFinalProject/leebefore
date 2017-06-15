@@ -4,15 +4,24 @@
 <head>
   <meta charset="UTF-8">
   <title>HTML5 Audio Player with Responsive Playlist</title>
-  <link rel="stylesheet" href="/lee/resources/bootstrapk/css/bootstrap.min.css">
-  <script src='/lee/resources/audio/js/audioJs.js'></script>
-<script src='/lee/resources/audio/js/mediaJs.js'></script>
-
-    <script src="/lee/resources/audio/audioPlayer.js?ver=1.0"></script>
+  <script type="text/javascript" src="/lee/resources/js/jquery-3.2.1.min.js"></script>
+		<script src="/lee/resources/audio/voice/js/main.js"></script>
+		<script src="/lee/resources/audio/voice/js/highlight.min.js"></script>
+		<script src="/lee/resources/audio/voice/js/DetectRTC.js"></script>
+		<script src="/lee/resources/audio/voice/js/global.js?ver=1.0"></script>
+		<script src="/lee/resources/audio/voice/js/jquery.js?ver=1.0"></script>
+		<link href="logo-webrtc.png" type="image/png" rel="icon">
+		<link href="/lee/resources/audio/voice/css/style.css" type="text/css" rel="stylesheet">
+		<link href="/lee/resources/audio/voice/css/github-gist.css" type="text/css" rel="stylesheet">
+		<link href="/lee/resources/audio/voice/css/main.css" rel="stylesheet" type="text/css" />
+  		<link rel="stylesheet" href="/lee/resources/bootstrapk/css/bootstrap.min.css">
+  		<script src='/lee/resources/audio/js/audioJs.js'></script>
+		<script src='/lee/resources/audio/js/mediaJs.js'></script>
+		<script src="/lee/resources/audio/audioPlayer.js?ver=1.1"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   
-      <style>
+  <style>
       /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
       /* Font Family
 ================================================== */
@@ -316,6 +325,7 @@ audio::-webkit-media-controls-enclosure {
 audio::-webkit-media-controls-panel {
     width: calc(100% + 30px); /* Adjust as needed */
 }
+
     </style>
 
   <script src="/lee/resources/audio/js/prefixJs.js"></script>
@@ -330,7 +340,6 @@ audio::-webkit-media-controls-panel {
 
 <body>
   <div id="container">
-
     <div class="column add-bottom">
         <div id="mainwrap">
             <div id="nowPlay">
@@ -346,10 +355,31 @@ audio::-webkit-media-controls-panel {
                     <a id="btnNext">&raquo;</a>
                 </div>
                 <div class="row" id="optionTest">
+                <div id="content">
+		<span id="icon-music">♬</span>
+
+		<div class="wrap">
+			<p>아래 버튼을 누른 후 마이크에 이야기를 해보세요. (마이크와 가까울수록 인식률이 좋습니다)</p>
+			<div id="result">
+				<span class="final" id="final_span"></span> 
+				<span class="interim" id="interim_span"></span>
+			</div>
+			<button id="btn-mic" class="off">
+				마이크 <span></span>
+			</button>
+			<button id="btn-tts">Text to speech</button>
+		
+	
+
+			
+		</div>
+	</div>
                 	<div class="col-md-12" style="text-align: center;">
 		                <button class="btn btn-default" id="btnTest" onclick="getAudioSpeedDown()">느리게</button>
 		                <button class="btn btn-default" id="btnTest" onclick="getAudioSpeedNormal()">기본 속도</button>
 		                <button class="btn btn-default" id="btnTest" onclick="getAudioSpeedUp()">빠르게</button>
+		                <button class="btn btn-default voicePlay" id="btnTest" onclick="getAudioPlay()">재생</button>
+		                <button class="btn btn-default voicePause" id="btnTest" onclick="getAudioPause()">정지</button>
 	                </div>
 	             </div>
 	             <div class="col-md-12" style="text-align: center;">
@@ -365,6 +395,5 @@ audio::-webkit-media-controls-panel {
         </div>
     </div>
 </div>
-
 </body>
 </html>

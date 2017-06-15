@@ -29,4 +29,40 @@
 		from member, (select * from regist where sj_idx=#{sj_idx})a
 		where member.mem_idx=a.mem_idx
  	</select>
+ 	<select id="classSELcheckSubjectList" resultType="ju.dto.SubjectDTO">
+ 		SELECT SUBJECT.*,A.MEMBERNUM AS sj_num, TEACHER.tc_name
+		FROM SUBJECT,TEACHER,(SELECT STUDENT.sj_idx,COUNT(MEMNUM) AS MEMBERNUM
+		FROM (SELECT * FROM SUBJECT LEFT JOIN (SELECT sj_idx AS MEMNUM FROM REGIST)A ON SUBJECT.sj_idx=A.MEMNUM)STUDENT
+		GROUP BY SJ_IDX)A
+		WHERE SUBJECT.tc_idx=TEACHER.tc_idx AND SUBJECT.sj_idx=A.sj_idx AND sj_sd > SYSDATE+7
+ 	</select>
+ 	<insert id="classINSrgst" parameterType="ju.dto.RegistDTO">
+ 		INSERT INTO regist VALUES(
+	 		#{rg_idx},
+	 		#{mem_idx},
+	 		#{sj_idx}
+ 		)
+ 	</insert>
+ 	<select id="classSELcheckMyRgstList" parameterType="String" resultType="ju.dto.SubjectDTO">
+	 	select
+			rownum as rnum, b.sj_idx, b.sj_name, c.tc_name, b.sj_sd, b.sj_ed, b.sj_st, b.sj_et, b.sj_sum
+		from
+			(select * from regist where mem_idx=#{mem_idx})a, subject b, teacher c
+		where
+			a.sj_idx = b.sj_idx
+		and
+			b.tc_idx = c.tc_idx
+		and 
+			b.sj_ed > sysdate
+ 	</select>
+ 	<delete id="classDELdeleteMyRgst" parameterType="ju.dto.RegistDTO">
+ 		DELETE FROM regist
+ 		WHERE mem_idx = #{mem_idx}
+ 		AND sj_idx = #{sj_idx}
+ 	</delete>
+ 	<select id="classSELcheckMyRgst" parameterType="String" resultType="String">
+ 		SELECT sj_idx
+ 		FROM regist
+ 		WHERE mem_idx = #{mem_idx}
+ 	</select>
  </mapper>

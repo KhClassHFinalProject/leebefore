@@ -98,5 +98,80 @@ public class ElibDAOImple implements ElibDAO {
 		List<ElibDTO> elibArr=sqlMap.selectList("elibSELview", hmap);
 		return elibArr;
 	}
+	
+	/**관리자 검색없는 리스트 보기*/
+	public List<ElibDTO> elibAdminNoList(int startNum, int endNum) {
+		HashMap<String, String> hmap=new HashMap<String, String>();
+		hmap.put("startNum", Integer.toString(startNum));
+		hmap.put("endNum", Integer.toString(endNum));
+		List<ElibDTO> elibArr=sqlMap.selectList("elibSELnoList", hmap);
+		return elibArr;
+	}
+	
+	/**관리자 검색없는 리스트 보기 갯수*/
+	public int elibAdminNoListCount() {
+		int resultCount=sqlMap.selectOne("elibSELnoListCount");
+		return resultCount;
+	}
+	
+	/**삭제*/
+	public int elibDelete(String el_idx) {
+		HashMap<String, String> hmap=new HashMap<String, String>();
+		hmap.put("el_idx", el_idx);
+		int resultCount=sqlMap.delete("elibDEL", hmap);
+		return resultCount;
+	}
+	
+	/**수정*/
+	public int elibUpdate(String el_idx, String el_lg, String el_md, String el_subject, String el_writer, String el_pub, String el_info, String el_path, String change_idx){
+		HashMap<String, String> hmap=new HashMap<String, String>();
+		hmap.put("el_idx", el_idx);
+		hmap.put("el_lg", el_lg);
+		hmap.put("el_md", el_md);
+		hmap.put("el_subject", el_subject);
+		hmap.put("el_writer", el_writer);
+		hmap.put("el_pub", el_pub);
+		hmap.put("el_info", el_info);
+		hmap.put("el_path", el_path);
+		hmap.put("change_idx", change_idx);
+		int resultCount=sqlMap.update("elibUPD",  hmap);
+		return resultCount;
+	}
+	
+	/**관리자 검색*/
+	public List<ElibDTO> elibAdminSearch(String where, String order, String startNum, String endNum) {
+		HashMap<String, String> hmap=new HashMap<String, String>();
+		hmap.put("where", where);
+		hmap.put("order", order);
+		hmap.put("startNum", startNum);
+		hmap.put("endNum", endNum);
+		List<ElibDTO> elibArr=sqlMap.selectList("elibSELadminSearch", hmap);
+		return elibArr;
+	}
+
+	/**관리자 검색 갯수*/
+	public int elibAdminSearchCount(String where) {
+		HashMap<String, String> hmap=new HashMap<String, String>();
+		hmap.put("where", where);
+		int resultCount=sqlMap.selectOne("elibSELadminSearchCount",  hmap);
+		return resultCount;
+	}
+	
+	/**추천*/
+	public int elibRecommend(String el_idx, String el_recommend) {
+		HashMap<String, String> hmap=new HashMap<String, String>();
+		hmap.put("el_idx", el_idx);
+		hmap.put("el_recommend", el_recommend);
+		System.out.println(el_idx);
+		System.out.println(el_recommend);
+		int resultCount=sqlMap.update("elibUPDrec",  hmap);
+		return resultCount;
+	}
+	
+	/**전자도서 전체 중 추천 순서*/
+	public ElibDTO elibReccoOrder(){
+		List<ElibDTO>elibArr=sqlMap.selectList("elibSELrecoOrder");
+		return elibArr.get(0);
+	}
 
 }

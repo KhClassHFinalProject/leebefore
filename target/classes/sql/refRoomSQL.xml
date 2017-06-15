@@ -10,50 +10,73 @@
 			#{rr_idx},
 			#{rr_cate},
 			#{rr_seatno},
-			'testmj',
+			#{mem_idx},
 			#{rr_start},
 			#{rr_start}+(1/12),
-			'0/3',
+			#{rr_add},
 			#{rr_start}
 		)
 	</insert>
 	<select id="bigSELrrCheck" resultType="ju.dto.RefRoomDTO">
-	SELECT *
-	FROM refroom
-	WHERE rr_end <![CDATA[>]]> sysdate
-	AND rr_cate = #{cate}
+		SELECT *
+		FROM refroom
+		WHERE rr_end <![CDATA[>]]> sysdate
+		AND rr_cate = #{cate}
 	</select>
-	
-	<!-- 
-	<select id="getRef" resultType="yong.bbs.model.BbsDTO">
-		SELECT MAX(ref) FROM jsp_bbs
+	<select id="bigSELloginCheck" resultType="ju.dto.RefRoomDTO" parameterType="String">
+		SELECT *
+		FROM refroom
+		WHERE rr_end <![CDATA[>]]> sysdate
+		AND mem_idx=#{mem_idx}
 	</select>
-	<select id="bbsList" resultType="yong.bbs.model.BbsDTO">
-		SELECT * FROM (SELECT rownum as rnum,a.* from (SELECT * FROM jsp_bbs ORDER BY ref DESC, sunbun ASC)a)b WHERE rnum<![CDATA[>=]]>(#{cp}-1)*#{ls}+1 and rnum<![CDATA[<=]]>#{cp}*#{ls}
-	</select>
-	<select id="getTotalCnt" resultType="int">
-		SELECT COUNT(*) FROM jsp_bbs
-	</select>
-	<select id="bbsContent" parameterType="int" resultType="yong.bbs.model.BbsDTO">
-		SELECT * FROM jsp_bbs WHERE idx=#{idx}
-	</select>
-	<update id="upReadnum" parameterType="int">
-		UPDATE jsp_bbs SET readnum=readnum+1 WHERE idx=#{idx}
+	<update id="bigUPreturnSeat" parameterType="String">
+		UPDATE refroom
+		SET rr_end = sysdate
+		WHERE rr_idx = #{rr_idx}
+	</update>
+	<update id="bigUPaddTime" parameterType="java.util.Map">
+		UPDATE refroom
+		SET rr_end = rr_end+(1/12),
+			rr_add = #{rr_add}
+		WHERE rr_idx = #{rr_idx}
 	</update>
 	
-	<delete id="bbsDelete" parameterType="int">
-		DELETE FROM
-			jsp_bbs
-		WHERE idx=#{idx}
-	</delete>
-	<update id="bbsUpdate" parameterType="yong.bbs.model.BbsDTO">
-		UPDATE
-			jsp_bbs
-		SET
-			subject=#{subject},
-			content=#{content}
-		WHERE
-			idx=#{idx}
-	</update>
-	-->
+	<insert id="bigINSadminSeatDisabled" parameterType="ju.dto.RefRoomDTO">
+		INSERT INTO
+			refroom
+		VALUES(
+			#{rr_idx},
+			#{rr_cate},
+			#{rr_seatno},
+			'admin',
+			#{rr_start},
+			#{rr_start}+10000,
+			'0~3',
+			#{rr_start}
+		)
+	</insert>
+	<select id="bigSELadminSeatInfo" parameterType="int" resultType="ju.dto.RefRoomDTO">
+		SELECT *
+		FROM refroom
+		WHERE rr_seatno = #{seatno}
+		AND rr_cate = #{cate}
+		AND rr_end <![CDATA[>]]> sysdate
+	</select>
+	<select id="bigSELbarcodeLogin" parameterType="String" resultType="ju.dto.MemberDTO">
+		SELECT * FROM
+		member
+		WHERE mem_idx=#{mem_idx} 
+	</select>
+	<select id="bigSELcheckStartTime" resultType="String" parameterType="String">
+		SELECT TO_CHAR(rr_start,'YYYY-MM-DD HH24:MI:SS') as "rr_start"
+		FROM refroom
+		WHERE rr_end <![CDATA[>]]> sysdate
+		AND mem_idx = #{mem_idx}
+	</select>
+	<select id="bigSELcheckEndTime" resultType="String" parameterType="String">
+		SELECT TO_CHAR(rr_end,'YYYY-MM-DD HH24:MI:SS') as "rr_end"
+		FROM refroom
+		WHERE rr_end <![CDATA[>]]> sysdate
+		AND mem_idx = #{mem_idx}
+	</select>
 </mapper>

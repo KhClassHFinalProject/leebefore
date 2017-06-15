@@ -50,7 +50,7 @@
 /* Orientation-dependent styles for the content of the menu */
 
 .cbp-spmenu-horizontal {
-	width: 100%;
+	width: 90%;
 	height: 150px;
 	
 	overflow: hidden;

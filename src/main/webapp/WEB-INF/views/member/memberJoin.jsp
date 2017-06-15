@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/lee/resources/bootstrapk/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/lee/resources/bootstrapk/css/bootstrap.min.css">
 	<style type="text/css">
 	.btn-primary{
 		background-color:#0BD392;
@@ -17,6 +18,73 @@
 	.btn-primary:HOVER{
 		background-color:#1AA4AC;
 		border-color: #3CDBDE;
+	}
+	.radiobox input[type=text]{
+	background-color: white;
+	}
+	@MEDIA ( min-width : 768px) {
+			body{
+				margin:50px;
+			}
+			#basic-addon1{
+				height:34px;
+				padding-right:20px;
+				padding-top:10px;
+				background-color:white; 
+				border: 0px;
+			}
+			/* #idinput-group{
+				width: 70%;
+			}
+			
+			#idinput-group .col-md-4{
+				margin:0;
+				padding:0; 
+				width:250px;
+			}
+			
+			#idid{
+				width:250px;
+			}
+			
+			
+			#idinput-group .col-lg-3{
+				padding:0;
+			}
+			#idinput-group .col-lg-3 .input-gourp{
+				width:20%;
+			} */
+	}
+
+	@MEDIA ( max-width : 767px) {
+			/* #idinput-group{
+				width: 70%;
+			}
+			
+			#idinput-group .col-md-4{
+				margin:0;
+				padding:0; 
+				width:250px;
+			}
+			
+			#idid{
+				width:250px;
+			}
+			
+			#basic-addon1{
+				height:34px;
+				padding-right:20px;
+				padding-top:10px;
+				background-color:white; 
+				border: 0px;
+			}
+			#idinput-group .col-lg-3{
+				padding:0;
+			}
+			#idinput-group .col-lg-3 .input-gourp{
+				width:20%;
+			}
+		 */
 	}
 	
 	
@@ -260,11 +328,17 @@
 				$(this).val(inputVal.replace(/[^0-9]/gi,''));
 			}
 		});
+		
+		
+		
 		$("#jumin").keyup(function(event){
 			if (!(event.keyCode >=37 && event.keyCode<=40)) {
 				var inputVal = $(this).val();
 				$(this).val(inputVal.replace(/[^0-9]/gi,''));
 			}
+			
+		
+			
 		});
 		
 		$("#jumin2").keyup(function(event){
@@ -288,12 +362,32 @@
 				var inputVal = $(this).val();
 				$(this).val(inputVal.replace(/[^a-zA-Z0-9]/gi,''));
 			}
+			
+			if($('#pwpw2').val()!=""){
+				if($('#pwpw2').val()==$('#pwpw').val()){
+					$('#hpcheckSuc2').text('비밀번호 확인');
+				}else{
+					$('#hpcheckSuc2').text('비밀번호가 다릅니다.');
+				}
+			}else{
+				
+			}
+			
 		});
 		$("#pwpw2").keyup(function(event){
+			
 			if (!(event.keyCode >=37 && event.keyCode<=40)){
 				var inputVal = $(this).val();
 				$(this).val(inputVal.replace(/[^a-zA-Z0-9]/gi,''));
 			}
+			
+		
+			if($('#pwpw2').val()==$('#pwpw').val()){
+				$('#hpcheckSuc2').text('비밀번호 확인');
+			}else{
+				$('#hpcheckSuc2').text('비밀번호가 다릅니다.');
+			}
+		
 		});
 		/* 특수문자 한글 금지 */
 		
@@ -304,12 +398,7 @@
 			}
 		});
 		
-		$("#onlyHangul").keyup(function(event){
-			if (!(event.keyCode >=37 && event.keyCode<=40)) {
-				var inputVal = $(this).val();
-				$(this).val(inputVal.replace(/[a-z0-9]/gi,''));
-			}
-		}); */
+		 */
 		
 	// 입력제한 문자 끝
     	
@@ -350,7 +439,7 @@
 				
 </head>
 
-<body style="margin:50px;">
+<body>
 
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -390,7 +479,12 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-회원가입 페이지
+<div style="text-align:center;">
+	<div style="display: inline-block;">
+<img src="/lee/resources/index/logo2.png" style="width:500px;height:;"><br>
+	</div>
+</div>
+<h1 style="color:#6f6f6f;">회원가입</h1>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-bottom: 5px;">
   <div class="panel panel-default row">
     <div class="panel-heading" role="tab" id="headingOne">
@@ -603,129 +697,173 @@
       
       	<!-- 개인정보 입력폼 시작  -->
       	<!-- 아이디 -->
-      	<div>
-      	<label for="sel1">아이디</label>
-	        <div class="input-group" style="width: 70%;">
-	         	
-			 	<span class="col-md-4" style="margin:0;padding:0; width:250px;">
-			 		<input type="text" id="idid"class="form-control" placeholder="6~20자 (한글 및 특수문자 금지)" aria-describedby="basic-addon2" style="width:250px;" required>
-			 	</span>	
-			  	<span class="input-group-addon col-md-1" id="basic-addon1" style="height:34px;padding-right:20px;padding-top:10px;background-color:white; border: 0px;">@</span>
-				
-				 <div class="col-lg-3" style="padding:0;">
-				    <div class="input-group" style="width:20%;">
-				      <input id="emailInput" type="text" class="form-control" aria-label="..." style="width:250px;" readonly="readonly" required>
-				      <div class="input-group-btn">
-				        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">메일선택 <span class="caret"></span></button>
-				        	<ul class="dropdown-menu dropdown-menu-right" role="menu">
-				          <li onclick="javascript:mailselect('hanmail.net');"><a >hanmail.net</a></li>
-				          <li onclick="javascript:mailselect('naver.com');"><a >naver.com</a></li>
-				          <li onclick="javascript:mailselect('gmail.com');"><a >gmail.com</a></li>
-				          <li onclick="javascript:mailselect('hotmail.com');"><a >hotmail.com</a></li>
-				          <li onclick="javascript:mailselect('msn.co.kr');"><a >msn.co.kr</a></li>
-				          <li class="divider"></li>
-				          <li onclick="javascript:selfinput();"><a >직접입력</a></li>
-				        </ul>
-				      </div><!-- /btn-group -->
-				      <span id="idcheckSuc"></span>
-   					</div><!-- /input-group -->
-   					
-   				</div>	
+	      	<div class="row">
+	      	<label class="col-md-12" for="sel1">아이디</label>
+	      	
+		        
+		         	
+				 	<div class="col-md-4" >
+				 		<input type="text" id="idid"class="form-control" placeholder="6~20자 (한글 및 특수문자 금지)" aria-describedby="basic-addon2"  required>
+				 	</div>	
+				  	<div class="input-group-addon col-md-1" id="basic-addon1">@</div>
+					
+					 
+				    <div class="input-group col-md-6 row" style="">
+					    <div class="col-md-9">
+					      <input id="emailInput" type="text" class="form-control" aria-label="..."readonly="readonly" maxlength="26" required>
+					    </div>
+				        <div class="input-group-btn col-md-3">
+					        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">메일선택 <span class="caret"></span></button>
+					        	<ul class="dropdown-menu dropdown-menu-right" role="menu">
+					          <li onclick="javascript:mailselect('hanmail.net');"><a >hanmail.net</a></li>
+					          <li onclick="javascript:mailselect('naver.com');"><a >naver.com</a></li>
+					          <li onclick="javascript:mailselect('gmail.com');"><a >gmail.com</a></li>
+					          <li onclick="javascript:mailselect('hotmail.com');"><a >hotmail.com</a></li>
+					          <li onclick="javascript:mailselect('msn.co.kr');"><a >msn.co.kr</a></li>
+					          <li class="divider"></li>
+					          <li onclick="javascript:selfinput();"><a >직접입력</a></li>
+					        </ul>
+					    </div>
+					   
+	   				 </div>
+	   				 <div class="col-md-1" id="idcheckSuc"></div>
+	   		</div>	
+			<div class="row">		
+			<div class="col-md-12"><button id="checEmailid" class="btn btn-primary col-md-4" onclick="mailCheck();">
+		      이메일 중복검사</button></div>
 			</div>
-			<div><button id="checEmailid" class="btn btn-primary col-md-6" onclick="mailCheck();">
-	      이메일 중복검사</button></div>
-		</div>
+		
+		<script>
+		$('#emailInput').change(function() {
+			
+		});
+		</script>
 <br><br><br>
 		<!-- 비밀번호 -->
-		<label for="sel1">비밀번호</label>
-		<div class="input-group">
-													<!-- 비밀번호 -->          
-		  <input type="password" id="pwpw" class="form-control" placeholder="6~20자 (한글 및 특수문자 금지)" aria-describedby="basic-addon2" style="width:300px;" required>	
-		<span id="hpcheckSuc"></span>
+		
+		<script>
+		
+		
+		
+		</script>
+		<div class="row">
+			<label class="col-md-12" for="sel1">비밀번호</label>
+			<div class="col-md-4">
+														<!-- 비밀번호 -->          
+			  <input type="password" id="pwpw" class="form-control" placeholder="6~20자 (한글 및 특수문자 금지)" aria-describedby="basic-addon2"  required>	
+			<span id="hpcheckSuc"></span>
+			</div>
 		</div>
-		 <label for="sel1">비밀번호 확인</label>
-		<div class="input-group">
-         
-		  <input type="password" id="pwpw2" class="form-control" aria-describedby="basic-addon2" style="width:300px;" required>	
-		<span id="hpcheckSuc2"></span>
+		<div class="row">
+			 <label class="col-md-12" for="sel1">비밀번호 확인</label>
+			<div class="col-md-4">
+			  <input type="password" id="pwpw2" class="form-control" aria-describedby="basic-addon2"  required>	
+			<span id="hpcheckSuc2"></span>
+		</div>	
+		
 		</div>
+		
+		<script>
+		
+		</script>
 <br>
         <!-- 이름 -->
-        <label for="sel1">이 름</label>
-        <div class="input-group">
+<div class="row">
+        <label class="col-md-12" for="sel1">이 름</label>
+        <div class="col-md-4">
 													<!-- 이름 -->
-		  <input type="text" id="memname" class="form-control" placeholder="6~20자 (한글 및 특수문자 금지)" aria-describedby="basic-addon2" style="width:300px;" required>	
+		  <input type="text" id="memname" class="form-control" placeholder="6~20자 (한글 및 특수문자 금지)" aria-describedby="basic-addon2" maxlength="4"  required>	
 		</div>
-<br>
+		<script>
+		$("#memname").keyup(function(event){
+			if (!(event.keyCode >=37 && event.keyCode<=40)) {
+				var inputVal = $(this).val();
+				$(this).val(inputVal.replace(/[a-z0-9]/gi,''));
+			}
+		});
+		</script>
+</div>
+<div class="row">
         <hr>
+</div>
+<div class="row">
         <!-- 연락처 -->
-        <label for="sel1">연락처</label> 
-		<div class="input-group" style="width:70%">
+        <label class="col-md-12" for="sel1">연락처</label> 
+		<div class="col-md-12" >
 													<!-- 연락처1 -->
-			<select class="form-control" id=phph0 style="width:150px;border-top-left-radius:0;border-bottom-left-radius:0;">
+			<select class="form-control col-md-3" id=phph0 style="width:150px;border-top-left-radius:0;border-bottom-left-radius:0;">
 				<option>010</option>
 				<option>011</option>
 				<option>017</option>
 				<option>019</option>
 			</select>
-			<span class="input-group-addon col-md-1" id="basic-addon1" style="height:34px;padding-right:20px;padding-top:10px;border-radius:0;border:0px; background-color:#fff;" >
-			<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+			<span class="input-group-addon col-md-1" id="basic-addon1" style="height:34px;padding-right:20px;padding-top:10px;border-radius:0;border:0px; background-color:#fff; border-top-left-radius:0;border-bottom-left-radius:0;" >
+				<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 			</span>
 													<!-- 연락처 2 -->
-			<input type="text" id="phph" class="form-control" aria-describedby="basic-addon2" style="width:150px;" maxlength="4" required>
-			<span class="input-group-addon col-md-1" id="basic-addon1" style="height:34px;padding-right:20px;padding-top:10px;border-radius:0;border:0px; background-color:#fff;">
-			<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+			<input type="text" id="phph" class="form-control col-md-3" aria-describedby="basic-addon2" style="width:150px;" maxlength="4" required>
+			<span class="input-group-addon col-md-1" id="basic-addon1" style="height:34px;padding-right:20px;padding-top:10px;border-radius:0;border:0px; background-color:#fff; border-top-left-radius:0;border-bottom-left-radius:0;">
+				<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 			</span>
 													<!-- 연락처 3 -->
-			<input type="text" id="phph2" class="form-control" aria-describedby="basic-addon2" style="width:150px;" maxlength="4" required>
+			<input type="text" id="phph2" class="form-control col-md-3" aria-describedby="basic-addon2" style="width:150px;" maxlength="4" required>
 			<br>
 			<br>
 		</div>
-		<div><button id="checkHp" class="btn btn-primary col-md-6" onclick="hpCheck();">
+		<div class="col-md-12">
+			<button id="checkHp" class="btn btn-primary col-md-4" onclick="hpCheck();">
 	      휴대전화 중복검사</button>
 	     </div>
+</div>
 <br><br>
 <br><br>
 					<!-- 주소 -->
-			<div>
-			<label for="sel1">주 소</label>
+<div class="row">
+			<label class="col-md-12" for="sel1">주 소</label>
 			
-			</div>
-        	<div class="input-group" style="width:500px;">
-        	<button class="btn btn-primary col-md-6" id='addrSearchBt' data-toggle="modal" data-target="#searchAddress">주소검색</button>
-			<br><br>
+			
+        	<div class="col-md-12 row">
+        	<div class="col-md-2">
+        	<input class="form-control" type="text" aria-describedby="sizing-addon2" id="zipNo" name="zipNo" maxlength="7" readonly required>
+        	</div>
+        	<button class="btn btn-primary col-md-2" id='addrSearchBt' data-toggle="modal" data-target="#searchAddress">주소검색</button>
 										        	<!-- 우편번호 -->
-			<input type="text" class="form-control col-md-6" aria-describedby="sizing-addon2" style="width:150px" id="zipNo" name="zipNo" readonly required>
-			
 			</div>
-			
-			
+</div>			
+<div class="row">			
 		<br>
-		<span class="input-group" id="selfinput" required>
-													<!-- 주소1 -->
+		
+		<div class="col-md-4">
 			<input type="text" class="form-control" aria-describedby="sizing-addon2"
 			id="roadAddrPart1" readonly>
-		</span>
+		</div>
+</div>
+<div class="row">		
+													<!-- 주소1 -->
 		<br>
-		<span class="input-group" id="selfinput" >
+		<div class="col-md-4">
 													<!-- 주소2 -->
 			<input type="text" class="form-control" aria-describedby="sizing-addon2"
 			id="addrDetail" value="" readonly>
-		</span>
+		</div>
+</div>
+<div class="row">
 		<br>
-		<span class="input-group" id="selfinput" >
+		<div class="col-md-4" >
 													<!-- 주소3 -->
 			<input type="text" class="form-control" aria-describedby="sizing-addon2" placeholder="상세주소"
 			id="roadAddrPart2" value="" readonly>
-		</span>
+		</div>
+</div>
 
 		<br>
         <br>
 
         <!-- 비밀번호 힌트 -->
-        <span class="input-group">
-        	<label for="sel1">비밀번호 힌트</label>
-			 
+        <div class="row">
+        	
+        	<label class="col-md-12" for="sel1">비밀번호 힌트</label>
+			<div class="col-md-4"> 
 			<select class="form-control" id="pwdhint">
 				<option value="0">나의 첫사랑 이름은 ?</option>
 				<option value="1">내가 다녔던 초등학교는 ?</option>
@@ -734,63 +872,117 @@
 				<option value="4">가장 여행가보고 싶은 나라는 ?</option>
 				<option value="5">내 이상형의 조건은 ?</option>
 			</select>
-		</span>
+			</div>
+		</div>
         
         <!-- 비밀번호 찾기 답 -->
-        <span class="input-group" id="selfinput" required >
-       <label for="sel1">비밀번호 답변</label>
+        <div class="row" id="selfinput">
+        	
+       		<label class="col-md-12" for="sel1">비밀번호 답변</label>
+       		<div class="col-md-4">
 			<input type="text" id="pwdanswer"class="form-control" aria-describedby="sizing-addon2" >
-		</span>
+			</div>
+		</div>
         <br>
         <br>
         <!-- 생년월일 -->
-        <span class="input-group" id="birthday" >
-        <label for="sel1">생년월일 / 성별</label> 
-        <div style="width:100%;">
-        <table>
-        	<tr>
-				<td><input id="jumin" type="text" class="form-control" aria-describedby="sizing-addon2" maxlength="6" placeholder="예) 900401" required></td>
-				<td><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></td>
-				<td><input id="jumin2" type="text" class="form-control" aria-describedby="sizing-addon2" style="width:40px;" maxlength="1" required></td>
-				<td>
-					<!-- * 기호 -->
-					<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-					<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-					<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-					<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-					<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-					<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-				</td>
-			<tr>
-		</table>
+
+<div class="row" id="birthday" >
+        <label class="col-md-12" for="sel1">생년월일 / 성별</label> 
+</div>
+<div class="row">
+        <div class="col-md-6">
+        	<div class="row">
+		        <div class="col-md-4">
+						<input id="jumin" type="text" class="form-control" aria-describedby="sizing-addon2" maxlength="6" placeholder="예) 900401" required>
+				</div>
+				<div class="col-md-1">
+				<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+				</div>
+				<div class="col-md-2">
+						<input id="jumin2" type="text" class="form-control" aria-describedby="sizing-addon2" maxlength="1" required>
+				</div>
+				<div class="col-md-3">		
+							<!-- * 기호 -->
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+				
+				</div>
+			</div>
 		</div>
-		</span>
+</div>
+<br>
+<br>
+
         <!-- 관심사 -->
-        <label for="sel1">관심사</label>
-         <div class="input-group">
+<div class="row">
+        <label class="col-md-12" for="sel1">관심사</label>
+</div>
+
          	<div class="checkbox" id="like">
-         		<ul>
-	         		<li>
-	         			<input type="checkbox" name="like" value="0">나의 첫사랑 이름은 ?
-	         		</li>
-	         		<li>
-	         			<input type="checkbox" name="like" value="1">내가 다녔던 초등학교는 ?
-	         		</li>
-	         		<li>
-	         			<input type="checkbox" name="like"  value="2">나에게 영감을 주는 사람은 ?
-	         		</li>
-	         		<li>
-	         			<input type="checkbox" name="like" value="3">나에게 가장 소중한 사람은 ?
-	         		</li>
-	         		<li>
-	         			<input type="checkbox" name="like" value="4">가장 여행가보고 싶은 나라는 ?
-	         		</li>
-	         		<li>
-	         			<input type="checkbox" name="like" value="5">내 이상형의 조건은 ?
-	         		</li>
-	         	</ul>
+         		<div class="radiobox" id="like">
+						         		<div class="input-group col-md-4">
+									      <span class="input-group-addon">
+									        <input type="radio" name="like" aria-label="..." value="0">
+									      </span>
+									      <input type="text" class="form-control" aria-label="..." readonly value="나의 존재">
+									    </div><!-- /input-group -->
+									   <div class="input-group col-md-4">
+									      <span class="input-group-addon">
+									        <input type="radio" name="like" aria-label="..." value="1">
+									      </span>
+									      <input type="text" class="form-control" aria-label="..." readonly  value="삶과 죽음">
+									    </div><!-- /input-group -->
+									    <div class="input-group col-md-4">
+									      <span class="input-group-addon">
+									        <input type="radio" name="like" aria-label="..." value="2">
+									      </span>
+									      <input type="text" class="form-control" aria-label="..." readonly  value="사회">
+									    </div><!-- /input-group -->
+									    <div class="input-group col-md-4">
+									      <span class="input-group-addon">
+									        <input type="radio" name="like" aria-label="..." value="3">
+									      </span>
+									      <input type="text" class="form-control" aria-label="..." readonly  value="과학">
+									    </div><!-- /input-group -->
+									    <div class="input-group col-md-4">
+									      <span class="input-group-addon">
+									        <input type="radio" name="like" aria-label="..." value="4">
+									      </span>
+									      <input type="text" class="form-control" aria-label="..." readonly  value="문화생활">
+									    </div><!-- /input-group -->
+									    <div class="input-group col-md-4">
+									      <span class="input-group-addon">
+									        <input type="radio" name="like" aria-label="..." value="5">
+									      </span>
+									      <input type="text" class="form-control" aria-label="..." readonly  value="지구촌">
+									    </div><!-- /input-group -->
+									    <div class="input-group col-md-4">
+									      <span class="input-group-addon">
+									        <input type="radio" name="like" aria-label="..." value="6">
+									      </span>
+									      <input type="text" class="form-control" aria-label="..." readonly  value="갈등">
+									    </div><!-- /input-group -->
+									    <div class="input-group col-md-4">
+									      <span class="input-group-addon">
+									        <input type="radio" name="like" aria-label="..." value="7">
+									      </span>
+									      <input type="text" class="form-control" aria-label="..."  readonly value="과거와 현재 그리고 미래">
+									    </div><!-- /input-group -->
+									    <div class="input-group col-md-4">
+									      <span class="input-group-addon">
+									        <input type="radio" name="like" aria-label="..." value="8">
+									      </span>
+									      <input type="text" class="form-control" aria-label="..." readonly  value="새로배움">
+									    </div><!-- /input-group -->
+						         	
+						         	</div>
          	</div>
-         </div>
+
         <br>
         <br>
          <button id="memberInput" class="collapsed btn btn-primary" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseTwo"  >
@@ -807,7 +999,7 @@
   <div class="panel panel-default row">
     <div class="panel-heading" role="tab" id="headingThree">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="" aria-expanded="false" aria-controls="collapseThree">
           이메일 인증
         </a>
       </h4>

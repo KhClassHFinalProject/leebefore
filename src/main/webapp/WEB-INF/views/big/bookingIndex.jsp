@@ -19,7 +19,7 @@
 	}
 </script>
 </head>
-
+<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 <body>
 	<div class="bookingGuide">
 		<div class="allGuide">

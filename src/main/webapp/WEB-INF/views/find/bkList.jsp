@@ -10,22 +10,6 @@
 <script type="text/javascript" src="/lee/resources/bootstrapk/js/bootstrap.min.js"></script>
 <!-- 내가 추가한 js 및 css 부분 -->
 <style type="text/css">
-.padding1{
-	padding: 10px;
-}
-.padding2{
-	padding: 20px;
-}
-.padding3{
-	padding: 30px;
-}
-.padding4{
-	padding: 40px;
-}
-.padding5{
-	padding: 50px;
-}
-
 .pagination>li>a, 
 .pagination>li>span{
 	cursor: pointer;
@@ -59,24 +43,19 @@
     </div>
   </div>
 </div>
-
-
-
-
 <!-- 	header -->
 	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 	
 
 	<!-- info -->
-	<div class="container">
-		<div class="row-fluid">
+		<div class="row">
 	<!-- side -->
 			<div class="col-md-3">
 				<jsp:include page="/WEB-INF/views/find/bkSide.jsp"></jsp:include>
 
 			</div>
 			<div class="col-md-9">
-				<div class="row-fluid">
+				<div class="row">
 	<!--search -->
 					<jsp:include page="/WEB-INF/views/find/searchBar.jsp"></jsp:include>
 					<h4 id="a">자료검색</h4>
@@ -89,7 +68,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 <!-- 내가 추가한 js 및 css 부분 -->
 <script type="text/javascript">
 $(document).ready(detailSearch());

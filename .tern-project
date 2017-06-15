@@ -1,0 +1,28 @@
+{
+  "ecmaVersion": 5,
+  "plugins": {
+<<<<<<< HEAD
+<<<<<<< HEAD
+    "doc_comment": {
+=======
+=======
+>>>>>>> jaejin
+    "guess-types": {
+      
+    },
+    "outline": {
+<<<<<<< HEAD
+>>>>>>> Daewon
+=======
+>>>>>>> jaejin
+      
+    },
+    "bootstrap": {
+      
+    }
+  },
+  "libs": [
+    "browser",
+    "jquery"
+  ]
+}

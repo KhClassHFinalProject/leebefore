@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- search -->
-<div class="container-fluid padding5" style="background-image: url('/lee/resources/find/img/bookImg2.jpg');">
+<div class="container-fluid" style="background-image: url('/lee/resources/find/img/bookImg2.jpg');">
 	<div class="row-fluid">
 		<form class="col-md" name="submit" onsubmit="return false;">
 		  <div class="input-group">
@@ -29,13 +29,13 @@
     <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
         <!-- detail search -->
-		<div class="container-fluid padding3">
+		<div class="container-fluid">
 			<div class="row-fluid">
 			<form class="col-md" name="submit" onsubmit="return false;">
 				<!-- category -->
 				<div class="col-md-5">
 					<div class="row-fluid">
-						<div class="col-md padding1">
+						<div class="col-md">
 							<select name="bk_lg" id="bk_lg" class="form-control" onchange="find()">
 								<option selected="selected" value="99">전체</option>
 								<option value="0">철학</option>
@@ -48,17 +48,17 @@
 								<option value="7">역사</option>
 							</select>
 						</div>
-						<div class="col-md padding1">
+						<div class="col-md">
 							<div class="md col-md"></div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-5 col-md-offset-2">
 					<div class="row">
-						<div class="col-md padding1">
+						<div class="col-md">
 							<input type="text" name="bk_writer" id="bk_writer" class="form-control" placeholder="저자"/>
 						</div>
-						<div class="col-md padding1">
+						<div class="col-md">
 							<input type="text" name="bk_publisher" id="bk_publisher" class="form-control" placeholder="출판사"/>
 						</div>
 						

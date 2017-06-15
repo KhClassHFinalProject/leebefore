@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,41 +34,43 @@
 			<div class="row">
 				<div class="col-md-7">
 					<h2>공지사항 게시판</h2>
+					<c:set var="dto" value="${dto}"/>
 				</div>
 			</div>
-			<div class="col-md-10">
+			<div class="col-md-11">
 				<table class="table table-striped table table-hover" border="1">
 					<tr>
-						<th>제목제목제목제목제목</th>
-						<th colspan="2">2017-05-31</th>
+						<td colspan="2">${dto.nt_subject}</td>
+						<td>${dto.nt_idx}</td>
+						<td>${dto.nt_date}</td>
 					</tr>
 					<tr>
-						<td>첨부</td>
-						<td>서영주</td>
+						<td colspan="2">첨부</td>
+						<td>${dto.mem_idx}</td>
 						<td>5</td>
 					</tr>
 					<tr>
-						<td colspan="3"><div class="col-md-12">
-								<textarea class="form-control col-sm-5" rows="10">adadad</textarea>
+						<td colspan="4"><div class="col-md-12">
+								${dto.nt_content}
 							</div></td>
 					</tr>
 					<tr>
-						<td>댓글 0개</td>
-						<td><a href="noticeChange.ju">수정</a></td>
-						<td><a href="noticeDelete.ju">삭제</a></td>
+						<td colspan="2">댓글 0개</td>
+						<td><a href="noticeChange.ju?nt_idx=${dto.nt_idx}">수정</a></td>
+						<td><a href="noticeDelete.ju?nt_idx=${dto.nt_idx}">삭제</a></td>
 					</tr>
 					<tr>
-						<td colspan="3">댓글 쭉 나오게 함</td>
+						<td colspan="4">댓글 쭉 나오게 함</td>
 					</tr>
 					<tr>
-						<td colspan="2">△이전글 제목</td>
+						<td colspan="3">△이전글 제목</td>
 						<td>이전글 작성자</td>
 					</tr>
 					<tr>
-						<td colspan="3">현재글 제목</td>
+						<td colspan="4">현재글 제목</td>
 					</tr>
 					<tr>
-						<td colspan="2">▽다음글 제목</td>
+						<td colspan="3">▽다음글 제목</td>
 						<td>다음글 작성자</td>
 					</tr>
 

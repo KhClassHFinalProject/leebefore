@@ -18,7 +18,8 @@
 <script type="text/javascript"
 	src="/lee/resources/bootstrapk/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-	</script>
+	
+</script>
 </head>
 
 <body>
@@ -31,56 +32,48 @@
 		<div class="col-md-7">
 			<h2>분실물게시판 쓰기</h2>
 			<div class="row">
-			<form name="missingWrite" action="missingWriteok.ju">
-				<table class="table table-striped table table-hover" border="1">
-					<thead>
+				<form name="missingWrite" action="missingWriteOk.ju">
+					<table class="table table-striped table table-hover" border="1">
 						<tr>
-							<th class="text-center col-md-2">제목</th>
-							<td>
-					    		<div class="form-group">
-							<input type="text" class="form-control" placeholder="제목을 입력하세요">
-						 		</div>	
-							</td>
-							
+							<th class="text-center">제목</th>
+							<td><input type="text" class="form-control"
+								name="missing_subject" placeholder="제목을 입력하세요"></td>
+
 						</tr>
-	
 						<tr>
-							<th class="text-center col-md-2">카테고리</th>
+							<th class="text-center">작성자</th>
+							<td class="text-center">${sid}</td>
+						</tr>
+						<tr>
+							<th class="text-center">카테고리</th>
 							<td>
-					    		<div class="radio">
-					    			<label><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-					    			잃어버림   
-					    			</label>
-					    			<label><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-					    			 발견했음
-					    			</label>
-						 		</div>	
+								<div class="radio">
+									<label><input type="radio" name="missing_cate"
+										value="0" checked> 잃어버림 </label> <label><input
+										type="radio" name="missing_cate" value="1"> 발견했음 </label>
+								</div>
 							</td>
-							
+
 						</tr>
 
 						<tr>
-							<th class="text-center col-md-2">내용</th>
-							<td>
-					    		<div class="form-group">
-							<textarea class="form-control col-sm-5" rows="10" placeholder="내용을 입력하세요"></textarea>
-						 		</div>	
-							</td>
+							<th class="text-center">내용</th>
+							<td><textarea class="form-control" rows="10"
+									name="missing_content" placeholder="내용을 입력하세요"></textarea></td>
 						</tr>
 						<tr>
 							<td colspan="2">
-					    		<div class="form-group">
-						 		</div>	
+								<div class="form-group"></div>
 								<button type="submit" class="btn btn-default">등록</button>
 								<button type="reset" class="btn btn-default">재작성</button>
 							</td>
 						</tr>
-				</table>
-			</form>
+					</table>
+				</form>
 			</div>
 			<hr>
-			</div>
 		</div>
+	</div>
 
 </body>
 </html>

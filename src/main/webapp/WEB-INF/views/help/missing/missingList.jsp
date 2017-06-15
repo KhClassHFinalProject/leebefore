@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,25 +20,28 @@
 </head>
 
 <body>
-<div class="row">
-	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
-</div>
+	<div class="row">
+		<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
+	</div>
 	<div class="row">
 		<div class="col-md-3">
-		<jsp:include page="/WEB-INF/views/service/elibSide.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/service/elibSide.jsp"></jsp:include>
 		</div>
 		<div class="col-md-9">
 			<div class="row">
-			<div class="col-md-7"><h2>분실물 발생/발견 게시판</h2></div>
-			<div class="col-md-3" style="text-align: center;">
+				<div class="col-md-7">
+					<h2>분실물 발생/발견 게시판</h2>
+				</div>
+				<div class="col-md-3" style="text-align: center;">
 					<a class="btn btn-default" type="submit" href="missingWrite.ju">
-					<span class="glyphicon glyphicon-pencil" aria-hidden="true"> 글쓰기(오른쪽)</span></a>
-			</div>
+						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+					</a>
+				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-10">
 					<table class="table table-striped table table-hover" border="1">
-						<thead>			
+						<thead>
 							<tr>
 								<th>번호</th>
 								<th>분류</th>
@@ -46,82 +50,85 @@
 								<th>작성일</th>
 								<th>조회수</th>
 							</tr>
-							</thead>
-							<tbody>
-						<tr>
-							<td>1</td>
-							<td>잃어버림</td>
-							<td>맥북프로</td>
-							<td>김대원</td>
-							<td>2017-05-30</td>
-							<td>99999</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>잃어버림</td>
-							<td>헬스장회원카드</td>
-							<td>이상훈</td>
-							<td>2017-05-30</td>
-							<td>2</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>발견했음</td>
-							<td>바코드리더기</td>
-							<td>김태영</td>
-							<td>2017-05-30</td>
-							<td>2</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>잃어버림</td>
-							<td>좋습니다</td>
-							<td>최용석</td>
-							<td>2017-05-30</td>
-							<td>2</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>발견했음</td>
-							<td>노트북</td>
-							<td>김민제</td>
-							<td>2017-05-30</td>
-							<td>2</td>
-						</tr>
-
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<tr>
+								<c:if test="${empty list}">
+									<td colspan="6" align="left">등록된 분실물이 없습니다.</td>
+								</c:if>
+							</tr>
+							<c:forEach var="dto" items="${list}">
+								<tr>
+									<td>${dto.missing_idx}</td>
+									<td>${dto.missing_cate}</td>
+									<td><a href="missingContent.ju?missing_idx=${dto.missing_idx}">${dto.missing_subject}</a></td>
+									<td>${dto.mem_idx}</td>
+									<td>${dto.missing_date}</td>
+									<td>${dto.missing_readnum}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 					<div class="row">
-						<div class="col-md-2">
-							<select class="form-control">
-								<option>전체</option> 
-								<option>작성자</option> 
-								<option>제목</option>
-								<option>분류</option> 
-							</select>
-						</div>
-								<div class="col-md-4 input-group">
-									<input type="text" class="form-control" placeholder="검색어를 입력하세요">
-									<span class="input-group-btn">
-										<button class="btn btn-default" type="button" href="missingFind.ju">Go!</button>
-									</span>
-								</div>
-								<div class="col-md-12" style="text-align:center">
-								<ul class="pagination pagination-sm" >
-								 		<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-									    <li><a href="#">1</a></li>
-						           	    <li><a href="#">2</a></li>
-						           	    <li><a href="#">3</a></li>
-						           	    <li><a href="#">4</a></li>
-									    <li class="active"><a href="#">5</a></li>
-									    <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a>
-									</ul>								
-								</div>
+					<form action="missingList.ju" id="frm">
+							<div class="col-md-2">
+								<select class="form-control" name="type">
+									<option value="missing_subject">전체</option>
+									<option value="mem_idx">작성자</option>
+									<option value="missing_subject">제목</option>
+								</select>
 							</div>
-						</div>
+							<div class="col-md-4 input-group">
+								<input  type="text" class="form-control" placeholder="검색어를 입력하세요" name="query">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button" onclick="submit()">Go!</button>
+								</span>
+							</div>
+							<div class="col-md-12" style="text-align: center">
+								<ul class="pagination pagination-sm">
+									<c:choose>
+										<c:when test="${page==1}">
+												<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+											</c:when>
+											<c:otherwise>
+												<li><a href="missingList.ju?page=${page-1}"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+											</c:otherwise>
+									</c:choose>
+									<c:forEach begin="${startPage}" end="${endPage}" var="i">
+										<c:choose>
+											<c:when test="${i eq page}">
+												<li class="active"><a href="missingList.ju?page=${i}">${i}</a></li>
+											</c:when>
+											<c:otherwise>
+												<li><a href="missingList.ju?page=${i}">${i}</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<c:choose>
+										<c:when test="${page==endPage}">
+												<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a>
+											</c:when>
+											<c:otherwise>
+<<<<<<< HEAD
+												<li><a href="missingList.ju?page=${page+1}"><span class="glyphicon glyphicon-chevron-right"></span></a>
+=======
+												<li><a href="noticeList.ju?page=${page+1}"><span class="glyphicon glyphicon-chevron-right"></span></a>
+>>>>>>> master-merge
+											</c:otherwise>
+									</c:choose>
+								</ul>
+							</div>
+							<input type="hidden" name="page" value="${page}" />
+						</form>
 					</div>
 				</div>
 			</div>
- 
+		</div>
+	</div>
+	<script type="text/javascript">
+	function submit(){
+		$('#frm').submit();
+	}
+	</script>
 </body>
 </html>

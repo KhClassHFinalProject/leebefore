@@ -1,12 +1,10 @@
 package ju.model;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -56,6 +54,7 @@ public class EmailDAO {
 
 		// 인증
 		Authenticator auth = new Authenticator() {
+			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(fromEmail, password);
 			}

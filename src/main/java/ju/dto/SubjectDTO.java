@@ -1,5 +1,4 @@
 package ju.dto;
-import java.util.*;
 
 public class SubjectDTO {
 
@@ -15,7 +14,6 @@ public class SubjectDTO {
 	private String sj_name;
 	private String tc_name;
 	private String sj_num;
-	
 	private String mem_name;
 	private String mem_birth;
 	private String mem_id;
